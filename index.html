@@ -1,0 +1,1427 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>グレイス・イングリッシュ・ラボ | 滋賀県東近江市</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Noto+Serif+JP:wght@300;400;500&family=Noto+Sans+JP:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ivory:    #faf7f2;
+      --cream:    #f2ece3;
+      --rose:     #c9a9a6;
+      --rose-lt:  #e8d5d2;
+      --sage:     #8fa89e;
+      --sage-lt:  #d4e0dc;
+      --gold:     #b89a6e;
+      --gold-lt:  #e8dac8;
+      --charcoal: #3a3530;
+      --mid:      #6b6258;
+      --light:    #9e9288;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Noto Serif JP', serif;
+      background-color: var(--ivory);
+      color: var(--charcoal);
+      line-height: 1.9;
+      font-size: 15px;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(250,247,242,0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--rose-lt);
+      padding: 14px 40px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13px; letter-spacing: .25em;
+      color: var(--mid); text-decoration: none;
+      text-transform: uppercase;
+    }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 11px; letter-spacing: .15em;
+      color: var(--mid); text-decoration: none;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--rose); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 120px 40px 80px;
+      position: relative;
+      background: linear-gradient(160deg, var(--ivory) 0%, var(--cream) 60%, #e8ddd4 100%);
+    }
+    .hero-deco {
+      position: absolute; pointer-events: none;
+    }
+    .hero-deco.tl { position: absolute; bottom: 0; left: 0; width: 100%; opacity: 1; transform: none; z-index: 0; }
+
+    /* Botanical decorations */
+    .botanical {
+      position: absolute; pointer-events: none;
+    }
+    .section-botanical {
+      position: absolute; pointer-events: none; opacity: .10;
+    }
+
+    .hero-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 12px; letter-spacing: .4em;
+      color: var(--sage); text-transform: uppercase; margin-bottom: 32px;
+    }
+    .hero-catch {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(26px, 5vw, 48px);
+      font-weight: 400; letter-spacing: .08em;
+      color: var(--charcoal); line-height: 1.5;
+      margin-bottom: 12px;
+    }
+    .hero-catch em {
+      font-style: normal;
+      color: var(--rose);
+      border-bottom: 2px solid var(--rose-lt);
+      padding-bottom: 2px;
+    }
+    .hero-sub {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 13px; color: var(--mid);
+      letter-spacing: .12em; margin-bottom: 48px;
+    }
+    .hero-tagline {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(16px, 2.5vw, 22px);
+      font-weight: 300; color: var(--charcoal);
+      line-height: 2; margin-bottom: 56px; max-width: 600px;
+    }
+    .hero-tagline strong {
+      font-weight: 500; color: var(--gold);
+    }
+    .btn-primary {
+      display: inline-block;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 12px; letter-spacing: .2em;
+      color: #fff; background: var(--charcoal);
+      padding: 16px 48px; text-decoration: none;
+      transition: background .25s, transform .2s;
+      border: none; cursor: pointer;
+    }
+    .btn-primary:hover { background: var(--rose); transform: translateY(-1px); }
+    .scroll-hint {
+      position: absolute; bottom: 32px; left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 10px; letter-spacing: .3em; color: var(--light);
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+    }
+    .scroll-hint::after {
+      content: ''; display: block;
+      width: 1px; height: 40px; background: var(--rose-lt);
+    }
+
+    /* ── SECTION BASE ── */
+    section { padding: 100px 40px; }
+    .container { max-width: 900px; margin: 0 auto; }
+    .section-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 11px; letter-spacing: .4em;
+      color: var(--sage); text-transform: uppercase;
+      text-align: center; margin-bottom: 16px;
+    }
+    .section-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(20px, 3vw, 30px); font-weight: 400;
+      text-align: center; letter-spacing: .08em;
+      color: var(--charcoal); margin-bottom: 16px;
+    }
+    .section-divider {
+      width: 48px; height: 1px; background: var(--rose);
+      margin: 0 auto 52px;
+    }
+
+    /* ── PHILOSOPHY ── */
+    #philosophy { background: var(--cream); }
+    .philosophy-lead {
+      font-size: 16px; line-height: 2.2; text-align: center;
+      color: var(--mid); max-width: 680px; margin: 0 auto 64px;
+    }
+    .philosophy-lead strong { color: var(--charcoal); font-weight: 500; }
+    .pillars {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 32px; margin-bottom: 64px;
+    }
+    .pillar {
+      text-align: center; padding: 40px 24px;
+      background: var(--ivory);
+      border-top: 2px solid var(--rose-lt);
+      position: relative;
+    }
+    .pillar-icon {
+      font-size: 28px; margin-bottom: 16px; display: block;
+    }
+    .pillar-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 17px; font-weight: 500;
+      color: var(--charcoal); margin-bottom: 12px; letter-spacing: .06em;
+    }
+    .pillar-text {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 13px; color: var(--mid); line-height: 1.9;
+    }
+    .philosophy-note {
+      text-align: center; padding: 40px;
+      border: 1px solid var(--rose-lt);
+      background: var(--ivory);
+      max-width: 680px; margin: 0 auto;
+    }
+    .philosophy-note p {
+      font-size: 15px; line-height: 2.2; color: var(--mid);
+    }
+    .philosophy-note strong { color: var(--charcoal); font-weight: 500; }
+
+    /* ── COMMITMENT ── */
+    #commitment {
+      background: var(--charcoal);
+      color: #fff; text-align: center;
+    }
+    #commitment .section-label { color: var(--rose-lt); }
+    #commitment .section-title { color: #fff; }
+    #commitment .section-divider { background: var(--rose); }
+    .commitment-text {
+      font-size: 16px; line-height: 2.4; color: #d4cdc6;
+      max-width: 660px; margin: 0 auto 40px;
+    }
+    .commitment-text strong { color: #fff; font-weight: 500; }
+    .commitment-quote {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(16px, 2vw, 22px); font-weight: 300;
+      color: var(--rose-lt); line-height: 2;
+      max-width: 620px; margin: 0 auto;
+      padding: 40px;
+      border-top: 1px solid rgba(255,255,255,.15);
+      border-bottom: 1px solid rgba(255,255,255,.15);
+    }
+
+    /* ── VOICES (photo spaces) ── */
+    #voices { background: linear-gradient(160deg, #e8d5d0 0%, #ddc4be 60%, #d4b5ae 100%); }
+    .voices-intro {
+      font-size: 15px; text-align: center; color: var(--mid);
+      line-height: 2.2; max-width: 640px; margin: 0 auto 64px;
+    }
+    /* ── 散らばり写真レイアウト ── */
+    .photo-scatter-wrap {
+      position: relative;
+      width: 100vw;
+      left: 50%;
+      transform: translateX(-50%);
+      min-height: 800px;
+      margin-bottom: 48px;
+      overflow: hidden;
+    }
+    .sp {
+      position: absolute;
+      transition: transform 0.32s ease, box-shadow 0.32s ease;
+      cursor: pointer;
+    }
+    .sp:hover {
+      transform: scale(1.07) rotate(0deg) !important;
+      z-index: 20 !important;
+    }
+    .sp:hover img {
+      box-shadow:
+        inset 0 1px 2px rgba(255,255,255,0.35),
+        inset 0 -1px 2px rgba(0,0,0,0.15),
+        8px 14px 40px rgba(80,55,30,0.38);
+    }
+    .sp img {
+      width: 250px;
+      height: auto;
+      display: block;
+      /* 外縁：白ペンキ（少し剥げた感じ） */
+      border: 4px solid #f0ece3;
+      /* 木の厚み：アイボリー×木目グラデーション */
+      padding: 14px;
+      background:
+        repeating-linear-gradient(
+          92deg,
+          transparent 0px, transparent 6px,
+          rgba(160,120,70,0.07) 6px, rgba(160,120,70,0.07) 7px
+        ),
+        linear-gradient(170deg, #e8dfc8 0%, #d9cba8 30%, #e2d4b0 55%, #cfc09a 80%, #d8ccaa 100%);
+      box-shadow:
+        inset 0 1px 3px rgba(255,255,255,0.5),
+        inset 0 -1px 3px rgba(100,70,30,0.2),
+        inset 2px 0 3px rgba(100,70,30,0.1),
+        6px 10px 32px rgba(60,40,15,0.35);
+    }
+    /* ライトボックス */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+      cursor: zoom-out;
+    }
+    .lightbox.active { display: flex; }
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 90vh;
+      border: 10px solid #fff;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+      object-fit: contain;
+    }
+    .lightbox-close {
+      position: fixed;
+      top: 20px; right: 28px;
+      color: #fff;
+      font-size: 40px;
+      cursor: pointer;
+      line-height: 1;
+    }
+    @media (max-width: 768px) {
+      .photo-scatter-wrap {
+        position: static;
+        width: 100%;
+        left: auto;
+        transform: none;
+        min-height: auto;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        justify-content: center;
+        padding: 16px 0 32px;
+      }
+      .sp {
+        position: static;
+        transform: none !important;
+      }
+      .sp img { width: 90vw; max-width: 340px; }
+    }
+    .voices-caption {
+      text-align: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 14px; font-style: italic; color: var(--light);
+      letter-spacing: .1em;
+    }
+
+    /* ── FEATURES ── */
+    #features { background: var(--cream); }
+    .features-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 2px; background: var(--rose-lt);
+      border: 1px solid var(--rose-lt);
+      margin-bottom: 48px;
+    }
+    .feature-item {
+      background: var(--ivory);
+      padding: 36px 28px;
+    }
+    .feature-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 32px; color: var(--rose-lt);
+      line-height: 1; margin-bottom: 12px; display: block;
+    }
+    .feature-title {
+      font-size: 15px; font-weight: 500;
+      color: var(--charcoal); margin-bottom: 10px;
+      letter-spacing: .05em;
+    }
+    .feature-text {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 13px; color: var(--mid); line-height: 1.9;
+    }
+
+    /* TEST PREP BAND */
+    .test-prep-band {
+      background: var(--sage);
+      color: #fff; padding: 40px 40px;
+      max-width: 900px; margin: 0 auto 48px;
+    }
+    .test-prep-band h3 {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 16px; font-weight: 400; margin-bottom: 24px;
+      text-align: center; letter-spacing: .1em;
+    }
+    .test-steps {
+      display: flex; flex-wrap: wrap; align-items: center;
+      justify-content: center; gap: 8px;
+    }
+    .step {
+      background: rgba(255,255,255,.2);
+      padding: 10px 20px; font-size: 13px;
+      text-align: center; white-space: nowrap;
+    }
+    .step-arrow {
+      color: rgba(255,255,255,.6); font-size: 16px;
+    }
+
+    /* ── VOICES 2 ── */
+    #voices2 { background: var(--ivory); }
+    #voices2 .voices-intro { margin-bottom: 64px; }
+
+    /* ── ABOUT ── */
+    #about { background: var(--cream); }
+    .about-wrap {
+      display: grid; grid-template-columns: 1fr;
+      gap: 48px; max-width: 700px; margin: 0 auto;
+    }
+    .about-text p {
+      font-size: 15px; line-height: 2.3; color: var(--mid);
+      margin-bottom: 20px;
+    }
+    .about-text p:last-child { margin-bottom: 0; }
+    .about-text strong { color: var(--charcoal); font-weight: 500; }
+    .about-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 14px; letter-spacing: .2em; color: var(--sage);
+      margin-top: 32px; text-align: right;
+    }
+
+    /* ── FEES ── */
+    #fees { background: var(--ivory); }
+    .fee-tables { display: grid; gap: 40px; }
+    .fee-table-wrap h3 {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 15px; font-weight: 400;
+      color: var(--charcoal); margin-bottom: 16px;
+      padding-left: 14px;
+      border-left: 3px solid var(--rose);
+      letter-spacing: .06em;
+    }
+    table {
+      width: 100%; border-collapse: collapse;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 13px;
+    }
+    th {
+      background: var(--charcoal); color: #fff;
+      padding: 12px 16px; text-align: left;
+      font-weight: 400; letter-spacing: .08em;
+    }
+    td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--cream);
+      color: var(--mid); vertical-align: middle;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) td { background: var(--cream); }
+    td.price { color: var(--rose); font-weight: 500; text-align: right; }
+    .fee-note {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 12px; color: var(--light);
+      margin-top: 10px; line-height: 1.8;
+    }
+    .fee-note-box {
+      background: var(--cream);
+      padding: 20px 24px; margin-top: 12px;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 12px; color: var(--mid); line-height: 2;
+    }
+    .two-col-fees { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    @media(max-width:640px){ .two-col-fees { grid-template-columns: 1fr; } }
+
+    /* ── FAQ ── */
+    #faq { background: var(--cream); }
+    .faq-list { max-width: 720px; margin: 0 auto; }
+    .faq-item { border-bottom: 1px solid var(--rose-lt); padding: 28px 0; }
+    .faq-q {
+      font-size: 15px; font-weight: 500;
+      color: var(--charcoal); margin-bottom: 12px;
+      display: flex; gap: 14px; align-items: flex-start;
+    }
+    .faq-q::before {
+      content: 'Q';
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px; color: var(--rose);
+      flex-shrink: 0; line-height: 1.2;
+    }
+    .faq-a {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 13px; color: var(--mid);
+      line-height: 2; padding-left: 28px;
+    }
+
+    /* ── ACCESS ── */
+    #access { background: var(--ivory); }
+    .access-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 48px; align-items: start;
+    }
+    @media(max-width:640px){ .access-grid { grid-template-columns: 1fr; } }
+    .access-info dl { margin-bottom: 32px; }
+    .access-info dt {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 10px; letter-spacing: .25em; color: var(--sage);
+      text-transform: uppercase; margin-bottom: 4px;
+    }
+    .access-info dd {
+      font-size: 15px; color: var(--charcoal);
+      margin-bottom: 20px; letter-spacing: .03em;
+    }
+    .access-info dd a { color: var(--charcoal); text-decoration: none; }
+    .map-placeholder {
+      background: var(--sage-lt);
+      aspect-ratio: 4/3;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 12px; color: var(--sage); letter-spacing: .1em;
+    }
+    .map-link {
+      display: inline-block; margin-top: 16px;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 12px; letter-spacing: .15em;
+      color: var(--sage); text-decoration: none;
+      border-bottom: 1px solid var(--sage);
+      padding-bottom: 2px;
+    }
+
+    /* ── CONTACT CTA ── */
+    #contact {
+      background: linear-gradient(135deg, var(--rose-lt) 0%, var(--cream) 100%);
+      text-align: center; padding: 100px 40px;
+    }
+    #contact .section-title { margin-bottom: 20px; }
+    #contact p {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 13px; color: var(--mid); line-height: 2.2;
+      margin-bottom: 40px;
+    }
+    .contact-tel {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 36px; color: var(--charcoal);
+      letter-spacing: .1em; margin-bottom: 8px;
+    }
+    .contact-tel a { text-decoration: none; color: inherit; }
+    .contact-note {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 12px; color: var(--light);
+      margin-bottom: 40px;
+    }
+    .trial-badge {
+      display: inline-block;
+      border: 1px solid var(--rose);
+      color: var(--rose); padding: 14px 40px;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 12px; letter-spacing: .2em;
+      margin-bottom: 48px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--charcoal); color: var(--light);
+      padding: 48px 40px; text-align: center;
+    }
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px; letter-spacing: .3em;
+      color: #fff; margin-bottom: 12px;
+    }
+    .footer-info {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 12px; line-height: 2;
+    }
+    .footer-copy {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 11px; color: var(--mid);
+      margin-top: 32px; letter-spacing: .15em;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:768px){
+      nav { padding: 12px 20px; }
+      .nav-links { gap: 16px; }
+      section { padding: 72px 24px; }
+      #hero { padding: 100px 24px 72px; }
+    }
+    @media(max-width:500px){
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <a class="nav-logo" href="#hero">Grace English Lab</a>
+  <ul class="nav-links">
+    <li><a href="#philosophy">想い</a></li>
+    <li><a href="#features">特徴</a></li>
+    <li><a href="#voices">卒塾生の声</a></li>
+    <li><a href="#fees">料金</a></li>
+    <li><a href="#access">アクセス</a></li>
+  </ul>
+</nav>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <!-- ハーブ装飾: 左下（ローズマリー） -->
+  <img class="hero-deco tl" src="herb_rosemary.png?v=4">
+
+  <p class="hero-label">Grace English Lab ／ 滋賀県東近江市</p>
+  <h1 class="hero-catch">
+    その勉強法、<br><em>間違っていませんか？</em>
+  </h1>
+  <p class="hero-sub">小学生〜高校生 ／ 英語・算数・数学</p>
+  <p class="hero-tagline">
+    「わかった！」「できた！」<br>
+    <strong>どれだけ頑張れたか</strong>という実感が、<br>
+    本当の力になる。
+  </p>
+
+  <div class="scroll-hint">scroll</div>
+</section>
+
+<!-- ── PHILOSOPHY ── -->
+<section id="philosophy" style="position:relative;overflow:hidden">
+  <!-- ハーブ装飾: philosophyセクション右上（ラベンダー） -->
+  <svg style="position:absolute;top:-10px;right:-10px;width:220px;opacity:.42;pointer-events:none" viewBox="0 0 220 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- ラベンダー茎 A -->
+    <path d="M70,320 C68,295 66,268 64,242 C62,218 60,196 58,176" stroke="#7a9880" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+    <path d="M69,305 Q58,299 51,303" stroke="#6a8870" stroke-width="1.1" stroke-linecap="round" fill="none"/>
+    <path d="M69,305 Q80,299 87,303" stroke="#6a8870" stroke-width="1.1" stroke-linecap="round" fill="none"/>
+    <path d="M67,278 Q56,272 49,276" stroke="#6a8870" stroke-width="1" stroke-linecap="round" fill="none"/>
+    <path d="M67,278 Q78,272 85,276" stroke="#6a8870" stroke-width="1" stroke-linecap="round" fill="none"/>
+    <path d="M65,252 Q54,246 47,250" stroke="#6a8870" stroke-width="1" stroke-linecap="round" fill="none"/>
+    <path d="M65,252 Q76,246 83,250" stroke="#6a8870" stroke-width="1" stroke-linecap="round" fill="none"/>
+    <path d="M63,228 Q52,222 45,226" stroke="#6a8870" stroke-width=".9" stroke-linecap="round" fill="none"/>
+    <path d="M63,228 Q74,222 81,226" stroke="#6a8870" stroke-width=".9" stroke-linecap="round" fill="none"/>
+    <path d="M58,176 C56,158 54,141 52,126 C50,112 48,99 46,88" stroke="#8a9888" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+    <ellipse cx="54" cy="173" rx="3.5" ry="6.3" fill="#7058a8" transform="rotate(-3 54 173)"/>
+    <ellipse cx="59" cy="162" rx="3.5" ry="5.8" fill="#7d68b5" transform="rotate(4 59 162)"/>
+    <ellipse cx="54" cy="152" rx="3.2" ry="5.3" fill="#8878be" transform="rotate(-3 54 152)"/>
+    <ellipse cx="59" cy="143" rx="2.9" ry="4.8" fill="#9080c0"/>
+    <ellipse cx="54" cy="134" rx="2.6" ry="4.3" fill="#9888c8"/>
+    <ellipse cx="58" cy="126" rx="2.3" ry="3.8" fill="#a090cc"/>
+    <ellipse cx="54" cy="119" rx="2" ry="3.3" fill="#a898cc"/>
+    <ellipse cx="57" cy="113" rx="1.7" ry="2.8" fill="#b4a4d4"/>
+    <ellipse cx="54" cy="108" rx="1.4" ry="2.3" fill="#bcb0d8"/>
+    <ellipse cx="56" cy="104" rx="1.1" ry="1.8" fill="#c8bce0"/>
+    <ellipse cx="54" cy="100" rx="0.9" ry="1.4" fill="#d0c4e4"/>
+    <!-- ラベンダー茎 B -->
+    <path d="M130,320 C128,298 126,274 124,252 C122,232 120,214 118,197" stroke="#7a9880" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+    <path d="M129,308 Q118,302 111,306" stroke="#6a8870" stroke-width="1" stroke-linecap="round" fill="none"/>
+    <path d="M129,308 Q140,302 147,306" stroke="#6a8870" stroke-width="1" stroke-linecap="round" fill="none"/>
+    <path d="M127,280 Q116,274 109,278" stroke="#6a8870" stroke-width=".9" stroke-linecap="round" fill="none"/>
+    <path d="M127,280 Q138,274 145,278" stroke="#6a8870" stroke-width=".9" stroke-linecap="round" fill="none"/>
+    <path d="M125,254 Q114,248 107,252" stroke="#6a8870" stroke-width=".9" stroke-linecap="round" fill="none"/>
+    <path d="M125,254 Q136,248 143,252" stroke="#6a8870" stroke-width=".9" stroke-linecap="round" fill="none"/>
+    <path d="M118,197 C116,180 114,165 112,151 C110,139 108,128 106,118" stroke="#8a9888" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+    <ellipse cx="114" cy="194" rx="3.2" ry="5.7" fill="#7058a8" transform="rotate(-3 114 194)"/>
+    <ellipse cx="119" cy="184" rx="3.2" ry="5.2" fill="#8070b8" transform="rotate(4 119 184)"/>
+    <ellipse cx="114" cy="174" rx="2.9" ry="4.7" fill="#9080be"/>
+    <ellipse cx="118" cy="165" rx="2.6" ry="4.2" fill="#9888c8"/>
+    <ellipse cx="114" cy="157" rx="2.3" ry="3.7" fill="#a090cc"/>
+    <ellipse cx="117" cy="150" rx="2" ry="3.2" fill="#a898cc"/>
+    <ellipse cx="114" cy="143" rx="1.7" ry="2.7" fill="#b4a4d4"/>
+    <ellipse cx="117" cy="137" rx="1.4" ry="2.2" fill="#bcb0d8"/>
+    <ellipse cx="114" cy="132" rx="1.1" ry="1.8" fill="#c8bce0"/>
+    <ellipse cx="116" cy="128" rx="0.9" ry="1.4" fill="#d0c4e4"/>
+    <!-- ローズマリー小枝 -->
+    <path d="M190,320 C186,290 180,260 174,232 C168,206 162,182 156,160" stroke="#3a6040" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+    <path d="M188,305 Q179,299 174,303" stroke="#4a7050" stroke-width="1" stroke-linecap="round" fill="none"/>
+    <path d="M188,305 Q197,299 202,303" stroke="#4a7050" stroke-width="1" stroke-linecap="round" fill="none"/>
+    <path d="M185,285 Q176,279 171,283" stroke="#4a7050" stroke-width="1" stroke-linecap="round" fill="none"/>
+    <path d="M185,285 Q194,279 199,283" stroke="#4a7050" stroke-width="1" stroke-linecap="round" fill="none"/>
+    <path d="M182,265 Q173,259 168,263" stroke="#4a7050" stroke-width=".9" stroke-linecap="round" fill="none"/>
+    <path d="M182,265 Q191,259 196,263" stroke="#4a7050" stroke-width=".9" stroke-linecap="round" fill="none"/>
+    <path d="M178,245 Q169,239 164,243" stroke="#4a7050" stroke-width=".9" stroke-linecap="round" fill="none"/>
+    <path d="M178,245 Q187,239 192,243" stroke="#4a7050" stroke-width=".9" stroke-linecap="round" fill="none"/>
+    <path d="M174,225 Q165,219 160,223" stroke="#4a7050" stroke-width=".9" stroke-linecap="round" fill="none"/>
+    <path d="M174,225 Q183,219 188,223" stroke="#4a7050" stroke-width=".9" stroke-linecap="round" fill="none"/>
+    <path d="M170,206 Q161,200 156,204" stroke="#4a7050" stroke-width=".8" stroke-linecap="round" fill="none"/>
+    <path d="M170,206 Q179,200 184,204" stroke="#4a7050" stroke-width=".8" stroke-linecap="round" fill="none"/>
+    <path d="M166,188 Q157,182 152,186" stroke="#4a7050" stroke-width=".8" stroke-linecap="round" fill="none"/>
+    <path d="M166,188 Q175,182 180,186" stroke="#4a7050" stroke-width=".8" stroke-linecap="round" fill="none"/>
+    <path d="M162,172 Q153,166 148,170" stroke="#4a7050" stroke-width=".8" stroke-linecap="round" fill="none"/>
+    <path d="M162,172 Q171,166 176,170" stroke="#4a7050" stroke-width=".8" stroke-linecap="round" fill="none"/>
+    <circle cx="155" cy="157" r="2.2" fill="#6678b8"/>
+    <circle cx="159" cy="151" r="1.8" fill="#7080c4"/>
+  </svg>
+  <!-- ハーブ装飾: philosophyセクション左下（ローズマリー） -->
+  <svg style="position:absolute;bottom:20px;left:10px;width:180px;opacity:.38;pointer-events:none" viewBox="0 0 180 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20,260 C30,230 44,200 60,172 C76,144 94,120 112,98 C126,80 140,64 154,48" stroke="#3a6040" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+    <path d="M22,246 Q11,240 6,244" stroke="#4a7050" stroke-width="1.1" stroke-linecap="round" fill="none"/>
+    <path d="M22,246 Q33,240 38,244" stroke="#4a7050" stroke-width="1.1" stroke-linecap="round" fill="none"/>
+    <path d="M30,228 Q19,222 14,226" stroke="#4a7050" stroke-width="1" stroke-linecap="round" fill="none"/>
+    <path d="M30,228 Q41,222 46,226" stroke="#4a7050" stroke-width="1" stroke-linecap="round" fill="none"/>
+    <path d="M39,210 Q28,204 23,208" stroke="#4a7050" stroke-width="1" stroke-linecap="round" fill="none"/>
+    <path d="M39,210 Q50,204 55,208" stroke="#4a7050" stroke-width="1" stroke-linecap="round" fill="none"/>
+    <path d="M49,191 Q38,185 33,189" stroke="#4a7050" stroke-width=".9" stroke-linecap="round" fill="none"/>
+    <path d="M49,191 Q60,185 65,189" stroke="#4a7050" stroke-width=".9" stroke-linecap="round" fill="none"/>
+    <path d="M60,172 Q49,166 44,170" stroke="#4a7050" stroke-width=".9" stroke-linecap="round" fill="none"/>
+    <path d="M60,172 Q71,166 76,170" stroke="#4a7050" stroke-width=".9" stroke-linecap="round" fill="none"/>
+    <path d="M71,154 Q60,148 55,152" stroke="#4a7050" stroke-width=".9" stroke-linecap="round" fill="none"/>
+    <path d="M71,154 Q82,148 87,152" stroke="#4a7050" stroke-width=".9" stroke-linecap="round" fill="none"/>
+    <path d="M83,136 Q72,130 67,134" stroke="#4a7050" stroke-width=".8" stroke-linecap="round" fill="none"/>
+    <path d="M83,136 Q94,130 99,134" stroke="#4a7050" stroke-width=".8" stroke-linecap="round" fill="none"/>
+    <path d="M96,119 Q85,113 80,117" stroke="#4a7050" stroke-width=".8" stroke-linecap="round" fill="none"/>
+    <path d="M96,119 Q107,113 112,117" stroke="#4a7050" stroke-width=".8" stroke-linecap="round" fill="none"/>
+    <path d="M109,103 Q98,97 93,101" stroke="#4a7050" stroke-width=".8" stroke-linecap="round" fill="none"/>
+    <path d="M109,103 Q120,97 125,101" stroke="#4a7050" stroke-width=".8" stroke-linecap="round" fill="none"/>
+    <path d="M122,88 Q111,82 106,86" stroke="#4a7050" stroke-width=".7" stroke-linecap="round" fill="none"/>
+    <path d="M122,88 Q133,82 138,86" stroke="#4a7050" stroke-width=".7" stroke-linecap="round" fill="none"/>
+    <path d="M135,74 Q124,68 119,72" stroke="#4a7050" stroke-width=".7" stroke-linecap="round" fill="none"/>
+    <path d="M135,74 Q146,68 151,72" stroke="#4a7050" stroke-width=".7" stroke-linecap="round" fill="none"/>
+    <path d="M147,61 Q136,55 131,59" stroke="#4a7050" stroke-width=".7" stroke-linecap="round" fill="none"/>
+    <path d="M147,61 Q158,55 163,59" stroke="#4a7050" stroke-width=".7" stroke-linecap="round" fill="none"/>
+    <circle cx="153" cy="46" r="2" fill="#6678b8"/>
+    <circle cx="158" cy="40" r="1.6" fill="#7080c4"/>
+    <circle cx="148" cy="41" r="1.4" fill="#5868a8"/>
+  </svg>
+  <div class="container">
+    <p class="section-label">Our Philosophy</p>
+    <h2 class="section-title">グレイスが大切にしていること</h2>
+    <div class="section-divider"></div>
+
+    <p class="philosophy-lead">
+      卒塾生の中には、有名大学に進学した方や医師になった方もいます。<br>
+      でも当塾は、<strong>進学実績に重きを置いていません。</strong><br><br>
+      それよりずっと大切なのは、<strong>「わかった！」「できた！」</strong>という瞬間の輝きと、<br>
+      どれだけ自分を信じて頑張れたかという実感だと思っています。
+    </p>
+
+    <div class="pillars">
+      <div class="pillar">
+        <span class="pillar-icon">🌱</span>
+        <p class="pillar-title">生きる力</p>
+        <p class="pillar-text">勉強を通して、困難を乗り越える力・諦めない心・自分で考える姿勢を育てます。</p>
+      </div>
+      <div class="pillar">
+        <span class="pillar-icon">🔍</span>
+        <p class="pillar-title">自分を観察する力</p>
+        <p class="pillar-text">何がわかって何がわからないかを自覚し、自分の学び方を見つける力を養います。</p>
+      </div>
+      <div class="pillar">
+        <span class="pillar-icon">💬</span>
+        <p class="pillar-title">コミュ力（おまけ）</p>
+        <p class="pillar-text">先生やクラスメイトとの関わりの中で、自然と伝え合う力も育っていきます。</p>
+      </div>
+    </div>
+
+    <div class="philosophy-note">
+      <p>
+        一人ひとりとしっかり繋がれるように、<strong>無闇に生徒を増やしません。</strong><br>
+        小さな教室だからこそ、あなたのお子さんの「わかった！」に気づけると思っています。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── COMMITMENT ── -->
+<section id="commitment">
+  <div class="container">
+    <p class="section-label">What We Believe</p>
+    <h2 class="section-title">塾長からのメッセージ</h2>
+    <div class="section-divider"></div>
+    <p class="commitment-text">
+      英語も数学も、「わからないまま進んでしまうと、どこかで必ずつまずく」。<br>
+      だからこそ教科書を一つひとつ丁寧に授業化し、<strong>「なぜそうなるの？」</strong>にしっかり向き合いながら、<br>
+      一緒に「わかった！」を積み重ねていきたいと思っています。<br><br>
+      勉強は手段です。その先にある<strong>自分を信じる力・生きていく力</strong>を、<br>
+      グレイスでの時間が育んでくれることを願っています。
+    </p>
+    <p class="commitment-quote">
+      「この塾に来てよかった」と思える場所でありたい。<br>
+      <br>
+      グレイス・イングリッシュ・ラボ 主宰<br>
+      福島 朋子
+    </p>
+  </div>
+</section>
+
+<!-- ── VOICES 1 ── -->
+<section id="voices" style="position:relative">
+  <!-- ハーブ背景SVG（ローズマリー左・ラベンダー右 ボタニカル細密線画） -->
+  <svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0" preserveAspectRatio="xMidYMid slice" viewBox="0 0 1400 1100" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- ローズマリー（左） -->
+    <g opacity="0.55">
+  <path d="M55,1100 C54,923 47,687 42,510" stroke="#a89070" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+  <line x1="55" y1="1100" x2="38" y2="1107" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="55" y1="1100" x2="38" y2="1094" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="55" y1="1080" x2="38" y2="1087" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="55" y1="1080" x2="38" y2="1073" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="54" y1="1059" x2="38" y2="1066" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="54" y1="1059" x2="38" y2="1053" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="54" y1="1039" x2="38" y2="1046" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="54" y1="1039" x2="38" y2="1033" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="53" y1="1019" x2="38" y2="1025" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="53" y1="1019" x2="38" y2="1013" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="53" y1="998" x2="38" y2="1005" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="53" y1="998" x2="38" y2="993" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="52" y1="978" x2="38" y2="984" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="52" y1="978" x2="37" y2="972" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="52" y1="958" x2="38" y2="964" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="52" y1="958" x2="37" y2="952" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="51" y1="937" x2="37" y2="943" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="51" y1="937" x2="37" y2="932" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="51" y1="917" x2="37" y2="923" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="51" y1="917" x2="37" y2="912" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="51" y1="897" x2="37" y2="902" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="51" y1="897" x2="37" y2="891" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="50" y1="876" x2="37" y2="882" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="50" y1="876" x2="37" y2="871" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="50" y1="856" x2="37" y2="861" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="50" y1="856" x2="37" y2="851" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="49" y1="836" x2="37" y2="841" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="49" y1="836" x2="37" y2="831" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="49" y1="815" x2="37" y2="820" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="49" y1="815" x2="36" y2="811" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="48" y1="795" x2="36" y2="800" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="48" y1="795" x2="36" y2="790" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="48" y1="774" x2="36" y2="779" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="48" y1="774" x2="36" y2="770" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="47" y1="754" x2="36" y2="759" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="47" y1="754" x2="36" y2="750" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="47" y1="734" x2="36" y2="738" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="47" y1="734" x2="36" y2="730" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="46" y1="713" x2="36" y2="718" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="46" y1="713" x2="36" y2="709" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="46" y1="693" x2="36" y2="697" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="46" y1="693" x2="36" y2="689" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="46" y1="673" x2="36" y2="677" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="46" y1="673" x2="36" y2="669" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="45" y1="652" x2="36" y2="656" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="45" y1="652" x2="35" y2="649" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="45" y1="632" x2="35" y2="636" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="45" y1="632" x2="35" y2="629" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="44" y1="612" x2="35" y2="616" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="44" y1="612" x2="35" y2="608" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="44" y1="591" x2="35" y2="595" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="44" y1="591" x2="35" y2="588" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="43" y1="571" x2="35" y2="575" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="43" y1="571" x2="35" y2="568" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="43" y1="551" x2="35" y2="554" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="43" y1="551" x2="35" y2="548" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="42" y1="530" x2="35" y2="534" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="42" y1="530" x2="35" y2="527" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="42" y1="510" x2="35" y2="513" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="42" y1="510" x2="35" y2="507" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <path d="M18,1100 C17,947 12,743 8,590" stroke="#a89070" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+  <line x1="18" y1="1100" x2="1" y2="1107" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="18" y1="1100" x2="1" y2="1094" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="18" y1="1079" x2="1" y2="1086" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="18" y1="1079" x2="1" y2="1073" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="17" y1="1058" x2="1" y2="1064" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="17" y1="1058" x2="1" y2="1051" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="17" y1="1036" x2="1" y2="1043" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="17" y1="1036" x2="1" y2="1030" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="16" y1="1015" x2="1" y2="1021" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="16" y1="1015" x2="1" y2="1009" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="16" y1="994" x2="1" y2="1000" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="16" y1="994" x2="1" y2="988" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="16" y1="972" x2="1" y2="979" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="16" y1="972" x2="1" y2="967" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="15" y1="951" x2="1" y2="957" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="15" y1="951" x2="1" y2="946" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="15" y1="930" x2="1" y2="936" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="15" y1="930" x2="1" y2="925" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="14" y1="909" x2="1" y2="914" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="14" y1="909" x2="1" y2="904" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="14" y1="888" x2="1" y2="893" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="14" y1="888" x2="1" y2="883" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="13" y1="866" x2="1" y2="871" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="13" y1="866" x2="1" y2="862" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="13" y1="845" x2="1" y2="850" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="13" y1="845" x2="1" y2="840" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="13" y1="824" x2="1" y2="829" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="13" y1="824" x2="1" y2="819" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="12" y1="802" x2="1" y2="807" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="12" y1="802" x2="1" y2="798" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="12" y1="781" x2="1" y2="786" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="12" y1="781" x2="1" y2="777" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="11" y1="760" x2="1" y2="764" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="11" y1="760" x2="1" y2="756" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="11" y1="739" x2="1" y2="743" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="11" y1="739" x2="1" y2="735" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="10" y1="718" x2="1" y2="722" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="10" y1="718" x2="1" y2="714" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="10" y1="696" x2="1" y2="700" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="10" y1="696" x2="1" y2="693" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="10" y1="675" x2="1" y2="679" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="10" y1="675" x2="1" y2="672" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="9" y1="654" x2="1" y2="657" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="9" y1="654" x2="1" y2="650" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="9" y1="632" x2="1" y2="636" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="9" y1="632" x2="1" y2="629" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="8" y1="611" x2="1" y2="615" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="8" y1="611" x2="1" y2="608" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="8" y1="590" x2="1" y2="593" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="8" y1="590" x2="1" y2="587" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <path d="M92,1100 C91,940 84,727 80,568" stroke="#a89070" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+  <line x1="92" y1="1100" x2="75" y2="1107" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="92" y1="1100" x2="75" y2="1094" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="91" y1="1077" x2="75" y2="1084" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="91" y1="1077" x2="75" y2="1071" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="91" y1="1054" x2="75" y2="1060" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="91" y1="1054" x2="75" y2="1048" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="90" y1="1031" x2="75" y2="1037" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="90" y1="1031" x2="75" y2="1025" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="90" y1="1007" x2="75" y2="1014" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="90" y1="1007" x2="75" y2="1002" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="89" y1="984" x2="75" y2="991" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="89" y1="984" x2="75" y2="979" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="89" y1="961" x2="75" y2="967" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="89" y1="961" x2="74" y2="956" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="88" y1="938" x2="75" y2="944" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="88" y1="938" x2="74" y2="933" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="88" y1="915" x2="74" y2="921" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="88" y1="915" x2="74" y2="910" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="87" y1="892" x2="74" y2="897" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="87" y1="892" x2="74" y2="887" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="87" y1="869" x2="74" y2="874" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="87" y1="869" x2="74" y2="864" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="86" y1="846" x2="74" y2="851" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="86" y1="846" x2="74" y2="841" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="86" y1="822" x2="74" y2="827" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="86" y1="822" x2="74" y2="818" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="85" y1="799" x2="74" y2="804" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="85" y1="799" x2="74" y2="795" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="85" y1="776" x2="74" y2="781" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="85" y1="776" x2="74" y2="772" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="84" y1="753" x2="74" y2="758" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="84" y1="753" x2="73" y2="749" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="84" y1="730" x2="73" y2="734" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="84" y1="730" x2="73" y2="726" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="83" y1="707" x2="73" y2="711" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="83" y1="707" x2="73" y2="703" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="83" y1="684" x2="73" y2="688" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="83" y1="684" x2="73" y2="680" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="82" y1="661" x2="73" y2="664" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="82" y1="661" x2="73" y2="657" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="82" y1="637" x2="73" y2="641" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="82" y1="637" x2="73" y2="634" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="81" y1="614" x2="73" y2="618" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="81" y1="614" x2="73" y2="611" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="81" y1="591" x2="73" y2="594" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="81" y1="591" x2="73" y2="588" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="80" y1="568" x2="73" y2="571" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+  <line x1="80" y1="568" x2="73" y2="565" stroke="#a89070" stroke-width="0.85" stroke-linecap="round"/>
+    </g>
+    <!-- ラベンダー（右） -->
+    <g opacity="0.55">
+  <path d="M1252,1100 C1252,863 1218,626 1218,508" stroke="#a89070" stroke-width="1.1" stroke-linecap="round" fill="none"/>
+  <ellipse cx="1219.2" cy="673.8" rx="3.5" ry="6.5" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1216.8" cy="661.5" rx="3.4" ry="6.3" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1219.2" cy="649.2" rx="3.3" ry="6.1" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1216.8" cy="637.0" rx="3.2" ry="6.0" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1219.2" cy="624.7" rx="3.1" ry="5.8" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1216.8" cy="612.4" rx="3.0" ry="5.6" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1219.2" cy="600.1" rx="2.9" ry="5.4" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1216.8" cy="587.9" rx="2.8" ry="5.2" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1219.2" cy="575.6" rx="2.6" ry="5.1" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1216.8" cy="563.3" rx="2.5" ry="4.9" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1219.2" cy="551.1" rx="2.4" ry="4.7" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1216.8" cy="538.8" rx="2.3" ry="4.5" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1219.2" cy="526.5" rx="2.2" ry="4.4" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1216.8" cy="514.3" rx="2.1" ry="4.2" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1219.2" cy="502.0" rx="2.0" ry="4.0" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <path d="M1242,922 Q1231,917 1229,920" stroke="#a89070" stroke-width="0.8" stroke-linecap="round" fill="none"/>
+  <path d="M1242,922 Q1253,917 1255,920" stroke="#a89070" stroke-width="0.8" stroke-linecap="round" fill="none"/>
+  <path d="M1236,828 Q1227,823 1225,826" stroke="#a89070" stroke-width="0.8" stroke-linecap="round" fill="none"/>
+  <path d="M1236,828 Q1245,823 1247,826" stroke="#a89070" stroke-width="0.8" stroke-linecap="round" fill="none"/>
+  <path d="M1231,733 Q1224,728 1222,731" stroke="#a89070" stroke-width="0.8" stroke-linecap="round" fill="none"/>
+  <path d="M1231,733 Q1238,728 1240,731" stroke="#a89070" stroke-width="0.8" stroke-linecap="round" fill="none"/>
+  <path d="M1225,638 Q1220,633 1218,636" stroke="#a89070" stroke-width="0.8" stroke-linecap="round" fill="none"/>
+  <path d="M1225,638 Q1230,633 1232,636" stroke="#a89070" stroke-width="0.8" stroke-linecap="round" fill="none"/>
+  <path d="M1272,1100 C1272,856 1258,613 1258,492" stroke="#a89070" stroke-width="1.1" stroke-linecap="round" fill="none"/>
+  <ellipse cx="1259.2" cy="662.2" rx="3.5" ry="6.5" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1256.8" cy="650.5" rx="3.4" ry="6.3" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1259.2" cy="638.7" rx="3.3" ry="6.2" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1256.8" cy="627.0" rx="3.2" ry="6.0" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1259.2" cy="615.2" rx="3.1" ry="5.8" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1256.8" cy="603.5" rx="3.0" ry="5.7" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1259.2" cy="591.7" rx="2.9" ry="5.5" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1256.8" cy="580.0" rx="2.8" ry="5.3" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1259.2" cy="568.2" rx="2.7" ry="5.2" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1256.8" cy="556.5" rx="2.6" ry="5.0" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1259.2" cy="544.7" rx="2.5" ry="4.8" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1256.8" cy="533.0" rx="2.4" ry="4.7" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1259.2" cy="521.2" rx="2.3" ry="4.5" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1256.8" cy="509.5" rx="2.2" ry="4.3" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1259.2" cy="497.7" rx="2.1" ry="4.2" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1256.8" cy="486.0" rx="2.0" ry="4.0" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <path d="M1268,918 Q1257,913 1255,916" stroke="#a89070" stroke-width="0.8" stroke-linecap="round" fill="none"/>
+  <path d="M1268,918 Q1279,913 1281,916" stroke="#a89070" stroke-width="0.8" stroke-linecap="round" fill="none"/>
+  <path d="M1266,820 Q1257,815 1255,818" stroke="#a89070" stroke-width="0.8" stroke-linecap="round" fill="none"/>
+  <path d="M1266,820 Q1275,815 1277,818" stroke="#a89070" stroke-width="0.8" stroke-linecap="round" fill="none"/>
+  <path d="M1263,723 Q1256,718 1254,721" stroke="#a89070" stroke-width="0.8" stroke-linecap="round" fill="none"/>
+  <path d="M1263,723 Q1270,718 1272,721" stroke="#a89070" stroke-width="0.8" stroke-linecap="round" fill="none"/>
+  <path d="M1261,626 Q1256,621 1254,624" stroke="#a89070" stroke-width="0.8" stroke-linecap="round" fill="none"/>
+  <path d="M1261,626 Q1266,621 1268,624" stroke="#a89070" stroke-width="0.8" stroke-linecap="round" fill="none"/>
+  <path d="M1292,1100 C1292,859 1290,618 1290,498" stroke="#a89070" stroke-width="1.1" stroke-linecap="round" fill="none"/>
+  <ellipse cx="1291.2" cy="666.6" rx="3.5" ry="6.5" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1288.8" cy="654.1" rx="3.4" ry="6.3" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1291.2" cy="641.6" rx="3.3" ry="6.1" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1288.8" cy="629.2" rx="3.2" ry="6.0" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1291.2" cy="616.7" rx="3.1" ry="5.8" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1288.8" cy="604.2" rx="3.0" ry="5.6" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1291.2" cy="591.7" rx="2.9" ry="5.4" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1288.8" cy="579.3" rx="2.8" ry="5.2" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1291.2" cy="566.8" rx="2.6" ry="5.1" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1288.8" cy="554.3" rx="2.5" ry="4.9" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1291.2" cy="541.9" rx="2.4" ry="4.7" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1288.8" cy="529.4" rx="2.3" ry="4.5" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1291.2" cy="516.9" rx="2.2" ry="4.4" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1288.8" cy="504.5" rx="2.1" ry="4.2" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1291.2" cy="492.0" rx="2.0" ry="4.0" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <path d="M1291,919 Q1280,914 1278,917" stroke="#a89070" stroke-width="0.8" stroke-linecap="round" fill="none"/>
+  <path d="M1291,919 Q1302,914 1304,917" stroke="#a89070" stroke-width="0.8" stroke-linecap="round" fill="none"/>
+  <path d="M1291,823 Q1282,818 1280,821" stroke="#a89070" stroke-width="0.8" stroke-linecap="round" fill="none"/>
+  <path d="M1291,823 Q1300,818 1302,821" stroke="#a89070" stroke-width="0.8" stroke-linecap="round" fill="none"/>
+  <path d="M1291,727 Q1284,722 1282,725" stroke="#a89070" stroke-width="0.8" stroke-linecap="round" fill="none"/>
+  <path d="M1291,727 Q1298,722 1300,725" stroke="#a89070" stroke-width="0.8" stroke-linecap="round" fill="none"/>
+  <path d="M1290,630 Q1285,625 1283,628" stroke="#a89070" stroke-width="0.8" stroke-linecap="round" fill="none"/>
+  <path d="M1290,630 Q1295,625 1297,628" stroke="#a89070" stroke-width="0.8" stroke-linecap="round" fill="none"/>
+  <path d="M1310,1100 C1310,864 1322,629 1322,512" stroke="#a89070" stroke-width="1.1" stroke-linecap="round" fill="none"/>
+  <ellipse cx="1323.2" cy="676.6" rx="3.5" ry="6.5" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1320.8" cy="663.5" rx="3.4" ry="6.3" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1323.2" cy="650.4" rx="3.3" ry="6.1" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1320.8" cy="637.3" rx="3.2" ry="5.9" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1323.2" cy="624.1" rx="3.0" ry="5.7" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1320.8" cy="611.0" rx="2.9" ry="5.5" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1323.2" cy="597.9" rx="2.8" ry="5.3" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1320.8" cy="584.8" rx="2.7" ry="5.2" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1323.2" cy="571.6" rx="2.6" ry="5.0" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1320.8" cy="558.5" rx="2.5" ry="4.8" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1323.2" cy="545.4" rx="2.3" ry="4.6" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1320.8" cy="532.3" rx="2.2" ry="4.4" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1323.2" cy="519.1" rx="2.1" ry="4.2" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1320.8" cy="506.0" rx="2.0" ry="4.0" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <path d="M1314,924 Q1303,919 1301,922" stroke="#a89070" stroke-width="0.8" stroke-linecap="round" fill="none"/>
+  <path d="M1314,924 Q1325,919 1327,922" stroke="#a89070" stroke-width="0.8" stroke-linecap="round" fill="none"/>
+  <path d="M1316,830 Q1307,825 1305,828" stroke="#a89070" stroke-width="0.8" stroke-linecap="round" fill="none"/>
+  <path d="M1316,830 Q1325,825 1327,828" stroke="#a89070" stroke-width="0.8" stroke-linecap="round" fill="none"/>
+  <path d="M1317,735 Q1310,730 1308,733" stroke="#a89070" stroke-width="0.8" stroke-linecap="round" fill="none"/>
+  <path d="M1317,735 Q1324,730 1326,733" stroke="#a89070" stroke-width="0.8" stroke-linecap="round" fill="none"/>
+  <path d="M1319,641 Q1314,636 1312,639" stroke="#a89070" stroke-width="0.8" stroke-linecap="round" fill="none"/>
+  <path d="M1319,641 Q1324,636 1326,639" stroke="#a89070" stroke-width="0.8" stroke-linecap="round" fill="none"/>
+  <path d="M1328,1100 C1328,875 1352,650 1352,538" stroke="#a89070" stroke-width="1.1" stroke-linecap="round" fill="none"/>
+  <ellipse cx="1353.2" cy="695.4" rx="3.5" ry="6.5" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1350.8" cy="681.7" rx="3.4" ry="6.3" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1353.2" cy="668.1" rx="3.2" ry="6.1" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1350.8" cy="654.5" rx="3.1" ry="5.9" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1353.2" cy="640.9" rx="3.0" ry="5.7" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1350.8" cy="627.3" rx="2.9" ry="5.5" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1353.2" cy="613.7" rx="2.8" ry="5.2" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1350.8" cy="600.1" rx="2.6" ry="5.0" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1353.2" cy="586.5" rx="2.5" ry="4.8" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1350.8" cy="572.8" rx="2.4" ry="4.6" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1353.2" cy="559.2" rx="2.2" ry="4.4" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1350.8" cy="545.6" rx="2.1" ry="4.2" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1353.2" cy="532.0" rx="2.0" ry="4.0" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <path d="M1335,931 Q1324,926 1322,929" stroke="#a89070" stroke-width="0.8" stroke-linecap="round" fill="none"/>
+  <path d="M1335,931 Q1346,926 1348,929" stroke="#a89070" stroke-width="0.8" stroke-linecap="round" fill="none"/>
+  <path d="M1339,841 Q1330,836 1328,839" stroke="#a89070" stroke-width="0.8" stroke-linecap="round" fill="none"/>
+  <path d="M1339,841 Q1348,836 1350,839" stroke="#a89070" stroke-width="0.8" stroke-linecap="round" fill="none"/>
+  <path d="M1343,752 Q1336,747 1334,750" stroke="#a89070" stroke-width="0.8" stroke-linecap="round" fill="none"/>
+  <path d="M1343,752 Q1350,747 1352,750" stroke="#a89070" stroke-width="0.8" stroke-linecap="round" fill="none"/>
+  <path d="M1347,662 Q1342,657 1340,660" stroke="#a89070" stroke-width="0.8" stroke-linecap="round" fill="none"/>
+  <path d="M1347,662 Q1352,657 1354,660" stroke="#a89070" stroke-width="0.8" stroke-linecap="round" fill="none"/>
+  <path d="M1344,1100 C1344,888 1374,676 1374,570" stroke="#a89070" stroke-width="1.1" stroke-linecap="round" fill="none"/>
+  <ellipse cx="1375.2" cy="718.4" rx="3.5" ry="6.5" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1372.8" cy="704.4" rx="3.4" ry="6.3" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1375.2" cy="690.3" rx="3.2" ry="6.0" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1372.8" cy="676.3" rx="3.1" ry="5.8" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1375.2" cy="662.3" rx="3.0" ry="5.6" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1372.8" cy="648.2" rx="2.8" ry="5.4" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1375.2" cy="634.2" rx="2.7" ry="5.1" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1372.8" cy="620.1" rx="2.5" ry="4.9" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1375.2" cy="606.1" rx="2.4" ry="4.7" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1372.8" cy="592.1" rx="2.3" ry="4.5" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1375.2" cy="578.0" rx="2.1" ry="4.2" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <ellipse cx="1372.8" cy="564.0" rx="2.0" ry="4.0" stroke="#a89070" stroke-width="0.72" fill="none"/>
+  <path d="M1353,941 Q1342,936 1340,939" stroke="#a89070" stroke-width="0.8" stroke-linecap="round" fill="none"/>
+  <path d="M1353,941 Q1364,936 1366,939" stroke="#a89070" stroke-width="0.8" stroke-linecap="round" fill="none"/>
+  <path d="M1358,856 Q1349,851 1347,854" stroke="#a89070" stroke-width="0.8" stroke-linecap="round" fill="none"/>
+  <path d="M1358,856 Q1367,851 1369,854" stroke="#a89070" stroke-width="0.8" stroke-linecap="round" fill="none"/>
+  <path d="M1363,771 Q1356,766 1354,769" stroke="#a89070" stroke-width="0.8" stroke-linecap="round" fill="none"/>
+  <path d="M1363,771 Q1370,766 1372,769" stroke="#a89070" stroke-width="0.8" stroke-linecap="round" fill="none"/>
+  <path d="M1367,687 Q1362,682 1360,685" stroke="#a89070" stroke-width="0.8" stroke-linecap="round" fill="none"/>
+  <path d="M1367,687 Q1372,682 1374,685" stroke="#a89070" stroke-width="0.8" stroke-linecap="round" fill="none"/>
+    </g>
+  </svg>
+  <div class="container" style="position:relative;z-index:1">
+    <p class="section-label">Voices</p>
+    <h2 class="section-title">卒塾生からの寄せ書き</h2>
+    <div class="section-divider"></div>
+
+    <p class="voices-intro">
+      グレイスを巣立っていった生徒たちが、卒塾のときに書いてくれたメッセージです。<br>
+      進路よりも、ここで過ごした時間を語ってくれる言葉が、何よりの宝です。
+    </p>
+
+    <div class="photo-scatter-wrap">
+      <div class="sp" style="left:-1%;top:80px;transform:rotate(-14deg);z-index:3"><img src="w_3194.jpg" alt="卒塾生からの手書きメッセージ①"></div>
+      <div class="sp" style="left:18%;top:30px;transform:rotate(18deg);z-index:2"><img src="w_3197.jpg" alt="黒板メッセージボード"></div>
+      <div class="sp" style="left:42%;top:55px;transform:rotate(-6deg);z-index:4"><img src="w_3198.jpg" alt="スヌーピーの寄せ書き"></div>
+      <div class="sp" style="left:70%;top:40px;transform:rotate(11deg);z-index:5"><img src="w_3200.jpg" alt="感謝の寄せ書き"></div>
+      <div class="sp" style="left:3%;top:300px;transform:rotate(16deg);z-index:6"><img src="w_3201.jpg" alt="Thank youの寄せ書き"></div>
+      <div class="sp" style="left:28%;top:240px;transform:rotate(-19deg);z-index:7"><img src="w_3202.jpg" alt="クローバーの寄せ書き"></div>
+      <div class="sp" style="left:55%;top:310px;transform:rotate(7deg);z-index:5"><img src="w_3203.jpg" alt="贈り物のお花"></div>
+      <div class="sp" style="left:78%;top:265px;transform:rotate(-15deg);z-index:4"><img src="w_3204.jpg" alt="コルクボードのメッセージ"></div>
+    </div>
+
+    <!-- ライトボックス -->
+    <div class="lightbox" id="lightbox">
+      <span class="lightbox-close" id="lightbox-close">&times;</span>
+      <img id="lightbox-img" src="" alt="">
+    </div>
+    <p class="voices-caption">— 卒塾生たちの言葉 —</p>
+  </div>
+</section>
+
+<!-- ── FEATURES ── -->
+<section id="features">
+  <div class="container">
+    <p class="section-label">Features</p>
+    <h2 class="section-title">グレイスラボの4つの特徴</h2>
+    <div class="section-divider"></div>
+
+    <div class="features-grid">
+      <div class="feature-item">
+        <span class="feature-num">01</span>
+        <p class="feature-title">教科書完全準拠</p>
+        <p class="feature-text">範囲漏れゼロで定期テストと内申に直結。教科書の全単元を授業で丁寧に扱います。</p>
+      </div>
+      <div class="feature-item">
+        <span class="feature-num">02</span>
+        <p class="feature-title">わかる板書</p>
+        <p class="feature-text">専門用語をやさしい言葉に置き換え、「なぜそうなるか」まで丁寧に解説します。</p>
+      </div>
+      <div class="feature-item">
+        <span class="feature-num">03</span>
+        <p class="feature-title">学び方の伴走</p>
+        <p class="feature-text">最適な復習タイミングを提案。希望者には学習スケジュールを個別に作成します。</p>
+      </div>
+      <div class="feature-item">
+        <span class="feature-num">04</span>
+        <p class="feature-title">生活習慣もサポート</p>
+        <p class="feature-text">睡眠・食事・腸内環境の大切さも伝え、勉強の土台づくりから支援します。</p>
+      </div>
+    </div>
+
+    <div class="test-prep-band">
+      <h3>テスト1週間前 対策授業（全員・追加料金なし）</h3>
+      <div class="test-steps">
+        <div class="step">① 範囲マップ整理</div>
+        <span class="step-arrow">→</span>
+        <div class="step">② 提出物完了確認</div>
+        <span class="step-arrow">→</span>
+        <div class="step">③ 頻出問題演習</div>
+        <span class="step-arrow">→</span>
+        <div class="step">④ 英語本文音読</div>
+        <span class="step-arrow">＋</span>
+        <div class="step">弱点補強（オプション）</div>
+      </div>
+    </div>
+
+    <div class="philosophy-note" style="max-width:100%">
+      <p style="font-family:'Noto Sans JP',sans-serif;font-size:13px;color:var(--mid)">
+        ✅ 面談やLINEでお子さんの性格・家庭状況を把握し、個々に合わせた学び方を提案<br>
+        ✅ 家庭での声かけや生活リズムのサポートまで含めてご支援します
+      </p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── ABOUT ── -->
+<section id="about" style="position:relative;overflow:hidden">
+  <!-- ハーブ装飾: aboutセクション左上（ローズマリー） -->
+  <svg style="position:absolute;top:-10px;left:-10px;width:240px;opacity:.09;pointer-events:none" viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,240 C30,195 60,148 90,108 C120,68 155,40 190,10" stroke="#8fa89e" stroke-width="1.3" fill="none"/>
+    <line x1="50" y1="188" x2="36" y2="178" stroke="#8fa89e" stroke-width=".9"/>
+    <line x1="50" y1="188" x2="64" y2="178" stroke="#8fa89e" stroke-width=".9"/>
+    <line x1="68" y1="162" x2="54" y2="152" stroke="#8fa89e" stroke-width=".9"/>
+    <line x1="68" y1="162" x2="82" y2="152" stroke="#8fa89e" stroke-width=".9"/>
+    <line x1="86" y1="136" x2="72" y2="126" stroke="#8fa89e" stroke-width=".9"/>
+    <line x1="86" y1="136" x2="100" y2="126" stroke="#8fa89e" stroke-width=".9"/>
+    <line x1="106" y1="110" x2="92" y2="100" stroke="#8fa89e" stroke-width=".9"/>
+    <line x1="106" y1="110" x2="120" y2="100" stroke="#8fa89e" stroke-width=".9"/>
+    <line x1="128" y1="82" x2="114" y2="72" stroke="#8fa89e" stroke-width=".9"/>
+    <line x1="128" y1="82" x2="142" y2="72" stroke="#8fa89e" stroke-width=".9"/>
+    <line x1="152" y1="54" x2="138" y2="44" stroke="#8fa89e" stroke-width=".9"/>
+    <line x1="152" y1="54" x2="166" y2="44" stroke="#8fa89e" stroke-width=".9"/>
+    <!-- ユーカリ小枝 -->
+    <path d="M0,80 C25,100 50,118 75,135" stroke="#8fa89e" stroke-width="1.1" fill="none"/>
+    <ellipse cx="25" cy="100" rx="11" ry="8" fill="#8fa89e" opacity=".32" transform="rotate(20 25 100)"/>
+    <ellipse cx="50" cy="118" rx="11" ry="8" fill="#8fa89e" opacity=".3" transform="rotate(-15 50 118)"/>
+    <ellipse cx="72" cy="133" rx="10" ry="7" fill="#8fa89e" opacity=".28" transform="rotate(18 72 133)"/>
+  </svg>
+  <!-- ハーブ装飾: aboutセクション右下（ラベンダー小） -->
+  <svg style="position:absolute;bottom:10px;right:10px;width:160px;opacity:.08;pointer-events:none" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <line x1="140" y1="160" x2="128" y2="60" stroke="#8fa89e" stroke-width="1.1"/>
+    <ellipse cx="125" cy="49" rx="3" ry="5.5" fill="#b89a6e" opacity=".6"/>
+    <ellipse cx="129" cy="37" rx="3" ry="5" fill="#9aabbf" opacity=".55"/>
+    <ellipse cx="126" cy="26" rx="2.8" ry="4.5" fill="#b89a6e" opacity=".5"/>
+    <ellipse cx="115" cy="82" rx="8" ry="3" fill="#8fa89e" opacity=".35" transform="rotate(-22 115 82)"/>
+    <ellipse cx="136" cy="86" rx="8" ry="3" fill="#8fa89e" opacity=".32" transform="rotate(22 136 86)"/>
+    <ellipse cx="117" cy="110" rx="7" ry="2.8" fill="#8fa89e" opacity=".3" transform="rotate(-18 117 110)"/>
+    <ellipse cx="136" cy="113" rx="7" ry="2.8" fill="#8fa89e" opacity=".28" transform="rotate(18 136 113)"/>
+  </svg>
+  <div class="container">
+    <p class="section-label">About</p>
+    <h2 class="section-title">講師プロフィール</h2>
+    <div class="section-divider"></div>
+
+    <div class="about-wrap">
+      <div class="about-text">
+        <p>地元・八日市出身。武庫川女子大学短期大学部人間関係学科卒業。</p>
+        <p>卒業後はカナダ・バンクーバー市で語学留学・ワーキングホリデーを経験。帰国後はCMモデルとして活動した後、ECCジュニア・BSホームティーチャーとして子どもたちへの指導を始める。</p>
+        <p>2000年、「子どもたちに英語を好きになってほしい」という思いから、グレイス・イングリッシュ・ラボを開設（東近江市・旧近江八幡市）。口コミで生徒さんが少しずつ増え、現在に至る。</p>
+        <p><strong>指導歴30年以上・3女の母。</strong>勉強のことだけでなく、生活習慣や食事・睡眠の大切さも伝えながら、子どもたち一人一人に向き合う指導を続けています。</p>
+        <p class="about-name">グレイス・イングリッシュ・ラボ 主宰　福島 朋子</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FEES ── -->
+<section id="fees">
+  <div class="container">
+    <p class="section-label">Fees</p>
+    <h2 class="section-title">料金のご案内</h2>
+    <div class="section-divider"></div>
+
+    <div class="fee-tables">
+
+      <!-- 小学生 -->
+      <div class="fee-table-wrap">
+        <h3>小学生</h3>
+        <table>
+          <thead><tr><th>授業形式</th><th style="text-align:right">月額（税込）</th></tr></thead>
+          <tbody>
+            <tr><td>グループレッスン（英語）</td><td class="price">10,000円</td></tr>
+            <tr><td>個人レッスン（60分）</td><td class="price">15,000円</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 中学生 -->
+      <div class="fee-table-wrap">
+        <h3>中学生（1科目あたり）</h3>
+        <table>
+          <thead><tr><th>授業形式</th><th style="text-align:right">月額（税込）</th></tr></thead>
+          <tbody>
+            <tr><td>グループ（中1・2年 英数各科）</td><td class="price">15,000円</td></tr>
+            <tr><td>グループ（中3年 英数各科）</td><td class="price">18,000円</td></tr>
+            <tr><td>個別（中1・2年 60分）</td><td class="price">25,000円</td></tr>
+            <tr><td>個別（中3年 60分）</td><td class="price">25,000円</td></tr>
+            <tr><td>個別・スポット（60分）</td><td class="price">5,000円/回</td></tr>
+          </tbody>
+        </table>
+        <p class="fee-note">※ 月謝は年間86回を12ヶ月で按分した一定額です</p>
+      </div>
+
+      <!-- 高校生 -->
+      <div class="fee-table-wrap">
+        <h3>高校生クラス（年間43回）</h3>
+        <table>
+          <thead><tr><th>授業形式</th><th style="text-align:right">月額（税込）</th></tr></thead>
+          <tbody>
+            <tr><td>グループ授業（4名まで・1回90分）</td><td class="price">35,000円</td></tr>
+            <tr><td>個別授業（1回90分）</td><td class="price">50,000円</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 入塾料・季節講習 -->
+      <div class="two-col-fees">
+        <div class="fee-table-wrap">
+          <h3>入塾料・年額費用</h3>
+          <table>
+            <thead><tr><th>項目</th><th style="text-align:right">金額</th></tr></thead>
+            <tbody>
+              <tr><td>入塾料（1家族1回・兄弟免除）</td><td class="price">15,000円</td></tr>
+              <tr><td>教材費他（1科目/年）</td><td class="price">15,000円</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="fee-table-wrap">
+          <h3>季節講習（テキスト込み）</h3>
+          <table>
+            <thead><tr><th>講習</th><th style="text-align:right">金額</th></tr></thead>
+            <tbody>
+              <tr><td>中3 夏期（7日間）グループ</td><td class="price">35,000円/科</td></tr>
+              <tr><td>中3 夏期（7日間）個別</td><td class="price">53,000円</td></tr>
+              <tr><td>中1〜3 その他季節講習 グループ</td><td class="price">20,000円/科</td></tr>
+              <tr><td>中1〜3 その他季節講習 個別</td><td class="price">40,000円/科</td></tr>
+              <tr><td>高校生 季節講習（7日間）グループ</td><td class="price">40,000円</td></tr>
+              <tr><td>高校生 季節講習（7日間）個別</td><td class="price">70,000円</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- オプション -->
+      <div class="fee-table-wrap">
+        <h3>オプション（任意・月額）</h3>
+        <table>
+          <thead><tr><th>サービス</th><th style="text-align:right">料金</th></tr></thead>
+          <tbody>
+            <tr><td>スピーチ練習・音読チェック</td><td class="price">2,000円/月</td></tr>
+            <tr><td>旅行・留学のための英会話</td><td class="price">5,000円/回</td></tr>
+            <tr><td>学習スケジュール個別設計</td><td class="price">3,000円/月</td></tr>
+            <tr><td>テスト直前強化</td><td class="price">2,000〜3,000円/回</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── FAQ ── -->
+<section id="faq">
+  <div class="container">
+    <p class="section-label">FAQ</p>
+    <h2 class="section-title">よくあるご質問</h2>
+    <div class="section-divider"></div>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <p class="faq-q">欠席した場合はどうなりますか？</p>
+        <p class="faq-a">事前連絡で当月中に振替が可能です。満席の場合は翌月優先でご対応します。</p>
+      </div>
+      <div class="faq-item">
+        <p class="faq-q">体験授業はどんな内容ですか？</p>
+        <p class="faq-a">個別1回・集団2回（1週間）が体験できます。まずはお気軽にお電話ください。</p>
+      </div>
+      <div class="faq-item">
+        <p class="faq-q">入塾料は何度も必要ですか？</p>
+        <p class="faq-a">入塾料は1家族1回限りです。兄弟姉妹の入塾時は不要です。</p>
+      </div>
+      <div class="faq-item">
+        <p class="faq-q">生徒数を増やさないとのことですが、入塾できますか？</p>
+        <p class="faq-a">一人ひとりとしっかり向き合うため、定員を設けています。空き状況はお電話にてご確認ください。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ACCESS ── -->
+<section id="access">
+  <div class="container">
+    <p class="section-label">Access</p>
+    <h2 class="section-title">アクセス・お問い合わせ</h2>
+    <div class="section-divider"></div>
+
+    <div class="access-grid">
+      <div class="access-info">
+        <dl>
+          <dt>住所</dt>
+          <dd>滋賀県東近江市市子殿町303-2</dd>
+          <dt>電話</dt>
+          <dd><a href="tel:0748551265">0748-55-1265</a><br>
+            <span style="font-family:'Noto Sans JP',sans-serif;font-size:12px;color:var(--light)">（不在時転送）</span>
+          </dd>
+          <dt>対象</dt>
+          <dd>小学生〜高校生 ／ 英語・算数・数学</dd>
+          <dt>体験授業</dt>
+          <dd>個別1回 ／ 集団2回（1週間）</dd>
+        </dl>
+      </div>
+      <div style="background:var(--cream); border:1px solid var(--rose-lt); aspect-ratio:4/3; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:20px; text-align:center; padding:32px;">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--sage)" stroke-width="1.2">
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+          <circle cx="12" cy="9" r="2.5"/>
+        </svg>
+        <div>
+          <p style="font-family:'Noto Serif JP',serif; font-size:14px; color:var(--charcoal); margin-bottom:6px;">滋賀県東近江市市子殿町303-2</p>
+          <p style="font-family:'Noto Sans JP',sans-serif; font-size:12px; color:var(--mid);">0748-55-1265</p>
+        </div>
+        <a href="https://maps.google.com/?q=滋賀県東近江市市子殿町303-2"
+           target="_blank" rel="noopener"
+           style="font-family:'Noto Sans JP',sans-serif; font-size:12px; letter-spacing:.15em; color:#fff; background:var(--sage); padding:12px 32px; text-decoration:none; display:inline-block;">
+          Googleマップで開く
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── FOOTER ── -->
+<footer>
+  <p class="footer-logo">GRACE ENGLISH LAB</p>
+  <p class="footer-info">
+    グレイス・イングリッシュ・ラボ<br>
+    〒527-0062 滋賀県東近江市市子殿町303-2<br>
+    TEL: 0748-55-1265
+  </p>
+  <p class="footer-copy">&copy; Grace English Lab. All rights reserved.</p>
+</footer>
+
+<script>
+  // 写真スロットに画像をロードする
+  function loadImage(input) {
+    if (!input.files || !input.files[0]) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const slot = input.closest('.photo-slot');
+      slot.style.backgroundImage = `url(${e.target.result})`;
+      slot.style.backgroundSize = 'cover';
+      slot.style.backgroundPosition = 'center';
+      slot.style.border = 'none';
+      slot.querySelectorAll('svg, span').forEach(el => el.style.display = 'none');
+    };
+    reader.readAsDataURL(input.files[0]);
+  }
+
+  // スムーズスクロールのナビ
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+</script>
+
+<script>
+  // ライトボックス
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  document.querySelectorAll('.sp img').forEach(img => {
+    img.addEventListener('click', () => {
+      lightboxImg.src = img.src;
+      lightbox.classList.add('active');
+    });
+  });
+  document.getElementById('lightbox-close').addEventListener('click', () => {
+    lightbox.classList.remove('active');
+  });
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) lightbox.classList.remove('active');
+  });
+  // 写真をクリックしたときに前面へ
+  document.querySelectorAll('.sp').forEach(sp => {
+    sp.addEventListener('mouseenter', () => {
+      document.querySelectorAll('.sp').forEach(s => s.style.zIndex = '');
+      sp.style.zIndex = '20';
+    });
+  });
+</script>
+</body>
+</html>
