@@ -551,6 +551,12 @@
       .nav-links { gap: 16px; }
       section { padding: 72px 24px; }
       #hero { padding: 100px 24px 72px; }
+      .philosophy-lead { font-size: 14px; }
+    }
+    @media(max-width:600px){
+      .test-steps { flex-direction: column; align-items: center; }
+      .step-arrow { font-size: 0; }
+      .step-arrow::after { content: '↓'; font-size: 14px; color: rgba(255,255,255,.6); display: block; }
     }
     @media(max-width:500px){
       .nav-links { display: none; }
