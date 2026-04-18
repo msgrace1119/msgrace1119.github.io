@@ -1,0 +1,1626 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>グレイス・イングリッシュ・ラボ パンフレット</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700;900&family=Noto+Sans+JP:wght@400;700&display=swap');
+
+@page { size: A4; margin: 0; }
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: "Noto Serif JP", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  background: #eee;
+  color: #1a1a1a;
+}
+
+.page {
+  width: 210mm;
+  height: 297mm;
+  background: white;
+  margin: 0 auto 20px;
+  position: relative;
+  overflow: hidden;
+  page-break-after: always;
+}
+
+/* ===================== 表紙 ===================== */
+.cover {
+  background: linear-gradient(160deg, #1a3a5c 0%, #2a5f8f 50%, #1a3a5c 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0;
+}
+
+.cover-top-band {
+  width: 100%;
+  background: rgba(255,255,255,0.08);
+  padding: 14px 0 10px;
+  text-align: center;
+}
+
+.cover-top-band span {
+  color: rgba(255,255,255,0.6);
+  font-size: 8pt;
+  letter-spacing: 4px;
+  font-family: "Noto Sans JP", sans-serif;
+}
+
+.cover-center {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  padding: 0 20mm;
+  text-align: center;
+}
+
+.cover-emblem {
+  margin-bottom: 18px;
+}
+
+.cover-title-en {
+  font-family: "Noto Sans JP", sans-serif;
+  font-weight: 700;
+  font-size: 9pt;
+  letter-spacing: 6px;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.cover-title-ja {
+  font-size: 28pt;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: 4px;
+  line-height: 1.2;
+  margin-bottom: 12px;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+}
+
+.cover-divider {
+  width: 60px;
+  height: 2px;
+  background: rgba(255,220,100,0.8);
+  margin: 10px auto 14px;
+}
+
+.cover-tagline {
+  color: rgba(255,255,255,0.85);
+  font-size: 11pt;
+  line-height: 1.8;
+  letter-spacing: 1px;
+}
+
+.cover-tagline strong {
+  color: #ffd966;
+}
+
+.cover-bottom {
+  width: 100%;
+  background: rgba(0,0,0,0.25);
+  padding: 14px 20mm;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cover-bottom-info {
+  color: rgba(255,255,255,0.8);
+  font-size: 8pt;
+  font-family: "Noto Sans JP", sans-serif;
+  line-height: 1.7;
+}
+
+.cover-badge {
+  background: #ffd966;
+  color: #1a3a5c;
+  font-weight: 700;
+  font-size: 8pt;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-family: "Noto Sans JP", sans-serif;
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* ===================== 内ページ共通 ===================== */
+.inner-page {
+  padding: 12mm 13mm 28mm;
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid #1a3a5c;
+  margin-bottom: 10px;
+  padding-bottom: 6px;
+  gap: 8px;
+}
+
+.page-header-title {
+  font-size: 13pt;
+  font-weight: 900;
+  color: #1a3a5c;
+  letter-spacing: 2px;
+}
+
+.page-header-sub {
+  font-size: 8pt;
+  color: #666;
+  font-family: "Noto Sans JP", sans-serif;
+  margin-left: auto;
+}
+
+/* セクションカード */
+.card {
+  border: 1.5px solid #d0dce8;
+  border-radius: 4px;
+  margin-bottom: 9px;
+  overflow: hidden;
+}
+
+.card-head {
+  background: #1a3a5c;
+  color: white;
+  font-weight: 700;
+  font-size: 9.5pt;
+  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  letter-spacing: 1px;
+}
+
+.card-body {
+  padding: 8px 10px;
+  line-height: 1.75;
+  font-size: 9pt;
+}
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+.three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 9px; }
+
+/* 特徴アイテム */
+.feature-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 8px 10px;
+}
+
+.feature-item {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.feature-icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.feature-text .ft-title {
+  font-weight: 700;
+  font-size: 9pt;
+  color: #1a3a5c;
+  margin-bottom: 2px;
+}
+
+.feature-text .ft-desc {
+  font-size: 8pt;
+  color: #444;
+  line-height: 1.6;
+  font-family: "Noto Sans JP", sans-serif;
+}
+
+/* 料金テーブル */
+.fee-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 9pt;
+}
+
+.fee-table th {
+  background: #1a3a5c;
+  color: white;
+  padding: 5px 6px;
+  text-align: center;
+  font-weight: 700;
+  border: 1px solid #2a5f8f;
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 8.5pt;
+}
+
+.fee-table td {
+  padding: 5px 6px;
+  text-align: center;
+  border: 1px solid #c8d8e8;
+  font-size: 9pt;
+}
+
+.fee-table .grade-cell {
+  font-weight: 700;
+  background: #eaf0f7;
+  text-align: left;
+  padding-left: 10px;
+}
+
+.fee-table tr:nth-child(odd) td:not(.grade-cell) { background: #f7fafe; }
+.fee-table tr:nth-child(even) td:not(.grade-cell) { background: #ffffff; }
+
+.fee-table .group-price { color: #1a3a5c; font-weight: 700; }
+.fee-table .indiv-price { color: #8b2e00; font-weight: 700; }
+
+/* 小テーブル（入塾料など） */
+.mini-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 8.5pt;
+}
+.mini-table td {
+  padding: 4px 8px;
+  border: 1px solid #c8d8e8;
+  line-height: 1.5;
+}
+.mini-table .mini-label {
+  font-weight: 700;
+  background: #eaf0f7;
+  white-space: nowrap;
+  width: 36%;
+}
+.mini-table .mini-value { font-family: "Noto Sans JP", sans-serif; }
+
+/* 季節講習 */
+.season-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 8px 10px;
+}
+
+.season-item {
+  border-left: 3px solid #1a3a5c;
+  padding-left: 8px;
+}
+
+.season-item .s-title { font-weight: 700; font-size: 9pt; margin-bottom: 3px; color: #1a3a5c; }
+.season-item .s-detail { font-size: 8pt; font-family: "Noto Sans JP", sans-serif; line-height: 1.6; }
+
+/* オプション */
+.option-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 8.5pt;
+}
+.option-table td {
+  padding: 4px 8px;
+  border: 1px solid #c8d8e8;
+}
+.option-table .opt-name { font-weight: 700; background: #eaf0f7; width: 55%; }
+.option-table .opt-price { text-align: right; font-weight: 700; color: #8b2e00; white-space: nowrap; }
+.option-table tr:nth-child(even) .opt-price { background: #f7fafe; }
+.option-table tr:nth-child(odd) .opt-price { background: #fff; }
+.option-table .opt-note { color: #666; font-size: 7.5pt; font-family: "Noto Sans JP", sans-serif; }
+
+/* 写真プレースホルダー */
+.photo-area {
+  border: 2px dashed #b0c4d8;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #f3f7fc;
+  gap: 6px;
+}
+
+.photo-area .photo-icon { opacity: 0.4; }
+.photo-area .photo-label { color: #7a9ab8; font-size: 9pt; letter-spacing: 2px; font-family: "Noto Sans JP", sans-serif; }
+.photo-area .photo-note { color: #b0c4d8; font-size: 7.5pt; font-family: "Noto Sans JP", sans-serif; }
+
+/* ご挨拶 */
+.greeting-area {
+  border: 1.5px solid #d0dce8;
+  border-radius: 4px;
+  padding: 10px 12px;
+  min-height: 38mm;
+  background: #fafcff;
+  font-size: 9pt;
+  line-height: 2;
+  color: #bbb;
+  font-style: italic;
+}
+
+/* Q&A */
+.qa-item {
+  margin-bottom: 4px;
+  padding: 6px 10px;
+  background: #f7fafe;
+  border-left: 3px solid #2a5f8f;
+  font-size: 8pt;
+  line-height: 1.6;
+  font-family: "Noto Sans JP", sans-serif;
+}
+.qa-item .q { font-weight: 700; color: #1a3a5c; margin-bottom: 2px; }
+.qa-item .a { color: #333; }
+
+/* フッター */
+.inner-footer {
+  position: absolute;
+  bottom: 12mm;
+  left: 13mm;
+  right: 13mm;
+  border-top: 1px solid #c8d8e8;
+  padding-top: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-info {
+  font-size: 7.5pt;
+  color: #666;
+  font-family: "Noto Sans JP", sans-serif;
+  line-height: 1.6;
+}
+
+.footer-logo {
+  font-size: 8pt;
+  font-weight: 700;
+  color: #1a3a5c;
+  letter-spacing: 1px;
+}
+
+/* テスト対策ステップ */
+.steps {
+  display: flex;
+  gap: 6px;
+  padding: 8px 10px;
+  align-items: flex-start;
+}
+
+.step-item {
+  flex: 1;
+  text-align: center;
+}
+
+.step-num {
+  background: #1a3a5c;
+  color: white;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  font-size: 9pt;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 4px;
+  font-family: "Noto Sans JP", sans-serif;
+}
+
+.step-text {
+  font-size: 7.5pt;
+  line-height: 1.5;
+  color: #333;
+  font-family: "Noto Sans JP", sans-serif;
+}
+
+.step-arrow {
+  padding-top: 8px;
+  color: #2a5f8f;
+  font-size: 12pt;
+}
+
+@media print {
+  body { background: white; }
+  .page { margin: 0; box-shadow: none; }
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ==================== 表紙 ==================== -->
+<div class="page cover">
+  <div class="cover-top-band">
+    <span>GRACE ENGLISH LAB ／ 滋賀県東近江市</span>
+  </div>
+
+  <div class="cover-center">
+    <!-- メインイラスト：勉強する生徒 -->
+    <div class="cover-emblem">
+      <svg width="200" height="155" viewBox="0 0 200 155" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- 背景の丸 -->
+        <circle cx="100" cy="78" r="70" fill="rgba(255,255,255,0.06)"/>
+        <!-- 机 -->
+        <rect x="38" y="108" width="90" height="6" rx="3" fill="rgba(255,220,100,0.7)"/>
+        <rect x="44" y="114" width="6" height="22" rx="2" fill="rgba(255,200,70,0.5)"/>
+        <rect x="116" y="114" width="6" height="22" rx="2" fill="rgba(255,200,70,0.5)"/>
+        <!-- 開いた教科書 -->
+        <path d="M52 108 Q52 94 56 92 L96 90 L96 108 Z" fill="rgba(255,255,255,0.18)" stroke="rgba(255,255,255,0.5)" stroke-width="1"/>
+        <path d="M114 108 Q114 94 110 92 L70 90 L70 108 Z" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,0.5)" stroke-width="1"/>
+        <line x1="83" y1="90" x2="83" y2="108" stroke="rgba(255,220,100,0.6)" stroke-width="1.2"/>
+        <line x1="57" y1="96" x2="80" y2="96" stroke="rgba(255,255,255,0.25)" stroke-width="0.8"/>
+        <line x1="57" y1="100" x2="80" y2="100" stroke="rgba(255,255,255,0.25)" stroke-width="0.8"/>
+        <line x1="57" y1="104" x2="80" y2="104" stroke="rgba(255,255,255,0.25)" stroke-width="0.8"/>
+        <line x1="86" y1="96" x2="109" y2="96" stroke="rgba(255,255,255,0.25)" stroke-width="0.8"/>
+        <line x1="86" y1="100" x2="109" y2="100" stroke="rgba(255,255,255,0.25)" stroke-width="0.8"/>
+        <line x1="86" y1="104" x2="109" y2="104" stroke="rgba(255,255,255,0.25)" stroke-width="0.8"/>
+        <!-- ノート（積んである） -->
+        <rect x="116" y="98" width="20" height="13" rx="1" fill="rgba(100,180,255,0.3)" stroke="rgba(255,255,255,0.3)" stroke-width="0.8"/>
+        <rect x="118" y="95" width="20" height="13" rx="1" fill="rgba(100,220,180,0.3)" stroke="rgba(255,255,255,0.3)" stroke-width="0.8"/>
+        <!-- 生徒（シルエット） -->
+        <!-- 頭 -->
+        <circle cx="100" cy="64" r="14" fill="rgba(255,220,180,0.85)"/>
+        <!-- 髪 -->
+        <path d="M86 62 Q86 50 100 48 Q114 50 114 62 Q114 56 100 54 Q86 56 86 62 Z" fill="rgba(80,50,20,0.7)"/>
+        <!-- 首 -->
+        <rect x="96" y="78" width="8" height="8" rx="2" fill="rgba(255,210,170,0.85)"/>
+        <!-- 体（制服風） -->
+        <path d="M80 110 Q80 86 96 84 L104 84 Q120 86 120 110 Z" fill="rgba(60,100,160,0.7)"/>
+        <!-- 腕（机に乗せてる） -->
+        <path d="M80 96 Q70 98 62 100 Q58 101 57 103" stroke="rgba(60,100,160,0.7)" stroke-width="8" stroke-linecap="round" fill="none"/>
+        <path d="M120 96 Q128 98 130 102" stroke="rgba(60,100,160,0.7)" stroke-width="8" stroke-linecap="round" fill="none"/>
+        <!-- 手 -->
+        <ellipse cx="57" cy="104" rx="5" ry="3.5" fill="rgba(255,210,170,0.85)"/>
+        <ellipse cx="130" cy="103" rx="5" ry="3.5" fill="rgba(255,210,170,0.85)"/>
+        <!-- 鉛筆（手に持っている） -->
+        <rect x="127" y="93" width="4" height="18" rx="1" transform="rotate(15 127 93)" fill="rgba(255,220,100,0.9)"/>
+        <polygon points="127,93 131,93 129,88" transform="rotate(15 127 93)" fill="rgba(200,150,50,0.9)"/>
+        <!-- 吹き出し（ひらめき） -->
+        <ellipse cx="145" cy="51" rx="30" ry="15" fill="rgba(255,255,255,0.15)" stroke="rgba(255,220,100,0.6)" stroke-width="1.2"/>
+        <path d="M131 63 L127 70 L138 65" fill="rgba(255,255,255,0.15)" stroke="rgba(255,220,100,0.6)" stroke-width="1.2"/>
+        <text x="145" y="56" text-anchor="middle" fill="rgba(255,220,100,0.9)" font-size="11" font-family="serif">わかった!</text>
+        <!-- 星・きらきら -->
+        <circle cx="30" cy="20" r="2.5" fill="rgba(255,220,100,0.6)"/>
+        <circle cx="168" cy="18" r="2" fill="rgba(255,220,100,0.5)"/>
+        <circle cx="22" cy="90" r="1.8" fill="rgba(255,220,100,0.4)"/>
+        <circle cx="175" cy="95" r="2.2" fill="rgba(255,220,100,0.5)"/>
+        <circle cx="155" cy="120" r="1.5" fill="rgba(255,220,100,0.35)"/>
+        <circle cx="42" cy="130" r="1.8" fill="rgba(255,220,100,0.3)"/>
+        <!-- 小さな星形 -->
+        <polygon points="170,38 171.5,42 176,42 172.5,44.5 174,49 170,46 166,49 167.5,44.5 164,42 168.5,42" fill="rgba(255,220,100,0.5)"/>
+        <polygon points="28,48 29,51 32,51 29.5,53 30.5,56 28,54.5 25.5,56 26.5,53 24,51 27,51" fill="rgba(255,220,100,0.4)"/>
+      </svg>
+    </div>
+
+    <div class="cover-title-en">GRACE ENGLISH LAB</div>
+    <div class="cover-title-ja">グレイス<br>イングリッシュ・ラボ</div>
+    <div class="cover-divider"></div>
+    <div class="cover-tagline">
+      教科書を全部授業化。<br>
+      <strong>「わかった」を「出来る」</strong>に変える塾。<br>
+      直しノート添削・テスト前の対策授業は<strong>全員・標準装備</strong>。
+    </div>
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-bottom-info">
+      <div>📍 滋賀県東近江市市子殿町303-2</div>
+      <div>📞 0748-55-1265（不在時転送）</div>
+      <div style="margin-top:4px; font-size:7.5pt;">小学生〜高校３年生 ／ 英語・数学（算数）</div>
+    </div>
+    <div class="cover-badge">
+      体験授業<br>受付中<br>
+      <span style="font-size:7pt; font-weight:400;">個別1回・集団2回</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- ==================== P2：教室紹介・特徴 ==================== -->
+<div class="page inner-page">
+  <div class="page-header">
+    <svg width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="9" fill="#1a3a5c"/><text x="10" y="14" text-anchor="middle" fill="white" font-size="9" font-family="sans-serif" font-weight="bold">1</text></svg>
+    <div class="page-header-title">教室のご紹介</div>
+    <div class="page-header-sub">グレイス・イングリッシュ・ラボについて</div>
+  </div>
+
+  <!-- 教室概要 -->
+  <div class="card" style="margin-bottom:9px;">
+    <div class="card-head">
+      <svg width="14" height="14" viewBox="0 0 14 14"><rect x="1" y="2" width="12" height="10" rx="1" fill="none" stroke="white" stroke-width="1.2"/><line x1="1" y1="5" x2="13" y2="5" stroke="white" stroke-width="1.2"/></svg>
+      教室概要
+    </div>
+    <div class="card-body">
+      <p>教科書を<strong>全部授業化</strong>。4技能（読む・書く・聞く・話す）と「直し」を通じて、<strong>「わかった」を「出来る」</strong>に変える指導を行います。</p>
+      <p style="margin-top:6px;">テスト1週間前は<strong>対策授業を全員・標準装備</strong>（追加費用なし）。<strong>直しノート添削（講師の添削付き）</strong>も全員標準でついています。定期テストと内申点に直結する指導で、しっかり結果に結びつけます。</p>
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:6px; margin-top:10px; padding-top:8px; border-top:1px solid #d0dce8; font-family:'Noto Sans JP',sans-serif; text-align:center;">
+        <div style="background:#eaf0f7; border-radius:4px; padding:6px 4px;">
+          <div style="font-size:13pt; margin-bottom:2px;">📍</div>
+          <div style="font-size:7.5pt; font-weight:700; color:#1a3a5c;">滋賀県東近江市</div>
+          <div style="font-size:6.5pt; color:#666;">市子殿町303-2</div>
+        </div>
+        <div style="background:#eaf0f7; border-radius:4px; padding:6px 4px;">
+          <div style="font-size:13pt; margin-bottom:2px;">📚</div>
+          <div style="font-size:7.5pt; font-weight:700; color:#1a3a5c;">小学生〜高校３年生</div>
+          <div style="font-size:6.5pt; color:#666;">英語・数学（算数）</div>
+        </div>
+        <div style="background:#eaf0f7; border-radius:4px; padding:6px 4px;">
+          <div style="font-size:13pt; margin-bottom:2px;">📅</div>
+          <div style="font-size:7.5pt; font-weight:700; color:#1a3a5c;">年間86回</div>
+          <div style="font-size:6.5pt; color:#666;">月謝均等払い</div>
+        </div>
+        <div style="background:#eaf0f7; border-radius:4px; padding:6px 4px;">
+          <div style="font-size:13pt; margin-bottom:2px;">🎓</div>
+          <div style="font-size:7.5pt; font-weight:700; color:#1a3a5c;">指導歴30年以上</div>
+          <div style="font-size:6.5pt; color:#666;">体験授業受付中</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4つの特徴 -->
+  <div class="card" style="margin-bottom:9px;">
+    <div class="card-head">
+      <svg width="14" height="14" viewBox="0 0 14 14"><polygon points="7,1 9,5 13,5.5 10,8.5 10.5,13 7,11 3.5,13 4,8.5 1,5.5 5,5" fill="white"/></svg>
+      グレイスラボの4つの特徴
+    </div>
+    <div class="feature-grid">
+      <!-- 特徴1: 教科書完全準拠 -->
+      <div class="feature-item">
+        <div class="feature-icon">
+          <svg width="44" height="44" viewBox="0 0 44 44">
+            <circle cx="22" cy="22" r="21" fill="#ddeeff"/>
+            <!-- 教科書 -->
+            <rect x="8" y="10" width="13" height="18" rx="1.5" fill="#2a5f8f" opacity="0.85"/>
+            <rect x="10" y="12" width="9" height="1.5" rx="0.5" fill="white" opacity="0.5"/>
+            <rect x="10" y="15" width="9" height="1.5" rx="0.5" fill="white" opacity="0.5"/>
+            <rect x="10" y="18" width="7" height="1.5" rx="0.5" fill="white" opacity="0.5"/>
+            <rect x="10" y="21" width="9" height="1.5" rx="0.5" fill="white" opacity="0.5"/>
+            <rect x="23" y="10" width="13" height="18" rx="1.5" fill="#3a7fbf" opacity="0.85"/>
+            <rect x="25" y="12" width="9" height="1.5" rx="0.5" fill="white" opacity="0.5"/>
+            <rect x="25" y="15" width="9" height="1.5" rx="0.5" fill="white" opacity="0.5"/>
+            <rect x="25" y="18" width="7" height="1.5" rx="0.5" fill="white" opacity="0.5"/>
+            <rect x="25" y="21" width="9" height="1.5" rx="0.5" fill="white" opacity="0.5"/>
+            <!-- チェックマーク -->
+            <circle cx="30" cy="30" r="8" fill="#27ae60"/>
+            <polyline points="25.5,30 28.5,33.5 34.5,26.5" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+        </div>
+        <div class="feature-text">
+          <div class="ft-title">教科書完全準拠</div>
+          <div class="ft-desc">範囲漏れゼロで定期テストと内申に直結。教科書の全単元を授業で扱います。</div>
+        </div>
+      </div>
+      <!-- 特徴2: わかる板書 -->
+      <div class="feature-item">
+        <div class="feature-icon">
+          <svg width="44" height="44" viewBox="0 0 44 44">
+            <circle cx="22" cy="22" r="21" fill="#ddeeff"/>
+            <!-- 黒板 -->
+            <rect x="7" y="11" width="26" height="18" rx="2" fill="#2d6a4f"/>
+            <rect x="9" y="13" width="22" height="14" rx="1" fill="#40916c" opacity="0.6"/>
+            <!-- 文字 -->
+            <line x1="11" y1="17" x2="22" y2="17" stroke="white" stroke-width="1.2" opacity="0.8"/>
+            <line x1="11" y1="20" x2="19" y2="20" stroke="white" stroke-width="1.2" opacity="0.8"/>
+            <line x1="11" y1="23" x2="22" y2="23" stroke="white" stroke-width="1.2" opacity="0.8"/>
+            <!-- チョーク -->
+            <rect x="26" y="22" width="5" height="12" rx="1.5" transform="rotate(-30 26 22)" fill="#fffde7"/>
+            <polygon points="26,22 31,22 28.5,17" transform="rotate(-30 26 22)" fill="#f0d060"/>
+            <!-- 消しゴムカス -->
+            <circle cx="12" cy="28" r="1" fill="#ddd" opacity="0.6"/>
+            <circle cx="16" cy="29" r="0.8" fill="#ddd" opacity="0.5"/>
+            <!-- 電球（わかった！） -->
+            <circle cx="33" cy="13" r="6" fill="#ffd700" opacity="0.9"/>
+            <path d="M31 13 Q31 10 33 10 Q35 10 35 13 Q35 15 34 16 L32 16 Q31 15 31 13 Z" fill="#fff8" />
+            <rect x="31.5" y="16" width="3" height="1.5" rx="0.5" fill="#b8860b"/>
+            <line x1="33" y1="7" x2="33" y2="6" stroke="#ffd700" stroke-width="1.2"/>
+            <line x1="37" y1="9" x2="38" y2="8" stroke="#ffd700" stroke-width="1.2"/>
+            <line x1="28.5" y1="9" x2="27.5" y2="8" stroke="#ffd700" stroke-width="1.2"/>
+          </svg>
+        </div>
+        <div class="feature-text">
+          <div class="ft-title">わかる板書</div>
+          <div class="ft-desc">専門用語をやさしい言葉に置き換え、短く要点化。「なぜそうなるか」まで丁寧に解説します。</div>
+        </div>
+      </div>
+      <!-- 特徴3: 学び方の伴走 -->
+      <div class="feature-item">
+        <div class="feature-icon">
+          <svg width="44" height="44" viewBox="0 0 44 44">
+            <circle cx="22" cy="22" r="21" fill="#ddeeff"/>
+            <!-- 道 -->
+            <path d="M8 34 Q16 28 22 24 Q28 20 36 12" stroke="#aad4f5" stroke-width="3" stroke-linecap="round" fill="none"/>
+            <!-- 旗（ゴール） -->
+            <line x1="34" y1="12" x2="34" y2="6" stroke="#1a3a5c" stroke-width="1.5"/>
+            <polygon points="34,6 34,10 39,8" fill="#e84040"/>
+            <!-- 生徒（小さな人） -->
+            <circle cx="14" cy="31" r="3" fill="#2a5f8f"/>
+            <line x1="14" y1="34" x2="14" y2="39" stroke="#2a5f8f" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="14" y1="36" x2="11" y2="38" stroke="#2a5f8f" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="14" y1="36" x2="17" y2="38" stroke="#2a5f8f" stroke-width="1.5" stroke-linecap="round"/>
+            <!-- 先生（伴走） -->
+            <circle cx="20" cy="28" r="3" fill="#8b2e00"/>
+            <line x1="20" y1="31" x2="20" y2="36" stroke="#8b2e00" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="20" y1="33" x2="17" y2="35" stroke="#8b2e00" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="20" y1="33" x2="23" y2="35" stroke="#8b2e00" stroke-width="1.5" stroke-linecap="round"/>
+            <!-- チェックポイント -->
+            <circle cx="22" cy="24" r="2.5" fill="#27ae60" opacity="0.7"/>
+            <polyline points="20.5,24 22,25.5 24,22.5" stroke="white" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="feature-text">
+          <div class="ft-title">学び方の伴走</div>
+          <div class="ft-desc">最適な復習タイミングを提案。希望者には学習スケジュールを個別に作成します。</div>
+        </div>
+      </div>
+      <!-- 特徴4: 生活習慣もサポート -->
+      <div class="feature-item">
+        <div class="feature-icon">
+          <svg width="44" height="44" viewBox="0 0 44 44">
+            <circle cx="22" cy="22" r="21" fill="#ddeeff"/>
+            <!-- 太陽（昼） -->
+            <circle cx="12" cy="14" r="5" fill="#ffd700" opacity="0.85"/>
+            <line x1="12" y1="7" x2="12" y2="5.5" stroke="#ffd700" stroke-width="1.2"/>
+            <line x1="17" y1="9" x2="18" y2="8" stroke="#ffd700" stroke-width="1.2"/>
+            <line x1="19" y1="14" x2="20.5" y2="14" stroke="#ffd700" stroke-width="1.2"/>
+            <line x1="7" y1="9" x2="6" y2="8" stroke="#ffd700" stroke-width="1.2"/>
+            <line x1="5" y1="14" x2="3.5" y2="14" stroke="#ffd700" stroke-width="1.2"/>
+            <!-- 月（夜） -->
+            <path d="M28 10 Q24 14 26 20 Q22 18 22 14 Q22 10 28 10 Z" fill="#aac4e8"/>
+            <circle cx="30" cy="10" r="1" fill="#ffd700" opacity="0.7"/>
+            <circle cx="34" cy="14" r="0.8" fill="#ffd700" opacity="0.6"/>
+            <!-- ご飯 -->
+            <ellipse cx="18" cy="30" rx="7" ry="4.5" fill="#fffde7" stroke="#ccc" stroke-width="0.8"/>
+            <ellipse cx="18" cy="28.5" rx="5.5" ry="2.5" fill="white"/>
+            <!-- 野菜 -->
+            <circle cx="30" cy="28" r="5" fill="#52b788" opacity="0.85"/>
+            <ellipse cx="28" cy="30" rx="2.5" ry="3" fill="#74c69d"/>
+            <ellipse cx="32" cy="30" rx="2.5" ry="3" fill="#74c69d"/>
+            <line x1="30" y1="23" x2="30" y2="21" stroke="#52b788" stroke-width="1.5"/>
+            <!-- ハート -->
+            <path d="M20 36 Q20 33 22 33 Q24 33 24 35 Q26 33 28 33 Q30 33 30 36 Q30 38.5 25 41.5 Q20 38.5 20 36 Z" fill="#e84040" opacity="0.7"/>
+          </svg>
+        </div>
+        <div class="feature-text">
+          <div class="ft-title">生活習慣もサポート</div>
+          <div class="ft-desc">睡眠・食事・腸内環境の大切さも伝え、勉強の土台づくりから支援します。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- テスト対策 -->
+  <div class="card" style="margin-bottom:9px;">
+    <div class="card-head">
+      <svg width="14" height="14" viewBox="0 0 14 14"><rect x="2" y="1" width="10" height="12" rx="1" fill="none" stroke="white" stroke-width="1.2"/><line x1="4.5" y1="5" x2="9.5" y2="5" stroke="white" stroke-width="1"/><line x1="4.5" y1="7.5" x2="9.5" y2="7.5" stroke="white" stroke-width="1"/><line x1="4.5" y1="10" x2="7.5" y2="10" stroke="white" stroke-width="1"/></svg>
+      テスト1週間前 対策授業（全員・追加料金なし）
+    </div>
+    <div class="steps">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-text"><strong>範囲マップ</strong><br>整理</div>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-text"><strong>提出物</strong><br>完了確認</div>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-text"><strong>頻出問題</strong><br>演習</div>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="step-item">
+        <div class="step-num">4</div>
+        <div class="step-text"><strong>英語本文</strong><br>音読</div>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="step-item">
+        <div class="step-num">+</div>
+        <div class="step-text"><strong>弱点補強</strong><br>（オプション）</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 保護者連携 -->
+  <div class="card">
+    <div class="card-head">
+      <svg width="14" height="14" viewBox="0 0 14 14"><circle cx="5" cy="4" r="3" fill="none" stroke="white" stroke-width="1.2"/><circle cx="11" cy="5" r="2.5" fill="none" stroke="white" stroke-width="1.2"/><path d="M1 13 Q1 9 5 9 Q9 9 9 13" fill="none" stroke="white" stroke-width="1.2"/><path d="M9 10 Q11 9 13 10 Q13 13 13 13" fill="none" stroke="white" stroke-width="1.2"/></svg>
+      保護者連携
+    </div>
+    <div class="card-body" style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+      <div>✅ 面談やLINEで性格・家庭状況を把握し、個々に合わせた学び方を提案</div>
+      <div>✅ 家庭での声掛けや生活リズムのサポートまで含めてご支援します</div>
+    </div>
+  </div>
+
+  <div class="inner-footer">
+    <div class="footer-info">滋賀県東近江市市子殿町303-2 ／ TEL: 0748-55-1265</div>
+    <div class="footer-logo">グレイス・イングリッシュ・ラボ</div>
+  </div>
+</div>
+
+
+<!-- ==================== P3：料金 ==================== -->
+<div class="page inner-page">
+  <div class="page-header">
+    <svg width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="9" fill="#1a3a5c"/><text x="10" y="14" text-anchor="middle" fill="white" font-size="9" font-family="sans-serif" font-weight="bold">2</text></svg>
+    <div class="page-header-title">料金のご案内</div>
+    <div class="page-header-sub">すべて税込表示</div>
+  </div>
+
+  <!-- 料金ページ上部イラスト -->
+  <div style="display:flex; justify-content:center; gap:30px; margin-bottom:2px; padding:1px 0;">
+    <!-- 集団授業イラスト -->
+    <div style="text-align:center;">
+      <svg width="80" height="65" viewBox="0 0 80 65">
+        <!-- 黒板 -->
+        <rect x="5" y="5" width="70" height="32" rx="3" fill="#2d6a4f"/>
+        <rect x="8" y="8" width="64" height="26" rx="1.5" fill="#40916c" opacity="0.5"/>
+        <text x="40" y="22" text-anchor="middle" fill="white" font-size="8" font-family="sans-serif" font-weight="bold">集団授業</text>
+        <line x1="15" y1="27" x2="65" y2="27" stroke="rgba(255,255,255,0.4)" stroke-width="0.8"/>
+        <!-- 生徒3人 -->
+        <circle cx="18" cy="47" r="5" fill="#2a5f8f"/>
+        <line x1="18" y1="52" x2="18" y2="60" stroke="#2a5f8f" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="40" cy="47" r="5" fill="#1a3a5c"/>
+        <line x1="40" y1="52" x2="40" y2="60" stroke="#1a3a5c" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="62" cy="47" r="5" fill="#3a7fbf"/>
+        <line x1="62" y1="52" x2="62" y2="60" stroke="#3a7fbf" stroke-width="2" stroke-linecap="round"/>
+        <!-- 机 -->
+        <rect x="10" y="58" width="16" height="3" rx="1" fill="#c8a86b"/>
+        <rect x="32" y="58" width="16" height="3" rx="1" fill="#c8a86b"/>
+        <rect x="54" y="58" width="16" height="3" rx="1" fill="#c8a86b"/>
+      </svg>
+      <div style="font-size:7.5pt; color:#2a5f8f; font-weight:700; font-family:'Noto Sans JP',sans-serif;">集団授業</div>
+    </div>
+    <!-- 矢印 -->
+    <div style="display:flex; align-items:center; font-size:20pt; color:#ccc; padding-bottom:8px;">／</div>
+    <!-- 個別授業イラスト -->
+    <div style="text-align:center;">
+      <svg width="80" height="65" viewBox="0 0 80 65">
+        <!-- 机 -->
+        <rect x="15" y="35" width="50" height="5" rx="2" fill="#c8a86b"/>
+        <rect x="18" y="40" width="4" height="15" rx="1" fill="#b8986b"/>
+        <rect x="58" y="40" width="4" height="15" rx="1" fill="#b8986b"/>
+        <!-- 先生 -->
+        <circle cx="22" cy="22" r="7" fill="#8b2e00"/>
+        <line x1="22" y1="29" x2="22" y2="37" stroke="#8b2e00" stroke-width="3" stroke-linecap="round"/>
+        <line x1="22" y1="32" x2="16" y2="36" stroke="#8b2e00" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="22" y1="32" x2="28" y2="35" stroke="#8b2e00" stroke-width="2.5" stroke-linecap="round"/>
+        <!-- 生徒 -->
+        <circle cx="58" cy="22" r="7" fill="#2a5f8f"/>
+        <line x1="58" y1="29" x2="58" y2="37" stroke="#2a5f8f" stroke-width="3" stroke-linecap="round"/>
+        <line x1="58" y1="32" x2="52" y2="36" stroke="#2a5f8f" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="58" y1="32" x2="64" y2="36" stroke="#2a5f8f" stroke-width="2.5" stroke-linecap="round"/>
+        <!-- ノート（机の上） -->
+        <rect x="30" y="28" width="20" height="14" rx="1.5" fill="white" stroke="#aaa" stroke-width="0.8"/>
+        <line x1="33" y1="32" x2="47" y2="32" stroke="#aaa" stroke-width="0.7"/>
+        <line x1="33" y1="35" x2="47" y2="35" stroke="#aaa" stroke-width="0.7"/>
+        <line x1="33" y1="38" x2="43" y2="38" stroke="#aaa" stroke-width="0.7"/>
+        <!-- 吹き出し -->
+        <ellipse cx="40" cy="10" rx="12" ry="7" fill="#fffde7" stroke="#ffd700" stroke-width="1"/>
+        <path d="M36 16 L34 20 L39 17" fill="#fffde7" stroke="#ffd700" stroke-width="1"/>
+        <text x="40" y="13" text-anchor="middle" fill="#8b6000" font-size="7" font-family="sans-serif">1対1!</text>
+      </svg>
+      <div style="font-size:7.5pt; color:#8b2e00; font-weight:700; font-family:'Noto Sans JP',sans-serif;">個別授業（1対1）</div>
+    </div>
+  </div>
+
+  <!-- 授業料テーブル -->
+  <div class="card" style="margin-bottom:3px;">
+    <div class="card-head">
+      <svg width="14" height="14" viewBox="0 0 14 14"><rect x="1" y="1" width="12" height="12" rx="1" fill="none" stroke="white" stroke-width="1.2"/><line x1="1" y1="5" x2="13" y2="5" stroke="white" stroke-width="1"/><line x1="5" y1="1" x2="5" y2="13" stroke="white" stroke-width="1"/></svg>
+      月額授業料（税込・年間86回）
+    </div>
+    <div class="card-body" style="padding:5px 8px;">
+      <div style="font-weight:700; font-size:8pt; color:#1a3a5c; margin-bottom:3px; padding-bottom:2px; border-bottom:1px solid #d0dce8;">小学生</div>
+      <table class="fee-table" style="margin-bottom:5px;">
+        <thead>
+          <tr>
+            <th style="width:68%; text-align:left; padding-left:10px;">授業形式</th>
+            <th>月額</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="grade-cell">グループレッスン（英語）</td>
+            <td class="group-price">10,000円</td>
+          </tr>
+          <tr>
+            <td class="grade-cell">個人レッスン（60分）</td>
+            <td class="indiv-price">15,000円</td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="font-weight:700; font-size:8pt; color:#1a3a5c; margin-bottom:3px; padding-bottom:2px; border-bottom:1px solid #d0dce8;">中学生（1科目あたり）</div>
+      <table class="fee-table">
+        <thead>
+          <tr>
+            <th style="width:68%; text-align:left; padding-left:10px;">授業形式</th>
+            <th>月額</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="grade-cell">グループ（中1・2年 英数各科）</td>
+            <td class="group-price">15,000円</td>
+          </tr>
+          <tr>
+            <td class="grade-cell">グループ（中3年 英数各科）</td>
+            <td class="group-price">18,000円</td>
+          </tr>
+          <tr>
+            <td class="grade-cell">個別・スポット（60分）</td>
+            <td class="indiv-price">5,000円/回</td>
+          </tr>
+          <tr>
+            <td class="grade-cell">個別（中1・2年 60分）</td>
+            <td class="indiv-price">25,000円</td>
+          </tr>
+          <tr>
+            <td class="grade-cell">個別（中3年 60分）</td>
+            <td class="indiv-price">30,000円</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 入塾料・年額 + 季節講習 -->
+  <div class="two-col" style="margin-bottom:2px;">
+    <div class="card">
+      <div class="card-head">入塾料・年額費用</div>
+      <div class="card-body" style="padding:8px 10px;">
+        <table class="mini-table">
+          <tr>
+            <td class="mini-label">入塾料</td>
+            <td class="mini-value"><strong>15,000円</strong>（1家族1回限り・兄弟は免除）</td>
+          </tr>
+          <tr>
+            <td class="mini-label">教材費他</td>
+            <td class="mini-value"><strong>15,000円／年</strong>（1科目）<br><span style="font-size:7.5pt; color:#666;">年度途中は月数按分。</span></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <svg width="13" height="13" viewBox="0 0 13 13" style="margin-right:3px;">
+          <!-- 太陽 -->
+          <circle cx="6.5" cy="6.5" r="3" fill="white" opacity="0.9"/>
+          <line x1="6.5" y1="1" x2="6.5" y2="0" stroke="white" stroke-width="1.2" opacity="0.8"/>
+          <line x1="10" y1="3" x2="11" y2="2" stroke="white" stroke-width="1.2" opacity="0.8"/>
+          <line x1="12" y1="6.5" x2="13" y2="6.5" stroke="white" stroke-width="1.2" opacity="0.8"/>
+          <line x1="3" y1="3" x2="2" y2="2" stroke="white" stroke-width="1.2" opacity="0.8"/>
+          <line x1="1" y1="6.5" x2="0" y2="6.5" stroke="white" stroke-width="1.2" opacity="0.8"/>
+        </svg>
+        季節講習（テキスト込み）
+      </div>
+      <div class="season-grid" style="padding:4px 8px; grid-template-columns: 1fr 1fr 1fr;">
+        <div class="season-item">
+          <div class="s-title">中3 夏期講習（14日間）</div>
+          <div class="s-detail">
+            グループ：<strong>35,000円</strong>／1科目<br>
+            個別：<strong>53,000円</strong>
+          </div>
+        </div>
+        <div class="season-item">
+          <div class="s-title">中1〜3 その他季節講習（1週間）</div>
+          <div class="s-detail">
+            グループ：<strong>20,000円</strong>／1科目<br>
+            個別：<strong>40,000円</strong>／1科目
+          </div>
+        </div>
+        <div class="season-item">
+          <div class="s-title">高校生 季節講習（7日間）</div>
+          <div class="s-detail">
+            グループ：<strong>40,000円</strong><br>
+            個別：<strong>70,000円</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 高校生クラス -->
+  <div class="card" style="margin-bottom:2px; border-color:#7a5200;">
+    <div class="card-head" style="background:#7a5200;">
+      高校生クラス（年間43回）
+    </div>
+    <div class="card-body" style="padding:8px 10px;">
+      <table class="fee-table">
+        <thead>
+          <tr>
+            <th style="width:68%; text-align:left; padding-left:10px;">授業形式</th>
+            <th>月額</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="grade-cell">グループ授業（4名まで・1回90分）</td>
+            <td class="group-price">35,000円</td>
+          </tr>
+          <tr>
+            <td class="grade-cell">個別授業（1回90分）</td>
+            <td class="indiv-price">50,000円</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- オプション -->
+  <div class="card" style="margin-bottom:2px;">
+    <div class="card-head">オプション（任意・月額）</div>
+    <div class="card-body" style="padding:8px 10px;">
+      <table class="option-table" style="width:100%;">
+        <tr>
+          <td class="opt-name">スピーチ練習・音読チェック</td>
+          <td class="opt-price">2,000円／月</td>
+          <td class="opt-note">スピーチ・英語本文の音読を定期的にチェック</td>
+        </tr>
+        <tr>
+          <td class="opt-name">旅行・留学のための英会話</td>
+          <td class="opt-price">5,000円／回</td>
+          <td class="opt-note">旅行・留学・日常会話に特化したレッスン</td>
+        </tr>
+        <tr>
+          <td class="opt-name">学習スケジュール個別設計</td>
+          <td class="opt-price">3,000円／月</td>
+          <td class="opt-note">週次LINEで調整しながらスケジュールを管理</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="inner-footer">
+    <div class="footer-info">滋賀県東近江市市子殿町303-2 ／ TEL: 0748-55-1265</div>
+    <div class="footer-logo">グレイス・イングリッシュ・ラボ</div>
+  </div>
+</div>
+
+
+<!-- ==================== P4：ご挨拶 ==================== -->
+<div class="page inner-page">
+  <div class="page-header">
+    <svg width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="9" fill="#1a3a5c"/><text x="10" y="14" text-anchor="middle" fill="white" font-size="9" font-family="sans-serif" font-weight="bold">3</text></svg>
+    <div class="page-header-title">ご挨拶</div>
+  </div>
+
+  <!-- ご挨拶 + 写真 -->
+  <div class="two-col" style="margin-bottom:10px;">
+    <div class="card" style="display:flex; flex-direction:column;">
+      <div class="card-head">代表よりご挨拶</div>
+      <div class="greeting-area" style="flex:1; border:none; border-radius:0 0 4px 4px; color:#333; font-style:normal; line-height:1.9;">
+        グレイス・イングリッシュ・ラボに関心を持って頂き、有難うございます。<br><br>
+        当教室では英語・数学（算数）を指導しております。どちらの教科も「わからないまま進んでしまうと、どこかで必ずつまずく」という点は同じです。だからこそ教科書を一つひとつ丁寧に授業化し、「なぜそうなるの？」にしっかり向き合いながら、一緒に「わかった！」を積み重ねていきたいと思っております。<br><br>
+        英語も数学も、繰り返しと「直し」が力になります。テスト前の対策授業も全員標準装備で、結果につながる指導を心掛けております。<br><br>
+        保護者の皆さまとも連携しながら、お子さまの成長を一緒に喜べる教室でありたいと考えております。どうぞ気軽にお声掛け下さい。<br><br>
+        <span style="font-size:8.5pt; color:#555;">グレイス・イングリッシュ・ラボ 主宰　福島 朋子</span>
+      </div>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:8px;">
+      <!-- イラスト①：わからない→わかった！（Nano Banana生成画像） -->
+      <div style="flex:1; border:1.5px solid #d0dce8; border-radius:6px; overflow:hidden; display:flex; flex-direction:column;">
+        <img src="juku_illust.jpeg" alt="わからないがわかった！になる瞬間のイラスト" style="width:100%; height:100%; object-fit:cover; display:block;"/>
+      </div>
+
+      <!-- イラスト②：保護者と先生の相談（Nano Banana生成画像＋LINEチャット修正オーバーレイ） -->
+      <div style="flex:1; border:1.5px solid #d0dce8; border-radius:6px; overflow:hidden; position:relative; display:flex; flex-direction:column;">
+        <!-- 画像：左寄りにして右のLINE誤表示エリアを隠す -->
+        <img src="juku_illust2.jpeg" alt="保護者と先生が相談している場面のイラスト" style="width:100%; height:100%; object-fit:cover; object-position:22% center; display:block;"/>
+        <!-- LINEチャット正確版オーバーレイ -->
+        <div style="position:absolute; right:0; top:0; width:40%; height:100%; background:#c8cdd4; display:flex; flex-direction:column; font-family:'Noto Sans JP',sans-serif; font-size:4.5pt; border-left:1px solid #aaa;">
+          <!-- LINEヘッダー -->
+          <div style="background:#00b900; padding:3px 5px; display:flex; align-items:center; gap:3px; flex-shrink:0;">
+            <span style="color:white; font-weight:bold; font-size:5pt;">LINE</span>
+            <span style="color:white; font-size:4.5pt; margin-left:4px;">保護者相談（ママさん）</span>
+          </div>
+          <!-- チャット本文：上部に余白を取り、メッセージを均等配置 -->
+          <div style="flex:1; padding:10px 4px 5px; display:flex; flex-direction:column; justify-content:space-evenly; overflow:hidden;">
+            <!-- 保護者→先生（グレー・左） -->
+            <div style="display:flex; align-items:flex-start; gap:2px;">
+              <div style="width:9px; height:9px; border-radius:50%; background:#c8956c; flex-shrink:0; margin-top:1px;"></div>
+              <div style="background:white; border-radius:0 4px 4px 4px; padding:2px 3px; line-height:1.5; color:#222; max-width:82%;">○○が最近やる気をなくして心配です。どう声をかけたら良いでしょうか？</div>
+            </div>
+            <!-- 先生→保護者（緑・右） -->
+            <div style="display:flex; justify-content:flex-end;">
+              <div style="background:#4dcc4d; border-radius:4px 0 4px 4px; padding:2px 3px; line-height:1.5; color:white; max-width:86%;">授業ではまだ頑張っています！ご家庭では小さな頑張りを認めてあげて下さい。</div>
+            </div>
+            <!-- 先生→保護者（緑・右） -->
+            <div style="display:flex; justify-content:flex-end;">
+              <div style="background:#4dcc4d; border-radius:4px 0 4px 4px; padding:2px 3px; line-height:1.5; color:white; max-width:86%;">今日は良い表情で取り組んでいました！このまま見守りましょう。</div>
+            </div>
+            <!-- 保護者→先生（グレー・左） -->
+            <div style="display:flex; align-items:flex-start; gap:2px;">
+              <div style="width:9px; height:9px; border-radius:50%; background:#c8956c; flex-shrink:0; margin-top:1px;"></div>
+              <div style="background:white; border-radius:0 4px 4px 4px; padding:2px 3px; line-height:1.5; color:#222; max-width:82%;">ご相談できて心が軽くなりました！家でも認めるよう心掛けてみます！</div>
+            </div>
+            <!-- 先生→保護者（緑・右） -->
+            <div style="display:flex; justify-content:flex-end;">
+              <div style="background:#4dcc4d; border-radius:4px 0 4px 4px; padding:2px 3px; line-height:1.5; color:white; max-width:86%;">いつでもご相談下さい！</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q&A -->
+  <div class="card" style="margin-bottom:10px;">
+    <div class="card-head">
+      <!-- 小さな先生と生徒のアイコン -->
+      <svg width="16" height="14" viewBox="0 0 16 14" style="margin-right:4px;">
+        <circle cx="4" cy="4" r="3" fill="white" opacity="0.8"/>
+        <line x1="4" y1="7" x2="4" y2="12" stroke="white" stroke-width="1.5" opacity="0.8" stroke-linecap="round"/>
+        <circle cx="12" cy="4" r="3" fill="white" opacity="0.6"/>
+        <line x1="12" y1="7" x2="12" y2="12" stroke="white" stroke-width="1.5" opacity="0.6" stroke-linecap="round"/>
+        <path d="M7 5 Q8 3 9 5" stroke="#ffd700" stroke-width="1" fill="none"/>
+      </svg>
+      よくあるご質問</div>
+    <div class="card-body" style="padding:5px 8px; font-size:8pt;">
+      <div class="two-col">
+        <div>
+          <div class="qa-item" style="margin-bottom:4px;">
+            <div class="q">Q. １教科でも受講出来ますか？</div>
+            <div class="a">はい、１教科からのご受講が可能です。途中から２教科へ変更することも出来ます。お気軽にご相談下さい。</div>
+          </div>
+          <div class="qa-item" style="margin-bottom:4px;">
+            <div class="q">Q. 授業がない日に質問したいことが出てきたら？</div>
+            <div class="a">いつでも先生にLINEして下さい。</div>
+          </div>
+        </div>
+        <div>
+          <div class="qa-item" style="margin-bottom:4px;">
+            <div class="q">Q. 体験授業はどんな内容？</div>
+            <div class="a">個別1回・集団2回（1週間）が体験出来ます。まずはお気軽にお電話下さい。</div>
+          </div>
+          <div class="qa-item" style="margin-bottom:4px;">
+            <div class="q">Q. 入塾料は何度も必要？</div>
+            <div class="a">入塾料は1家族1回限りです（15,000円）。ご兄弟姉妹の入塾時は不要です。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="inner-footer">
+    <div class="footer-info">グレイス・イングリッシュ・ラボ ／ 滋賀県東近江市市子殿町303-2 ／ TEL: 0748-55-1265</div>
+    <div class="footer-logo" style="font-size:7pt; color:#999;">体験授業受付中</div>
+  </div>
+</div>
+
+
+<!-- ==================== P4：生徒の皆さんへ ==================== -->
+<div class="page inner-page">
+  <div class="page-header">
+    <svg width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="9" fill="#1a3a5c"/><text x="10" y="14" text-anchor="middle" fill="white" font-size="9" font-family="sans-serif" font-weight="bold">4</text></svg>
+    <div class="page-header-title">生徒の皆さんへ</div>
+    <div class="page-header-sub">グレイス・イングリッシュ・ラボ</div>
+  </div>
+
+  <div style="font-size:9.5pt; line-height:1.9; margin-bottom:10px; padding:0 2px;">
+    グレイスでのレッスンが、皆さん一人一人にとって楽しくて実りある時間になります様に、いくつかお願いをまとめました。
+  </div>
+
+  <div class="card" style="margin-bottom:9px;">
+    <div class="card-head">レッスンの前に</div>
+    <div class="card-body">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px; line-height:1.8;">
+        <div>📚 ワーク・宿題・提出物を忘れずに。</div>
+        <div>🔔 遅刻・欠席の場合は、必ず保護者の方から連絡をして頂いて下さい。</div>
+        <div>📝 前回の直しや宿題を確認してから来ましょう。</div>
+        <div>😊 体調がすぐれない時は無理せず休んで下さい。（オンライン参加も出来ます）</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:9px;">
+    <div class="card-head">レッスン中のこと</div>
+    <div class="card-body" style="line-height:1.9;">
+      <div style="margin-bottom:5px;">1. 授業中は周りの人の邪魔になることは控えて下さい。質問や良いアイデアのシェアは大歓迎です。</div>
+      <div style="margin-bottom:5px;">2. マンガ・ゲーム機・お菓子など授業に関係のないものは持って来ない様にして下さい。</div>
+      <div style="margin-bottom:5px;">3. わからないことがあったら、遠慮なく手を挙げたり、先生に声を掛けて下さい。</div>
+      <div style="margin-bottom:5px;">4. 教室を出るときは、必ず先生に声を掛けてから出る様にして下さい。</div>
+      <div style="margin-bottom:5px;">5. 気分が悪くなったら我慢せず、すぐに教えて下さい。</div>
+      <div>6. 教室内ではスマホの電源はオフにし、帰る時間までカバンから出さないで下さい。</div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:9px;">
+    <div class="card-head">友達と一緒に</div>
+    <div class="card-body" style="line-height:1.9;">
+      同じ教室で学ぶ仲間を大切にして下さい。イジメは絶対に許しません。みんなが安心して学べる場所にしていきたいと思っております。協力して下さい。
+    </div>
+  </div>
+
+  <div class="card" style="background:#fafcff;">
+    <div class="card-body" style="font-size:9.5pt; line-height:1.9; color:#333;">
+      グレイスでの時間が、皆さんにとって「この塾に来てよかった」と思えるものになる様、先生も一緒に頑張ります。気軽に話しかけてくれると嬉しいです。<br>
+      <span style="font-size:8pt; color:#666;">先生より</span>
+    </div>
+  </div>
+
+  <div class="inner-footer">
+    <div class="footer-info">滋賀県東近江市市子殿町303-2 ／ TEL: 0748-55-1265</div>
+    <div class="footer-logo">グレイス・イングリッシュ・ラボ</div>
+  </div>
+</div>
+
+
+<!-- ==================== P5：保護者の方へ ==================== -->
+<div class="page inner-page">
+  <div class="page-header">
+    <svg width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="9" fill="#1a3a5c"/><text x="10" y="14" text-anchor="middle" fill="white" font-size="9" font-family="sans-serif" font-weight="bold">5</text></svg>
+    <div class="page-header-title">保護者の方へ</div>
+    <div class="page-header-sub">グレイス・イングリッシュ・ラボ 主宰　福島 朋子</div>
+  </div>
+
+  <div class="card" style="margin-bottom:9px;">
+    <div class="card-head">お月謝の仕組みについて</div>
+    <div class="card-body" style="line-height:1.9;">
+      当教室では<strong>年間86回</strong>のレッスンを予定しており、月によってレッスン回数が異なりますが、<strong>お月謝は毎月一定額</strong>です。年間86回分を12ヶ月で按分した金額を頂いております。月に10回ある月もあれば6回しかない月もありますが、年間を通じると均等になる仕組みです。どうぞご理解頂けますと幸いです。
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:9px;">
+    <div class="card-head">お休み・振替について</div>
+    <div class="card-body" style="line-height:1.9;">
+      個別生でやむを得ずお休みされる場合は、出来るだけ<strong>事前にご連絡</strong>をお願いします。原則として当月中に振替対応をいたします。席の空き状況によっては翌月繰り越しも可能ですので、お気軽にご相談下さい。当日の振替は致しかねますが、講師が補講が必要だと判断した場合には補講をさせて頂きますのでご安心下さい。グループ生は出来る限り次の授業で必要箇所を補いますが、それで不十分な場合には別日で補講を行います。
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:9px;">
+    <div class="card-head">ご家庭でのサポートについて</div>
+    <div class="card-body" style="line-height:1.9;">
+      「今日の勉強どうだった？」「今日も頑張ったね、お疲れ様。」――そんなひとことが、お子さんの大きな励みになります。教室での学びをご家庭でも話題にして頂けると、定着がぐっと変わります。<br><br>
+      また、睡眠・食事などの生活習慣も勉強の土台です。気になる事がございましたら、面談・お電話・LINE等で対応させて頂きますので、いつでもお気軽にお声掛け下さい。お子さんの為のチームとして、一緒に最良の方法を見付けたいと考えております。
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:9px;">
+    <div class="card-head">連絡・ご相談について</div>
+    <div class="card-body">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; line-height:1.8;">
+        <div>✅ 体調の悪いときはお休みさせてあげて下さい</div>
+        <div>✅ 内容によりましては、事前にどの様なご相談か伺う事で、よりよいご提案が出来る事もございます。</div>
+        <div>✅ お子さんの様子でお気づきのことは何でも教えて下さい</div>
+        <div>✅ ご不明な点はいつでも遠慮なくご連絡下さい</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="background:#fafcff;">
+    <div class="card-body" style="font-size:9pt; line-height:1.9; color:#333;">
+      保護者の皆さまとのつながりを大切にしながら、お子さまの「わかった！」を一緒に増やしていけたらと思っております。どうぞ宜しくお願い申し上げます。<br>
+      <span style="font-size:8pt; color:#666;">グレイス・イングリッシュ・ラボ　福島 朋子</span>
+    </div>
+  </div>
+
+  <div class="inner-footer">
+    <div class="footer-info">滋賀県東近江市市子殿町303-2 ／ TEL: 0748-55-1265</div>
+    <div class="footer-logo">グレイス・イングリッシュ・ラボ</div>
+  </div>
+</div>
+
+
+<!-- ==================== P6：講師プロフィール・教室を開くに当たって ==================== -->
+<div class="page inner-page">
+  <div class="page-header">
+    <svg width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="9" fill="#1a3a5c"/><text x="10" y="14" text-anchor="middle" fill="white" font-size="9" font-family="sans-serif" font-weight="bold">6</text></svg>
+    <div class="page-header-title">講師プロフィール</div>
+    <div class="page-header-sub">グレイス・イングリッシュ・ラボ</div>
+  </div>
+
+  <div style="display:grid; grid-template-columns:1fr 55mm; gap:10px; margin-bottom:10px;">
+    <div class="card">
+      <div class="card-head">福島 朋子（ふくしま ともこ）</div>
+      <div class="card-body" style="line-height:1.9; font-size:8.5pt;">
+        地元・八日市出身。武庫川女子大学短期大学部 人間関係学科卒業。<br>
+        卒業後はカナダ・バンクーバー市で語学留学・ワーキングホリデーを経験。帰国後はCMモデルとして活動した後、ECCジュニア・BSホームティーチャーとして子どもたちへの指導を始める。<br><br>
+        2000年、「子どもたちに英語を好きになってほしい」という思いから、グレイス・イングリッシュ・ラボを開設（東近江市）。その後、国語・数学の指導も開始。口コミで生徒さんが少しずつ増え、現在に至る。<br><br>
+        <strong>指導歴30年以上・3女の母。</strong>勉強のことだけでなく、生活習慣や食事・睡眠の大切さも伝えながら、子どもたち一人一人に向き合う指導を続けています。
+      </div>
+    </div>
+    <!-- 文房具イラスト -->
+    <div style="background:linear-gradient(150deg,#fffde7 0%,#e8f5e9 60%,#e3f2fd 100%); border-radius:6px; border:1.5px solid #d0dce8; padding:8px 4px 6px; display:flex; align-items:center; justify-content:center;">
+      <svg width="148" height="210" viewBox="0 0 148 210" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+        <!-- 鉛筆（左上、斜め） -->
+        <g transform="rotate(-30, 22, 55)">
+          <rect x="14" y="10" width="16" height="7" rx="2" fill="#e0e0e0"/>
+          <rect x="15" y="13" width="14" height="3" fill="#ff8a80"/>
+          <rect x="14" y="17" width="16" height="46" fill="#ffd54f"/>
+          <line x1="19" y1="17" x2="19" y2="63" stroke="#fbc02d" stroke-width="1" opacity="0.45"/>
+          <line x1="25" y1="17" x2="25" y2="63" stroke="#fbc02d" stroke-width="1" opacity="0.45"/>
+          <path d="M14 63 L30 63 L22 80 Z" fill="#d7a96b"/>
+          <path d="M16 70 L28 70 L22 80 Z" fill="#4e342e"/>
+        </g>
+
+        <!-- グレイスノート（左寄り） -->
+        <rect x="6" y="16" width="44" height="58" rx="4" fill="#e3f2fd" stroke="#90caf9" stroke-width="1.5"/>
+        <rect x="6" y="16" width="44" height="13" rx="3" fill="#1976d2"/>
+        <text x="28" y="27" text-anchor="middle" fill="white" font-size="7" font-family="sans-serif" font-weight="bold">グレイス</text>
+        <line x1="12" y1="38" x2="46" y2="38" stroke="#90caf9" stroke-width="1" opacity="0.6"/>
+        <line x1="12" y1="45" x2="46" y2="45" stroke="#90caf9" stroke-width="1" opacity="0.6"/>
+        <line x1="12" y1="52" x2="46" y2="52" stroke="#90caf9" stroke-width="1" opacity="0.6"/>
+        <line x1="12" y1="59" x2="46" y2="59" stroke="#90caf9" stroke-width="1" opacity="0.6"/>
+        <line x1="12" y1="66" x2="38" y2="66" stroke="#90caf9" stroke-width="1" opacity="0.6"/>
+
+        <!-- 直しノート（右寄り・グレイスと重ならない） -->
+        <rect x="56" y="12" width="46" height="60" rx="4" fill="#fff9c4" stroke="#f9a825" stroke-width="1.5"/>
+        <rect x="56" y="12" width="46" height="13" rx="3" fill="#f9a825"/>
+        <text x="79" y="23" text-anchor="middle" fill="white" font-size="7" font-family="sans-serif" font-weight="bold">直しノート</text>
+        <line x1="62" y1="35" x2="98" y2="35" stroke="#f9a825" stroke-width="1" opacity="0.6"/>
+        <line x1="62" y1="42" x2="98" y2="42" stroke="#f9a825" stroke-width="1" opacity="0.6"/>
+        <line x1="62" y1="49" x2="98" y2="49" stroke="#f9a825" stroke-width="1" opacity="0.6"/>
+        <line x1="62" y1="56" x2="98" y2="56" stroke="#f9a825" stroke-width="1" opacity="0.6"/>
+        <line x1="62" y1="63" x2="86" y2="63" stroke="#f9a825" stroke-width="1" opacity="0.6"/>
+
+        <!-- 赤ペン（右端、縦） -->
+        <g transform="rotate(15, 128, 50)">
+          <rect x="122" y="8" width="12" height="6" rx="2" fill="#fff"/>
+          <rect x="122" y="14" width="12" height="44" rx="2" fill="#e53935"/>
+          <rect x="122" y="58" width="12" height="6" fill="#b71c1c"/>
+          <polygon points="122,64 134,64 128,76" fill="#b71c1c"/>
+        </g>
+
+        <!-- 青ペン（赤の隣） -->
+        <g transform="rotate(5, 112, 52)">
+          <rect x="106" y="10" width="11" height="6" rx="2" fill="#fff"/>
+          <rect x="106" y="16" width="11" height="40" rx="2" fill="#1976d2"/>
+          <rect x="106" y="56" width="11" height="6" fill="#0d47a1"/>
+          <polygon points="106,62 117,62 111.5,74" fill="#0d47a1"/>
+        </g>
+
+        <!-- 開いた教科書（中央） -->
+        <path d="M8 148 Q8 120 34 116 L72 113 L72 162 L34 166 Q8 170 8 148Z" fill="#e3f2fd" stroke="#90caf9" stroke-width="1.5"/>
+        <path d="M140 148 Q140 120 114 116 L76 113 L76 162 L114 166 Q140 170 140 148Z" fill="#fffde7" stroke="#ffe082" stroke-width="1.5"/>
+        <line x1="74" y1="113" x2="74" y2="162" stroke="#90caf9" stroke-width="2.5"/>
+        <!-- 左ページ罫線 -->
+        <line x1="16" y1="126" x2="68" y2="124" stroke="#90caf9" stroke-width="1" opacity="0.5"/>
+        <line x1="16" y1="133" x2="68" y2="131" stroke="#90caf9" stroke-width="1" opacity="0.5"/>
+        <line x1="16" y1="140" x2="68" y2="138" stroke="#90caf9" stroke-width="1" opacity="0.5"/>
+        <line x1="16" y1="147" x2="68" y2="145" stroke="#90caf9" stroke-width="1" opacity="0.5"/>
+        <line x1="16" y1="154" x2="60" y2="152" stroke="#90caf9" stroke-width="1" opacity="0.5"/>
+        <!-- チェックマーク -->
+        <polyline points="18,138 24,145 42,126" stroke="#1976d2" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- 右ページ罫線 -->
+        <line x1="80" y1="124" x2="132" y2="126" stroke="#f9a825" stroke-width="1" opacity="0.5"/>
+        <line x1="80" y1="131" x2="132" y2="133" stroke="#f9a825" stroke-width="1" opacity="0.5"/>
+        <line x1="80" y1="138" x2="132" y2="140" stroke="#f9a825" stroke-width="1" opacity="0.5"/>
+        <line x1="80" y1="145" x2="132" y2="147" stroke="#f9a825" stroke-width="1" opacity="0.5"/>
+        <text x="106" y="158" text-anchor="middle" fill="#f57f17" font-size="10" font-family="sans-serif" font-weight="bold">わかった！</text>
+
+        <!-- 定規（教科書の上） -->
+        <g transform="rotate(-6, 74, 100)">
+          <rect x="36" y="95" width="76" height="14" rx="3" fill="#e1bee7" stroke="#ba68c8" stroke-width="1"/>
+          <line x1="46" y1="95" x2="46" y2="100" stroke="#ba68c8" stroke-width="1"/>
+          <line x1="56" y1="95" x2="56" y2="103" stroke="#ba68c8" stroke-width="1"/>
+          <line x1="66" y1="95" x2="66" y2="100" stroke="#ba68c8" stroke-width="1"/>
+          <line x1="76" y1="95" x2="76" y2="103" stroke="#ba68c8" stroke-width="1"/>
+          <line x1="86" y1="95" x2="86" y2="100" stroke="#ba68c8" stroke-width="1"/>
+          <line x1="96" y1="95" x2="96" y2="103" stroke="#ba68c8" stroke-width="1"/>
+          <line x1="106" y1="95" x2="106" y2="100" stroke="#ba68c8" stroke-width="1"/>
+        </g>
+
+        <!-- 消しゴム（右下） -->
+        <rect x="76" y="175" width="64" height="28" rx="6" fill="#f8bbd0" stroke="#f48fb1" stroke-width="1.2"/>
+        <rect x="76" y="175" width="22" height="28" rx="5" fill="#f48fb1"/>
+        <text x="120" y="193" text-anchor="middle" fill="white" font-size="9" font-family="sans-serif" font-weight="bold">ERASER</text>
+
+        <!-- スパイラルノート（左下） -->
+        <rect x="4" y="172" width="64" height="34" rx="4" fill="#e8f5e9" stroke="#a5d6a7" stroke-width="1.2"/>
+        <rect x="4" y="172" width="12" height="34" rx="3" fill="#a5d6a7"/>
+        <circle cx="4" cy="181" r="4" fill="none" stroke="#66bb6a" stroke-width="1.8"/>
+        <circle cx="4" cy="191" r="4" fill="none" stroke="#66bb6a" stroke-width="1.8"/>
+        <circle cx="4" cy="200" r="4" fill="none" stroke="#66bb6a" stroke-width="1.8"/>
+        <line x1="20" y1="181" x2="64" y2="181" stroke="#a5d6a7" stroke-width="1" opacity="0.7"/>
+        <line x1="20" y1="189" x2="64" y2="189" stroke="#a5d6a7" stroke-width="1" opacity="0.7"/>
+        <line x1="20" y1="197" x2="58" y2="197" stroke="#a5d6a7" stroke-width="1" opacity="0.7"/>
+
+        <!-- 星きらきら -->
+        <circle cx="52" cy="8" r="3" fill="#ffd700" opacity="0.85"/>
+        <circle cx="4" cy="100" r="3" fill="#ffd700" opacity="0.75"/>
+        <circle cx="144" cy="95" r="2.5" fill="#ffd700" opacity="0.8"/>
+        <circle cx="144" cy="168" r="2.5" fill="#ffd700" opacity="0.7"/>
+        <polygon points="140,8 142,13 147,13 143,16 144.5,21 140,18 135.5,21 137,16 133,13 138,13" fill="#ffd700" opacity="0.85"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">教室を開くに当たって</div>
+    <div class="card-body" style="line-height:1.9; font-size:8.5pt;">
+      教室を開くに当たり、海外在住をはじめ多くの皆さんに多大なご協力を賜りました。ここに感謝の意を込めて、掲載させて頂きます。
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:4px 16px; margin-top:8px; font-family:'Noto Sans JP', sans-serif; font-size:8pt;">
+        <div>・Mr. Winston Kwok<br><span style="color:#666; font-size:7.5pt;">（神戸・グレイス英会話スクール元校長）</span></div>
+        <div>・Mr. Russel Lathigee<br><span style="color:#666; font-size:7.5pt;">（小学校教諭・カナダ在住）</span></div>
+        <div>・Mr. Micheal Lathigee<br><span style="color:#666; font-size:7.5pt;">（コンサルタント・カナダ在住）</span></div>
+        <div>・Mr. Robert L. Bullock<br><span style="color:#666; font-size:7.5pt;">（フランチャイズ経営・グアム在住）</span></div>
+        <div>・Dan &amp; Miyuki Boice<br><span style="color:#666; font-size:7.5pt;">（英会話スクール経営・テキサス在住）</span></div>
+        <div>・Mr. Charles Rogers<br><span style="color:#666; font-size:7.5pt;">（英会話スクール経営・兵庫県在住）</span></div>
+        <div>・向井倫子先生<br><span style="color:#666; font-size:7.5pt;">（ヤマハ音楽教室講師）</span></div>
+      </div>
+      <div style="margin-top:8px; font-size:7.5pt; color:#666; font-family:'Noto Sans JP', sans-serif;">その他、大手進学塾の先生方にも多大なるご協力を賜りました。心より感謝申し上げます。</div>
+    </div>
+  </div>
+
+  <!-- アクセス -->
+  <div class="card" style="margin-top:10px;">
+    <div class="card-head">
+      <svg width="14" height="14" viewBox="0 0 14 14"><path d="M7 1 C4 1 2 3 2 5.5 C2 9 7 13 7 13 C7 13 12 9 12 5.5 C12 3 10 1 7 1 Z" fill="none" stroke="white" stroke-width="1.2"/><circle cx="7" cy="5.5" r="1.8" fill="white"/></svg>
+      アクセス・お問い合わせ
+    </div>
+    <div class="card-body" style="display:grid; grid-template-columns:1fr 55mm; gap:10px; align-items:start;">
+      <!-- 左カラム：住所・地図 -->
+      <div style="display:flex; flex-direction:column; gap:7px;">
+        <table class="mini-table">
+          <tr>
+            <td class="mini-label" style="width:20%;">住所</td>
+            <td class="mini-value">滋賀県東近江市市子殿町303-2</td>
+          </tr>
+          <tr>
+            <td class="mini-label">電話</td>
+            <td class="mini-value"><strong>0748-55-1265</strong>（不在時は転送）</td>
+          </tr>
+          <tr>
+            <td class="mini-label">体験</td>
+            <td class="mini-value">個別1回 ／ 集団2回（1週間）</td>
+          </tr>
+        </table>
+        <!-- Google Maps iframe（下部バーをoverflow:hiddenで非表示） -->
+        <div style="height:130px; overflow:hidden; border:1px solid #c8d8e8; border-radius:3px;">
+          <iframe
+            src="https://maps.google.com/maps?q=滋賀県東近江市市子殿町303-2&output=embed&hl=ja&z=18&t=m"
+            width="100%" height="155" style="border:none; display:block; margin-top:0;"
+            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </div>
+      <!-- 右カラム：QRコード -->
+      <div style="display:flex; flex-direction:column; gap:7px; align-items:center; justify-content:center;">
+        <div style="border:1.5px solid #c8d8e8; border-radius:6px; padding:10px 8px; text-align:center; background:#fafcff; width:100%;">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=110x110&data=https://maps.google.com/?q=%E6%BB%8B%E8%B3%80%E7%9C%8C%E6%9D%B1%E8%BF%91%E6%B1%9F%E5%B8%82%E5%B8%82%E5%AD%90%E6%AE%BF%E7%94%BA303-2"
+            width="110" height="110" alt="Googleマップ QRコード" style="display:block; margin:0 auto; border-radius:3px;"/>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="inner-footer">
+    <div class="footer-info">グレイス・イングリッシュ・ラボ ／ 滋賀県東近江市市子殿町303-2 ／ TEL: 0748-55-1265</div>
+    <div class="footer-logo">体験授業受付中</div>
+  </div>
+</div>
+
+<!-- ==================== P8：授業の仕組み・時間割 ==================== -->
+<div class="page inner-page">
+  <div class="page-header">
+    <svg width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="9" fill="#1a3a5c"/><text x="10" y="14" text-anchor="middle" fill="white" font-size="9" font-family="sans-serif" font-weight="bold">7</text></svg>
+    <div class="page-header-title">授業の仕組み・時間割</div>
+    <div class="page-header-sub">グレイス・イングリッシュ・ラボ</div>
+  </div>
+
+  <!-- 週2回バナー（大きく・インパクト重視） -->
+  <div style="background:linear-gradient(135deg,#1a3a5c 0%,#2a5f8f 100%); border-radius:6px; padding:14px 18px 12px; margin-bottom:10px; color:white; text-align:center; position:relative; overflow:hidden;">
+    <!-- 背景装飾 -->
+    <div style="position:absolute; top:-18px; right:-18px; width:90px; height:90px; border-radius:50%; background:rgba(255,255,255,0.05);"></div>
+    <div style="position:absolute; bottom:-22px; left:-10px; width:70px; height:70px; border-radius:50%; background:rgba(255,255,255,0.04);"></div>
+
+    <div style="font-size:7.5pt; letter-spacing:3px; opacity:0.75; font-family:'Noto Sans JP',sans-serif; margin-bottom:6px;">── 中学生グループ授業の特長 ──</div>
+    <div style="font-size:11pt; font-weight:900; letter-spacing:1px; line-height:1.7;">
+      １教科につき&nbsp;<span style="font-size:22pt; color:#ffd54f; letter-spacing:2px;">週２回</span>&nbsp;の授業だから
+    </div>
+    <div style="font-size:14pt; font-weight:900; color:#ffd54f; letter-spacing:2px; margin-bottom:8px;">
+      教科書の内容を<span style="font-size:17pt;">すべて</span>学習できる！
+    </div>
+    <div style="font-size:8pt; font-family:'Noto Sans JP',sans-serif; opacity:0.88; line-height:1.8; background:rgba(0,0,0,0.2); border-radius:4px; padding:7px 14px; display:inline-block; text-align:left;">
+      週1回の授業では時間が足りず、教科書の全単元をカバーできません。<br>
+      グレイスでは英語・数学ともに<strong style="color:#ffd54f;">週２回</strong>授業を行うことで、学校の進度に合わせながら<strong style="color:#ffd54f;">確実に全範囲</strong>を指導します。
+    </div>
+  </div>
+
+  <!-- 時間割（縦並び・全幅） -->
+  <div style="margin-bottom:9px;">
+    <div style="font-size:9pt; font-weight:700; color:#1a3a5c; letter-spacing:1px; border-left:3px solid #1a3a5c; padding-left:7px; margin-bottom:7px;">時間割</div>
+    <table style="width:100%; border-collapse:collapse; font-family:'Noto Sans JP',sans-serif; font-size:9pt;">
+      <thead>
+        <tr style="background:#1a3a5c; color:white;">
+          <th style="padding:7px 6px; text-align:center; border:1px solid #2a5f8f; width:20%;">時間帯</th>
+          <th style="padding:7px 6px; text-align:center; border:1px solid #2a5f8f;">月曜日</th>
+          <th style="padding:7px 6px; text-align:center; border:1px solid #2a5f8f;">火曜日</th>
+          <th style="padding:7px 6px; text-align:center; border:1px solid #2a5f8f; width:8%;">水</th>
+          <th style="padding:7px 6px; text-align:center; border:1px solid #2a5f8f;">木曜日</th>
+          <th style="padding:7px 6px; text-align:center; border:1px solid #2a5f8f;">金曜日</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="padding:10px 6px; text-align:center; border:1px solid #d0dce8; background:#f5f8fb; font-size:8.5pt; line-height:1.5; color:#444;">16:30〜17:30</td>
+          <td style="padding:10px 6px; text-align:center; border:1px solid #d0dce8; color:#bbb;">―</td>
+          <td style="padding:10px 6px; text-align:center; border:1px solid #d0dce8; background:#fff8e1; font-weight:700; color:#5d4037;">小学生 算数</td>
+          <td style="padding:10px 6px; text-align:center; border:1px solid #d0dce8; background:#f5f5f5; color:#bbb; font-size:8pt;">休</td>
+          <td style="padding:10px 6px; text-align:center; border:1px solid #d0dce8; background:#e8f5e9; font-weight:700; color:#2e7d32;">小学生 英語</td>
+          <td style="padding:10px 6px; text-align:center; border:1px solid #d0dce8; color:#bbb;">―</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 6px; text-align:center; border:1px solid #d0dce8; background:#f5f8fb; font-size:8.5pt; line-height:1.5; color:#444;">17:30〜20:00</td>
+          <td style="padding:10px 6px; text-align:center; border:1px solid #d0dce8; background:#e3f2fd; font-weight:700; color:#1565c0;">中学生 英語</td>
+          <td style="padding:10px 6px; text-align:center; border:1px solid #d0dce8; background:#fce4ec; font-weight:700; color:#880e4f;">中学生 数学</td>
+          <td style="padding:10px 6px; text-align:center; border:1px solid #d0dce8; background:#f5f5f5; color:#bbb; font-size:8pt;">休</td>
+          <td style="padding:10px 6px; text-align:center; border:1px solid #d0dce8; background:#e3f2fd; font-weight:700; color:#1565c0;">中学生 英語</td>
+          <td style="padding:10px 6px; text-align:center; border:1px solid #d0dce8; background:#fce4ec; font-weight:700; color:#880e4f;">中学生 数学</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 6px; text-align:center; border:1px solid #d0dce8; background:#f5f8fb; font-size:8.5pt; line-height:1.5; color:#444;">20:00以降</td>
+          <td colspan="2" style="padding:10px 6px; text-align:center; border:1px solid #d0dce8; background:#f3e5f5; font-weight:700; color:#6a1b9a;">個別授業</td>
+          <td style="padding:10px 6px; text-align:center; border:1px solid #d0dce8; background:#f5f5f5; color:#bbb; font-size:8pt;">休</td>
+          <td colspan="2" style="padding:10px 6px; text-align:center; border:1px solid #d0dce8; background:#f3e5f5; font-weight:700; color:#6a1b9a;">個別授業</td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="font-size:7.5pt; color:#999; font-family:'Noto Sans JP',sans-serif; margin-top:4px; text-align:right;">※水曜・土日祝はお休みです</div>
+  </div>
+
+  <!-- エビングハウスの忘却曲線（縦並び・全幅） -->
+  <div style="border:1.5px solid #1a3a5c; border-radius:6px; overflow:hidden;">
+    <div style="background:#1a3a5c; color:white; padding:7px 12px; font-size:9pt; font-weight:700; letter-spacing:0.5px; display:flex; align-items:center; gap:6px;">
+      <svg width="14" height="14" viewBox="0 0 14 14" style="flex-shrink:0;"><circle cx="7" cy="7" r="6" fill="#ffd54f"/><text x="7" y="11" text-anchor="middle" fill="#1a3a5c" font-size="9" font-weight="bold" font-family="sans-serif">!</text></svg>
+      この時間割はエビングハウスの忘却曲線に基づく学習サイクルです
+    </div>
+    <div style="padding:10px 14px; display:grid; grid-template-columns:1fr 200px; gap:14px; align-items:center;">
+      <!-- 説明文 -->
+      <div style="font-family:'Noto Sans JP',sans-serif; font-size:8.5pt; line-height:1.9; color:#1a1a1a;">
+        人の記憶は何もしないとどんどん薄れていきます。<br>しかし<strong>忘れかける前にもう一度学習する</strong>と、記憶が強固に定着します。<br><br>
+        グレイスの時間割は、<strong style="color:#1a3a5c;">学習したことを最もよい形で根付かせる</strong>よう設計されています。英語・数学ともに週2回授業することで、忘れかける前に自然に復習でき、記憶が<strong>しっかり定着</strong>します。
+      </div>
+      <!-- グラフ -->
+      <svg viewBox="0 0 200 130" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:200px; flex-shrink:0;">
+        <text x="2" y="25" font-size="7" fill="#555" font-family="sans-serif">100%</text>
+        <text x="6" y="68" font-size="7" fill="#555" font-family="sans-serif">50%</text>
+        <text x="6" y="105" font-size="7" fill="#555" font-family="sans-serif">20%</text>
+        <line x1="26" y1="15" x2="26" y2="112" stroke="#bbb" stroke-width="1"/>
+        <line x1="26" y1="112" x2="198" y2="112" stroke="#bbb" stroke-width="1"/>
+        <line x1="24" y1="27" x2="198" y2="27" stroke="#eee" stroke-width="1"/>
+        <line x1="24" y1="70" x2="198" y2="70" stroke="#eee" stroke-width="1"/>
+        <line x1="24" y1="105" x2="198" y2="105" stroke="#eee" stroke-width="1"/>
+        <text x="100" y="122" font-size="7" fill="#555" font-family="sans-serif" text-anchor="middle">時間の経過 →</text>
+        <path d="M26 22 C40 24 54 48 74 72 C90 88 120 100 198 108" stroke="#e53935" stroke-width="2" fill="none" stroke-dasharray="4,2.5"/>
+        <path d="M26 22 C36 22 50 30 68 35 C82 38 96 28 110 27 C126 26 140 32 158 32 C172 32 186 30 198 30" stroke="#1565c0" stroke-width="2" fill="none"/>
+        <line x1="68" y1="35" x2="68" y2="112" stroke="#1a3a5c" stroke-width="1" stroke-dasharray="3,2" opacity="0.5"/>
+        <circle cx="68" cy="35" r="4" fill="#1a3a5c" stroke="white" stroke-width="1.5"/>
+        <text x="62" y="122" font-size="6.5" fill="#1a3a5c" font-family="sans-serif" font-weight="bold">授業①</text>
+        <line x1="110" y1="27" x2="110" y2="112" stroke="#1a3a5c" stroke-width="1" stroke-dasharray="3,2" opacity="0.5"/>
+        <circle cx="110" cy="27" r="4" fill="#1a3a5c" stroke="white" stroke-width="1.5"/>
+        <text x="104" y="122" font-size="6.5" fill="#1a3a5c" font-family="sans-serif" font-weight="bold">授業②</text>
+        <text x="162" y="26" font-size="7" fill="#1565c0" font-family="sans-serif" font-weight="bold">定着！</text>
+        <line x1="28" y1="8" x2="44" y2="8" stroke="#e53935" stroke-width="2" stroke-dasharray="4,2.5"/>
+        <text x="47" y="11" font-size="6.5" fill="#e53935" font-family="sans-serif">週1回（忘れる）</text>
+        <line x1="112" y1="8" x2="128" y2="8" stroke="#1565c0" stroke-width="2"/>
+        <text x="131" y="11" font-size="6.5" fill="#1565c0" font-family="sans-serif">週2回（定着）</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- オリジナルキャラクター「グレイくん」 -->
+  <div style="text-align:center; padding:6px 0 0;">
+    <svg width="100%" viewBox="0 0 500 148" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+      <!-- 背景キラキラ -->
+      <text x="68" y="42" font-size="13" fill="#ffd54f" opacity="0.8" font-family="sans-serif">★</text>
+      <text x="50" y="75" font-size="8"  fill="#ffd54f" opacity="0.4" font-family="sans-serif">★</text>
+      <text x="418" y="38" font-size="15" fill="#ffd54f" opacity="0.8" font-family="sans-serif">★</text>
+      <text x="435" y="70" font-size="8"  fill="#ffd54f" opacity="0.4" font-family="sans-serif">★</text>
+      <text x="155" y="18" font-size="9"  fill="#ffd54f" opacity="0.5" font-family="sans-serif">✦</text>
+      <text x="338" y="16" font-size="9"  fill="#ffd54f" opacity="0.5" font-family="sans-serif">✦</text>
+
+      <!-- ===== 左：本の山 ===== -->
+      <rect x="58" y="78"  width="78" height="14" rx="3" fill="#1a3a5c" stroke="#2a5f8f" stroke-width="1.2"/>
+      <text x="97" y="89" text-anchor="middle" font-size="7.5" fill="white" font-family="sans-serif" font-weight="bold">英　語</text>
+      <rect x="54" y="92"  width="82" height="14" rx="3" fill="#fff8e1" stroke="#f9a825" stroke-width="1.2"/>
+      <text x="95" y="103" text-anchor="middle" font-size="7.5" fill="#e65100" font-family="sans-serif" font-weight="bold">数　学</text>
+      <rect x="50" y="106" width="86" height="14" rx="3" fill="#fce4ec" stroke="#f48fb1" stroke-width="1.2"/>
+      <text x="93" y="117" text-anchor="middle" font-size="7.5" fill="#880e4f" font-family="sans-serif" font-weight="bold">理　科</text>
+
+      <!-- 鉛筆 -->
+      <g transform="rotate(12,148,78)">
+        <rect x="143" y="48" width="9" height="5" rx="2" fill="#e0e0e0"/>
+        <rect x="143" y="53" width="9" height="34" fill="#ffd54f"/>
+        <line x1="146" y1="53" x2="146" y2="87" stroke="#fbc02d" stroke-width="1" opacity="0.5"/>
+        <rect x="143" y="87" width="9" height="5" fill="#c8a882"/>
+        <polygon points="143,92 152,92 147.5,104" fill="#3e2414"/>
+      </g>
+
+      <!-- ===== 中央：グレイくん ===== -->
+      <!-- 耳 -->
+      <circle cx="215" cy="40" r="17" fill="#fef3e2" stroke="#ddc89a" stroke-width="2"/>
+      <circle cx="285" cy="40" r="17" fill="#fef3e2" stroke="#ddc89a" stroke-width="2"/>
+      <circle cx="215" cy="40" r="10" fill="#ffccd5"/>
+      <circle cx="285" cy="40" r="10" fill="#ffccd5"/>
+
+      <!-- 頭・体 -->
+      <circle cx="250" cy="76" r="54" fill="#fef3e2" stroke="#ddc89a" stroke-width="2"/>
+
+      <!-- 卒業帽 -->
+      <rect x="220" y="24" width="60" height="9" rx="2" fill="#1a3a5c"/>
+      <rect x="228" y="16" width="44" height="10" rx="3" fill="#1a3a5c"/>
+      <line x1="272" y1="20" x2="287" y2="34" stroke="#ffd54f" stroke-width="2.2"/>
+      <circle cx="288" cy="36" r="3.5" fill="#ffd54f"/>
+
+      <!-- 目 -->
+      <ellipse cx="235" cy="72" rx="10.5" ry="12" fill="white" stroke="#444" stroke-width="1"/>
+      <circle cx="236" cy="75" r="6.5" fill="#1a3a5c"/>
+      <circle cx="239" cy="71" r="2.5" fill="white"/>
+      <ellipse cx="265" cy="72" rx="10.5" ry="12" fill="white" stroke="#444" stroke-width="1"/>
+      <circle cx="266" cy="75" r="6.5" fill="#1a3a5c"/>
+      <circle cx="269" cy="71" r="2.5" fill="white"/>
+
+      <!-- まゆ毛（集中） -->
+      <path d="M226 59 Q235 54 244 59" stroke="#8b6510" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+      <path d="M256 59 Q265 54 274 59" stroke="#8b6510" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+
+      <!-- ほっぺ -->
+      <ellipse cx="222" cy="84" rx="10" ry="6.5" fill="#ffb3c1" opacity="0.45"/>
+      <ellipse cx="278" cy="84" rx="10" ry="6.5" fill="#ffb3c1" opacity="0.45"/>
+
+      <!-- 口 -->
+      <path d="M243 92 Q250 97 257 92" stroke="#8b6510" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+
+      <!-- 腕 -->
+      <path d="M200 100 C185 112 175 120 168 130" stroke="#ddc89a" stroke-width="13" stroke-linecap="round" fill="none"/>
+      <path d="M300 100 C315 112 325 120 332 130" stroke="#ddc89a" stroke-width="13" stroke-linecap="round" fill="none"/>
+
+      <!-- 開いた本 -->
+      <path d="M168 128 Q210 120 250 124 L250 139 Q210 138 168 140 Z" fill="#fffde7" stroke="#f9a825" stroke-width="1.5"/>
+      <path d="M332 128 Q290 120 250 124 L250 139 Q290 138 332 140 Z" fill="#e3f2fd" stroke="#90caf9" stroke-width="1.5"/>
+      <line x1="250" y1="124" x2="250" y2="140" stroke="#aaa" stroke-width="2"/>
+      <line x1="178" y1="130" x2="248" y2="128" stroke="#f9a825" stroke-width="0.9" opacity="0.6"/>
+      <line x1="179" y1="134" x2="248" y2="132" stroke="#f9a825" stroke-width="0.9" opacity="0.6"/>
+      <line x1="322" y1="130" x2="252" y2="128" stroke="#90caf9" stroke-width="0.9" opacity="0.6"/>
+      <line x1="321" y1="134" x2="252" y2="132" stroke="#90caf9" stroke-width="0.9" opacity="0.6"/>
+
+      <!-- ===== 吹き出し（キャラの右上）===== -->
+      <!-- 吹き出し本体 -->
+      <rect x="295" y="8" width="155" height="46" rx="10" fill="white" stroke="#1a3a5c" stroke-width="2"/>
+      <!-- しっぽ（左下） -->
+      <polygon points="305,52 295,64 320,52" fill="white"/>
+      <polyline points="305,52 295,64 320,52" stroke="#1a3a5c" stroke-width="2" stroke-linejoin="round" fill="none"/>
+      <!-- 吹き出しテキスト -->
+      <text x="372" y="27" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#1a3a5c" font-family="sans-serif">Learning is</text>
+      <text x="372" y="44" text-anchor="middle" font-size="13" font-weight="bold" fill="#e53935" font-family="sans-serif">SO much fun!🎉</text>
+
+      <!-- ===== 右：メモ帳 ===== -->
+      <rect x="348" y="74" width="56" height="54" rx="4" fill="white" stroke="#ccc" stroke-width="1.5"/>
+      <rect x="348" y="74" width="56" height="14" rx="4" fill="#1a3a5c"/>
+      <text x="376" y="85" text-anchor="middle" font-size="7" fill="white" font-family="sans-serif" font-weight="bold">MEMO</text>
+      <line x1="357" y1="96"  x2="395" y2="96"  stroke="#eee" stroke-width="1"/>
+      <line x1="357" y1="104" x2="395" y2="104" stroke="#eee" stroke-width="1"/>
+      <line x1="357" y1="112" x2="395" y2="112" stroke="#eee" stroke-width="1"/>
+      <line x1="357" y1="120" x2="395" y2="120" stroke="#eee" stroke-width="1"/>
+      <!-- 赤ペン -->
+      <g transform="rotate(-28,418,68)">
+        <rect x="414" y="46" width="8" height="5" rx="2" fill="#fff"/>
+        <rect x="414" y="51" width="8" height="26" rx="1" fill="#e53935"/>
+        <rect x="414" y="77" width="8" height="5" fill="#b71c1c"/>
+        <polygon points="414,82 422,82 418,93" fill="#b71c1c"/>
+      </g>
+
+      <!-- キャプション -->
+      <text x="250" y="148" text-anchor="middle" font-size="8.5" fill="#1a3a5c" font-family="serif" font-weight="bold" letter-spacing="2">いっしょに がんばろう！</text>
+    </svg>
+  </div>
+
+  <div class="inner-footer">
+    <div class="footer-info">グレイス・イングリッシュ・ラボ ／ 滋賀県東近江市市子殿町303-2 ／ TEL: 0748-55-1265</div>
+    <div class="footer-logo">体験授業受付中</div>
+  </div>
+</div>
+
+</body>
+</html>
