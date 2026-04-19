@@ -604,6 +604,88 @@
     @media(min-width:769px){
       .pc-nowrap { white-space: nowrap; }
     }
+
+    /* ── SCHEDULE ── */
+    #schedule { background: var(--ivory); }
+    .schedule-banner {
+      background: linear-gradient(135deg, #1a3a5c 0%, #2a5f8f 100%);
+      border-radius: 10px; padding: 28px 28px 24px;
+      margin-bottom: 36px; color: white; text-align: center; position: relative; overflow: hidden;
+    }
+    .schedule-banner::before {
+      content:''; position:absolute; top:-20px; right:-20px;
+      width:100px; height:100px; border-radius:50%; background:rgba(255,255,255,0.05);
+    }
+    .schedule-banner-sub {
+      font-size: 11px; letter-spacing: 3px; opacity: 0.8;
+      font-family: 'Noto Sans JP', sans-serif; margin-bottom: 10px; font-weight: 700; color: #ffd54f;
+    }
+    .schedule-banner-main {
+      font-size: clamp(16px, 3vw, 20px); font-weight: 900; letter-spacing: 1px; line-height: 1.7;
+      font-family: 'Noto Sans JP', sans-serif;
+    }
+    .schedule-banner-main .big { font-size: clamp(28px, 6vw, 40px); color: #ffd54f; }
+    .schedule-banner-note {
+      font-size: 12px; font-family: 'Noto Sans JP', sans-serif;
+      opacity: 0.88; line-height: 1.9; background: rgba(0,0,0,0.2);
+      border-radius: 6px; padding: 10px 16px; display: inline-block;
+      text-align: left; margin-top: 12px;
+    }
+    .schedule-section-label {
+      font-size: 12px; font-weight: 700; color: #1a3a5c;
+      letter-spacing: 1px; border-left: 3px solid #1a3a5c;
+      padding-left: 8px; margin-bottom: 12px;
+      font-family: 'Noto Sans JP', sans-serif;
+    }
+    .schedule-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 8px; }
+    .schedule-table {
+      width: 100%; min-width: 500px; border-collapse: collapse;
+      font-family: 'Noto Sans JP', sans-serif; font-size: clamp(11px, 2vw, 14px);
+    }
+    .schedule-table thead tr { background: #1a3a5c; color: white; }
+    .schedule-table th {
+      padding: 10px 8px; text-align: center; border: 1px solid #2a5f8f;
+    }
+    .schedule-table td { padding: 12px 8px; text-align: center; border: 1px solid #d0dce8; }
+    .schedule-table .time-cell { background: #f5f8fb; color: #555; font-size: 12px; line-height: 1.5; }
+    .schedule-table .rest-cell { background: #f0f0f0; color: #999; font-weight: 700; writing-mode: vertical-rl; letter-spacing: 4px; }
+    .schedule-table .eng-cell  { background: #e3f2fd; font-weight: 700; color: #1565c0; }
+    .schedule-table .math-cell { background: #fce4ec; font-weight: 700; color: #880e4f; }
+    .schedule-table .ele-eng   { background: #e8f5e9; font-weight: 700; color: #2e7d32; }
+    .schedule-table .ele-math  { background: #fff8e1; font-weight: 700; color: #5d4037; }
+    .schedule-table .priv-cell { background: #f3e5f5; font-weight: 700; color: #6a1b9a; }
+    .schedule-note {
+      font-size: 11px; color: #999; font-family: 'Noto Sans JP', sans-serif;
+      text-align: right; margin-bottom: 28px;
+    }
+    .ebbinghaus-box {
+      border: 1.5px solid #1a3a5c; border-radius: 8px; overflow: hidden; margin-bottom: 36px;
+    }
+    .ebbinghaus-head {
+      background: #1a3a5c; color: white; padding: 10px 16px;
+      font-size: 12px; font-weight: 700; font-family: 'Noto Sans JP', sans-serif;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .ebbinghaus-body {
+      padding: 16px; display: grid;
+      grid-template-columns: 1fr 180px; gap: 20px; align-items: center;
+    }
+    .ebbinghaus-text {
+      font-family: 'Noto Sans JP', sans-serif; font-size: 13px; line-height: 2; color: #333;
+    }
+    @media(max-width: 640px) {
+      .ebbinghaus-body { grid-template-columns: 1fr; }
+      .ebbinghaus-svg  { display: none; }
+    }
+    .schedule-illust {
+      text-align: right;
+    }
+    .schedule-illust img {
+      width: 55%; max-width: 360px;
+    }
+    @media(max-width: 640px) {
+      .schedule-illust img { width: 75%; }
+    }
   </style>
 </head>
 <body>
@@ -614,6 +696,7 @@
   <ul class="nav-links">
     <li><a href="#philosophy">想い</a></li>
     <li><a href="#features">特徴</a></li>
+    <li><a href="#schedule">時間割</a></li>
     <li><a href="#voices">卒塾生の声</a></li>
     <li><a href="#fees">料金</a></li>
     <li><a href="#access">アクセス</a></li>
@@ -1048,7 +1131,7 @@
 <section id="features">
   <div class="container">
     <p class="section-label">Features</p>
-    <h2 class="section-title">グレイスラボの4つの特徴</h2>
+    <h2 class="section-title">グレイスラボ　４つの特徴</h2>
     <div class="section-divider"></div>
 
     <div class="features-grid">
@@ -1094,6 +1177,113 @@
         ✅ 面談やLINEでお子さんの性格・家庭状況を把握し、個々に合わせた学び方を提案<br>
         ✅ 家庭での声かけや生活リズムのサポートまで含めてご支援します
       </p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── SCHEDULE ── -->
+<section id="schedule">
+  <div class="container">
+    <p class="section-label">Schedule</p>
+    <h2 class="section-title">授業の仕組み・時間割</h2>
+    <div class="section-divider"></div>
+
+    <!-- 週2回バナー -->
+    <div class="schedule-banner">
+      <div class="schedule-banner-sub">中学生英語グループ授業は</div>
+      <div class="schedule-banner-main">
+        １教科につき&nbsp;<span class="big">週２回</span>&nbsp;の授業だから<br>
+        教科書の内容を<span style="font-size:clamp(20px,4vw,28px)">すべて</span>学習できる！
+      </div>
+      <div class="schedule-banner-note">
+        週1回の授業では時間が足りず、教科書の全単元をカバーできません。<br>
+        グレイスでは英語・数学ともに<strong style="color:#ffd54f;">週２回</strong>授業を行うことで、学校の進度に合わせながら<strong style="color:#ffd54f;">確実に全範囲</strong>を指導します。
+      </div>
+    </div>
+
+    <!-- 時間割 -->
+    <div class="schedule-section-label">時間割</div>
+    <div class="schedule-table-wrap">
+      <table class="schedule-table">
+        <thead>
+          <tr>
+            <th style="width:18%">時間帯</th>
+            <th>月曜日</th>
+            <th>火曜日</th>
+            <th style="width:8%">水</th>
+            <th>木曜日</th>
+            <th>金曜日</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="time-cell">16:30〜17:30</td>
+            <td>―</td>
+            <td class="ele-math">小学生 算数</td>
+            <td rowspan="3" class="rest-cell">休み</td>
+            <td class="ele-eng">小学生 英語</td>
+            <td>―</td>
+          </tr>
+          <tr>
+            <td class="time-cell">17:30〜20:00</td>
+            <td class="eng-cell">中学生 英語</td>
+            <td class="math-cell">中学生 数学</td>
+            <td class="eng-cell">中学生 英語</td>
+            <td class="math-cell">中学生 数学</td>
+          </tr>
+          <tr>
+            <td class="time-cell">20:00以降</td>
+            <td colspan="2" class="priv-cell">個別授業</td>
+            <td colspan="2" class="priv-cell">個別授業</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="schedule-note">※季節講習・中３集中講座はこの限りではございません。</div>
+
+    <!-- エビングハウスの忘却曲線 -->
+    <div class="ebbinghaus-box">
+      <div class="ebbinghaus-head">
+        <svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="6" fill="#ffd54f"/><text x="7" y="11" text-anchor="middle" fill="#1a3a5c" font-size="9" font-weight="bold" font-family="sans-serif">!</text></svg>
+        この時間割はエビングハウスの忘却曲線に基づく学習サイクルです
+      </div>
+      <div class="ebbinghaus-body">
+        <div class="ebbinghaus-text">
+          人の記憶は何もしないとどんどん薄れていきます。<br>
+          しかし<strong>忘れかける前にもう一度学習する</strong>と、記憶が強固に定着します。<br><br>
+          グレイスの時間割は、<strong style="color:#1a3a5c;">学習したことを最もよい形で根付かせる</strong>よう設計されています。英語・数学ともに週2回授業することで、忘れかける前に自然に復習でき、記憶が<strong>しっかり定着</strong>します。
+        </div>
+        <svg class="ebbinghaus-svg" viewBox="0 0 200 130" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:180px;flex-shrink:0;">
+          <text x="2" y="25" font-size="7" fill="#555" font-family="sans-serif">100%</text>
+          <text x="6" y="68" font-size="7" fill="#555" font-family="sans-serif">50%</text>
+          <text x="6" y="105" font-size="7" fill="#555" font-family="sans-serif">20%</text>
+          <line x1="26" y1="15" x2="26" y2="112" stroke="#bbb" stroke-width="1"/>
+          <line x1="26" y1="112" x2="198" y2="112" stroke="#bbb" stroke-width="1"/>
+          <line x1="24" y1="27" x2="198" y2="27" stroke="#eee" stroke-width="1"/>
+          <line x1="24" y1="70" x2="198" y2="70" stroke="#eee" stroke-width="1"/>
+          <line x1="24" y1="105" x2="198" y2="105" stroke="#eee" stroke-width="1"/>
+          <text x="100" y="122" font-size="7" fill="#555" font-family="sans-serif" text-anchor="middle">時間の経過 →</text>
+          <path d="M26 22 C40 24 54 48 74 72 C90 88 120 100 198 108" stroke="#e53935" stroke-width="2" fill="none" stroke-dasharray="4,2.5"/>
+          <path d="M26 22 C36 22 50 30 68 35 C82 38 96 28 110 27 C126 26 140 32 158 32 C172 32 186 30 198 30" stroke="#1565c0" stroke-width="2" fill="none"/>
+          <line x1="68" y1="35" x2="68" y2="112" stroke="#1a3a5c" stroke-width="1" stroke-dasharray="3,2" opacity="0.5"/>
+          <circle cx="68" cy="35" r="4" fill="#1a3a5c" stroke="white" stroke-width="1.5"/>
+          <text x="62" y="122" font-size="6.5" fill="#1a3a5c" font-family="sans-serif" font-weight="bold">授業①</text>
+          <line x1="110" y1="27" x2="110" y2="112" stroke="#1a3a5c" stroke-width="1" stroke-dasharray="3,2" opacity="0.5"/>
+          <circle cx="110" cy="27" r="4" fill="#1a3a5c" stroke="white" stroke-width="1.5"/>
+          <text x="104" y="122" font-size="6.5" fill="#1a3a5c" font-family="sans-serif" font-weight="bold">授業②</text>
+          <text x="162" y="26" font-size="7" fill="#1565c0" font-family="sans-serif" font-weight="bold">定着！</text>
+          <line x1="28" y1="8" x2="44" y2="8" stroke="#e53935" stroke-width="2" stroke-dasharray="4,2.5"/>
+          <text x="47" y="11" font-size="6.5" fill="#e53935" font-family="sans-serif">週1回（忘れる）</text>
+          <line x1="112" y1="8" x2="128" y2="8" stroke="#1565c0" stroke-width="2"/>
+          <text x="131" y="11" font-size="6.5" fill="#1565c0" font-family="sans-serif">週2回（定着）</text>
+        </svg>
+      </div>
+    </div>
+
+    <!-- 図書室イラスト -->
+    <div class="schedule-illust">
+      <img src="library_vignette.png" alt="グレイス・イングリッシュ・ラボの図書室イメージ">
     </div>
   </div>
 </section>
