@@ -1,4 +1,4 @@
-const CACHE = 'kaeru-v1';
+const CACHE = 'kaeru-v3';
 const ASSETS = ['/kaeru/', '/kaeru/index.html', '/kaeru/arrived.html', '/kaeru/manifest.json'];
 
 self.addEventListener('install', e => {

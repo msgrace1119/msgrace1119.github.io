@@ -135,18 +135,23 @@
   const confirmedKey = 'arrived_' + name + '_' + new Date().toISOString().slice(0, 10);
   if (localStorage.getItem(confirmedKey)) showSuccess(false);
 
+  let sending = false;
+
   async function sendArrival() {
-    const btn     = document.getElementById('arrivedBtn');
+    if (sending) return;
+    sending = true;
+
+    const btn    = document.getElementById('arrivedBtn');
     const loading = document.getElementById('loading');
     const errBox  = document.getElementById('errorBox');
 
-    btn.disabled       = true;
+    btn.style.opacity     = '0.6';
     loading.style.display = 'block';
     errBox.style.display  = 'none';
 
     try {
       if (topic) {
-        const res = await fetch('https://ntfy.sh/' + encodeURIComponent(topic), {
+        await fetch('https://ntfy.sh/' + encodeURIComponent(topic), {
           method: 'POST',
           headers: {
             'Title':        name + 'が帰宅しました',
@@ -156,12 +161,12 @@
           },
           body: name + 'が家に着きました！ 🏠'
         });
-        if (!res.ok) throw new Error('ntfy error');
       }
       localStorage.setItem(confirmedKey, '1');
       showSuccess(true);
     } catch (e) {
-      btn.disabled          = false;
+      sending = false;
+      btn.style.opacity     = '1';
       loading.style.display = 'none';
       errBox.style.display  = 'block';
     }
