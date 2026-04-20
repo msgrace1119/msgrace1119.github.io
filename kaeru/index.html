@@ -343,7 +343,7 @@
     currentStudent = name;
     const topic = getTopic();
     const url = `${DOMAIN}/arrived.html?name=${encodeURIComponent(name)}&topic=${encodeURIComponent(topic)}`;
-    const msg = `${name}が今、塾を出ました 🎒\n\nご帰宅を確認されましたら下のボタンを押してください↓\n${url}`;
+    const msg = `${name}が今、塾を出られました 🎒\n\nご帰宅を確認されましたら下のボタンを押してください↓\n${url}`;
 
     document.getElementById('confirmTitle').textContent = `${name}の保護者に送る`;
     document.getElementById('msgPreview').textContent = msg;
@@ -360,7 +360,7 @@
     const name = currentStudent;
     const topic = getTopic();
     const url = `${DOMAIN}/arrived.html?name=${encodeURIComponent(name)}&topic=${encodeURIComponent(topic)}`;
-    const msg = `${name}が今、塾を出ました 🎒\n\nご帰宅を確認されましたら下のボタンを押してください↓\n${url}`;
+    const msg = `${name}が今、塾を出られました 🎒\n\nご帰宅を確認されましたら下のボタンを押してください↓\n${url}`;
 
     markSent(name);
     closeConfirm();
