@@ -102,7 +102,7 @@
     塾から出発しました。<br>
     家に着いたら下のボタンを<br>押してください。
   </div>
-  <button class="arrived-btn" id="arrivedBtn" onclick="confirm()">
+  <button class="arrived-btn" id="arrivedBtn" onclick="sendArrival()">
     🏠　着きました！
   </button>
   <div class="loading" id="loading">送信中…</div>
@@ -134,7 +134,7 @@
   const confirmedKey = 'arrived_' + name + '_' + new Date().toISOString().slice(0, 10);
   if (localStorage.getItem(confirmedKey)) showSuccess(false);
 
-  async function confirm() {
+  async function sendArrival() {
     const btn     = document.getElementById('arrivedBtn');
     const loading = document.getElementById('loading');
     const errBox  = document.getElementById('errorBox');
