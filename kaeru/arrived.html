@@ -131,36 +131,30 @@
   document.getElementById('studentName').textContent  = name + 'さん';
   document.getElementById('successTitle').textContent = name + 'さんが帰宅しました！';
 
-  // 今日すでに確認済みなら成功画面を表示
-  const confirmedKey = 'arrived_' + name + '_' + new Date().toISOString().slice(0, 10);
-  if (localStorage.getItem(confirmedKey)) showSuccess(false);
-
   let sending = false;
+
+  function notify() {
+    if (!topic) return;
+    fetch('https://ntfy.sh/' + encodeURIComponent(topic), {
+      method: 'POST',
+      headers: {
+        'Title':        name + 'が帰宅しました',
+        'Priority':     'high',
+        'Tags':         'house,white_check_mark',
+        'Content-Type': 'text/plain; charset=utf-8'
+      },
+      body: name + 'が家に着きました！ 🏠'
+    }).catch(() => {});
+  }
 
   function sendArrival() {
     if (sending) return;
     sending = true;
-
-    // すぐに成功画面を表示
-    localStorage.setItem(confirmedKey, '1');
-    showSuccess(true);
-
-    // 通知はバックグラウンドで送信（エラーでも画面には影響しない）
-    if (topic) {
-      fetch('https://ntfy.sh/' + encodeURIComponent(topic), {
-        method: 'POST',
-        headers: {
-          'Title':        name + 'が帰宅しました',
-          'Priority':     'high',
-          'Tags':         'house,white_check_mark',
-          'Content-Type': 'text/plain; charset=utf-8'
-        },
-        body: name + 'が家に着きました！ 🏠'
-      }).catch(() => {});
-    }
+    showSuccess();
+    notify();
   }
 
-  function showSuccess(animate) {
+  function showSuccess() {
     document.getElementById('mainCard').style.display    = 'none';
     document.getElementById('successCard').style.display = 'block';
   }
