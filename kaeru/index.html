@@ -296,12 +296,23 @@
     return t;
   };
 
-  const todayKey = () => new Date().toISOString().slice(0, 10);
-  const getSent = () => JSON.parse(localStorage.getItem('kl_sent_' + todayKey()) || '{}');
+  const SIX_HOURS = 6 * 60 * 60 * 1000;
+  const getSent = () => {
+    const data = JSON.parse(localStorage.getItem('kl_sent') || '{}');
+    const cutoff = Date.now() - SIX_HOURS;
+    const valid = {};
+    for (const [n, info] of Object.entries(data)) {
+      if (info.ts > cutoff) valid[n] = info;
+    }
+    return valid;
+  };
   const markSent = name => {
-    const d = getSent();
-    d[name] = new Date().toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' });
-    localStorage.setItem('kl_sent_' + todayKey(), JSON.stringify(d));
+    const data = JSON.parse(localStorage.getItem('kl_sent') || '{}');
+    data[name] = {
+      ts: Date.now(),
+      time: new Date().toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' })
+    };
+    localStorage.setItem('kl_sent', JSON.stringify(data));
   };
 
   // ── Render main ──
@@ -325,7 +336,7 @@
     }
 
     const items = students.map(name => {
-      const time = sent[name];
+      const time = sent[name]?.time;
       const done = !!time;
       return `
         <button class="student-btn ${done ? 'sent' : ''}" onclick="${done ? `undoSent('${escHtml(name)}')` : `confirmSend('${escHtml(name)}')`}">
