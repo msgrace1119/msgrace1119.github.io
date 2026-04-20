@@ -275,24 +275,12 @@
 <script>
   const DOMAIN = 'https://graceenglishlab.com/kaeru';
   let currentStudent = null;
-  let longPressTimer = null;
-
-  function startLongPress(name) {
-    longPressTimer = setTimeout(() => {
-      const sent = getSent();
-      if (!sent[name]) return;
-      if (confirm(`「${name}さん」の送信済みを取り消しますか？`)) {
-        const key = 'kl_sent_' + todayKey();
-        const data = getSent();
-        delete data[name];
-        localStorage.setItem(key, JSON.stringify(data));
-        render();
-      }
-    }, 700);
-  }
-
-  function cancelLongPress() {
-    clearTimeout(longPressTimer);
+  function undoSent(name) {
+    const key = 'kl_sent_' + todayKey();
+    const data = getSent();
+    delete data[name];
+    localStorage.setItem(key, JSON.stringify(data));
+    render();
   }
 
   // ── Storage helpers ──
@@ -340,12 +328,12 @@
       const time = sent[name];
       const done = !!time;
       return `
-        <button class="student-btn ${done ? 'sent' : ''}" onclick="confirmSend('${escHtml(name)}')" ontouchstart="startLongPress('${escHtml(name)}')" ontouchend="cancelLongPress()" ontouchmove="cancelLongPress()">
+        <button class="student-btn ${done ? 'sent' : ''}" onclick="${done ? `undoSent('${escHtml(name)}')` : `confirmSend('${escHtml(name)}')`}">
           <div class="avatar">${done ? '✅' : '🎒'}</div>
           <div class="student-info">
             <div class="student-name">${escHtml(name)}</div>
             <div class="student-status ${done ? 'done' : ''}">
-              ${done ? `${time} に送信済み` : 'タップしてLINE送信'}
+              ${done ? `${time} 送信済み・タップで取り消し` : 'タップしてLINE送信'}
             </div>
           </div>
           <div class="arrow-circle">${done ? '✓' : '→'}</div>
