@@ -137,38 +137,26 @@
 
   let sending = false;
 
-  async function sendArrival() {
+  function sendArrival() {
     if (sending) return;
     sending = true;
 
-    const btn    = document.getElementById('arrivedBtn');
-    const loading = document.getElementById('loading');
-    const errBox  = document.getElementById('errorBox');
+    // すぐに成功画面を表示
+    localStorage.setItem(confirmedKey, '1');
+    showSuccess(true);
 
-    btn.style.opacity     = '0.6';
-    loading.style.display = 'block';
-    errBox.style.display  = 'none';
-
-    try {
-      if (topic) {
-        await fetch('https://ntfy.sh/' + encodeURIComponent(topic), {
-          method: 'POST',
-          headers: {
-            'Title':        name + 'が帰宅しました',
-            'Priority':     'high',
-            'Tags':         'house,white_check_mark',
-            'Content-Type': 'text/plain; charset=utf-8'
-          },
-          body: name + 'が家に着きました！ 🏠'
-        });
-      }
-      localStorage.setItem(confirmedKey, '1');
-      showSuccess(true);
-    } catch (e) {
-      sending = false;
-      btn.style.opacity     = '1';
-      loading.style.display = 'none';
-      errBox.style.display  = 'block';
+    // 通知はバックグラウンドで送信（エラーでも画面には影響しない）
+    if (topic) {
+      fetch('https://ntfy.sh/' + encodeURIComponent(topic), {
+        method: 'POST',
+        headers: {
+          'Title':        name + 'が帰宅しました',
+          'Priority':     'high',
+          'Tags':         'house,white_check_mark',
+          'Content-Type': 'text/plain; charset=utf-8'
+        },
+        body: name + 'が家に着きました！ 🏠'
+      }).catch(() => {});
     }
   }
 
