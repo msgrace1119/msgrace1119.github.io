@@ -1,0 +1,25 @@
+{
+  "name": "帰宅連絡 - Grace English Lab",
+  "short_name": "帰宅連絡",
+  "description": "生徒の帰宅連絡・帰宅確認アプリ",
+  "start_url": "/kaeru/",
+  "display": "standalone",
+  "background_color": "#4CAF50",
+  "theme_color": "#4CAF50",
+  "lang": "ja",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

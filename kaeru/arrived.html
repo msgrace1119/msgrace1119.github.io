@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>帰宅確認 - Grace English Lab</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Yu Gothic UI', sans-serif;
+      background: linear-gradient(160deg, #E8F5E9 0%, #C8E6C9 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 28px;
+      padding: 48px 28px 40px;
+      max-width: 380px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.12);
+    }
+
+    .school { font-size: 13px; color: #9E9E9E; margin-bottom: 28px; font-weight: 600; letter-spacing: 0.5px; }
+
+    .icon { font-size: 72px; line-height: 1; margin-bottom: 16px; }
+
+    .name {
+      font-size: 30px; font-weight: 900; color: #222;
+      margin-bottom: 10px;
+    }
+
+    .message {
+      font-size: 16px; color: #666;
+      line-height: 1.65; margin-bottom: 40px;
+    }
+
+    /* Big button */
+    .arrived-btn {
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 18px;
+      padding: 22px 28px;
+      font-size: 24px;
+      font-weight: 900;
+      cursor: pointer;
+      width: 100%;
+      font-family: inherit;
+      box-shadow: 0 6px 20px rgba(76,175,80,0.45);
+      -webkit-tap-highlight-color: transparent;
+      transition: transform 0.12s, box-shadow 0.12s;
+      letter-spacing: 0.5px;
+    }
+    .arrived-btn:active { transform: scale(0.96); box-shadow: 0 3px 10px rgba(76,175,80,0.3); }
+    .arrived-btn:disabled { background: #BDBDBD; box-shadow: none; cursor: default; }
+
+    .loading { margin-top: 16px; font-size: 15px; color: #9E9E9E; display: none; }
+
+    .error-box {
+      display: none;
+      background: #FFEBEE; border-radius: 12px;
+      padding: 14px; margin-top: 14px;
+      font-size: 14px; color: #C62828; line-height: 1.5;
+    }
+
+    /* Success state */
+    .success-card {
+      display: none;
+      background: white;
+      border-radius: 28px;
+      padding: 56px 28px 48px;
+      max-width: 380px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.12);
+    }
+    .success-icon { font-size: 80px; margin-bottom: 20px; }
+    .success-title { font-size: 26px; font-weight: 900; color: #2E7D32; margin-bottom: 12px; }
+    .success-msg { font-size: 16px; color: #555; line-height: 1.65; }
+
+    /* Already confirmed */
+    .already-msg { font-size: 14px; color: #9E9E9E; margin-top: 12px; }
+  </style>
+</head>
+<body>
+
+<!-- Main card -->
+<div class="card" id="mainCard">
+  <div class="school">Grace English Lab</div>
+  <div class="icon">🏃</div>
+  <div class="name" id="studentName">…</div>
+  <div class="message">
+    塾から出発しました。<br>
+    家に着いたら下のボタンを<br>押してください。
+  </div>
+  <button class="arrived-btn" id="arrivedBtn" onclick="confirm()">
+    🏠　着きました！
+  </button>
+  <div class="loading" id="loading">送信中…</div>
+  <div class="error-box" id="errorBox">
+    送信に失敗しました。<br>もう一度ボタンを押してください。
+  </div>
+</div>
+
+<!-- Success card -->
+<div class="success-card" id="successCard">
+  <div class="success-icon">✅</div>
+  <div class="success-title" id="successTitle"></div>
+  <div class="success-msg">
+    先生に帰宅を<br>お知らせしました！<br><br>
+    お疲れ様でした 😊
+  </div>
+</div>
+
+<script>
+  const params = new URLSearchParams(location.search);
+  const name  = params.get('name')  || '生徒';
+  const topic = params.get('topic') || '';
+
+  // セット
+  document.getElementById('studentName').textContent  = name + 'さん';
+  document.getElementById('successTitle').textContent = name + 'さんが帰宅しました！';
+
+  // 今日すでに確認済みなら成功画面を表示
+  const confirmedKey = 'arrived_' + name + '_' + new Date().toISOString().slice(0, 10);
+  if (localStorage.getItem(confirmedKey)) showSuccess(false);
+
+  async function confirm() {
+    const btn     = document.getElementById('arrivedBtn');
+    const loading = document.getElementById('loading');
+    const errBox  = document.getElementById('errorBox');
+
+    btn.disabled       = true;
+    loading.style.display = 'block';
+    errBox.style.display  = 'none';
+
+    try {
+      if (topic) {
+        const res = await fetch('https://ntfy.sh/' + encodeURIComponent(topic), {
+          method: 'POST',
+          headers: {
+            'Title':        name + 'が帰宅しました',
+            'Priority':     'high',
+            'Tags':         'house,white_check_mark',
+            'Content-Type': 'text/plain; charset=utf-8'
+          },
+          body: name + 'が家に着きました！ 🏠'
+        });
+        if (!res.ok) throw new Error('ntfy error');
+      }
+      localStorage.setItem(confirmedKey, '1');
+      showSuccess(true);
+    } catch (e) {
+      btn.disabled          = false;
+      loading.style.display = 'none';
+      errBox.style.display  = 'block';
+    }
+  }
+
+  function showSuccess(animate) {
+    document.getElementById('mainCard').style.display    = 'none';
+    document.getElementById('successCard').style.display = 'block';
+  }
+</script>
+</body>
+</html>
