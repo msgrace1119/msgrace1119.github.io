@@ -137,12 +137,19 @@
 
   function notify() {
     if (!topic) return;
-    const xhr = new XMLHttpRequest();
-    xhr.open('POST', 'https://ntfy.sh/' + encodeURIComponent(topic), true);
-    xhr.setRequestHeader('Title', name + 'が帰宅しました');
-    xhr.setRequestHeader('Priority', 'high');
-    xhr.setRequestHeader('Content-Type', 'text/plain; charset=utf-8');
-    xhr.send(name + 'が家に着きました！ 🏠');
+    // no-corsモード：LINEブラウザのブロックを回避
+    fetch('https://ntfy.sh/' + encodeURIComponent(topic), {
+      method: 'POST',
+      mode: 'no-cors',
+      body: name + 'が家に着きました！ 🏠'
+    }).catch(() => {});
+    // sendBeaconでも試みる（ブラウザ互換性のため）
+    if (navigator.sendBeacon) {
+      navigator.sendBeacon(
+        'https://ntfy.sh/' + encodeURIComponent(topic),
+        name + 'が家に着きました！ 🏠'
+      );
+    }
   }
 
   function sendArrival() {
