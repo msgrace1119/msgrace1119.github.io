@@ -275,6 +275,25 @@
 <script>
   const DOMAIN = 'https://graceenglishlab.com/kaeru';
   let currentStudent = null;
+  let longPressTimer = null;
+
+  function startLongPress(name) {
+    longPressTimer = setTimeout(() => {
+      const sent = getSent();
+      if (!sent[name]) return;
+      if (confirm(`「${name}さん」の送信済みを取り消しますか？`)) {
+        const key = 'kl_sent_' + todayKey();
+        const data = getSent();
+        delete data[name];
+        localStorage.setItem(key, JSON.stringify(data));
+        render();
+      }
+    }, 700);
+  }
+
+  function cancelLongPress() {
+    clearTimeout(longPressTimer);
+  }
 
   // ── Storage helpers ──
   const getStudents = () => JSON.parse(localStorage.getItem('kl_students') || '[]');
@@ -321,7 +340,7 @@
       const time = sent[name];
       const done = !!time;
       return `
-        <button class="student-btn ${done ? 'sent' : ''}" onclick="confirmSend('${escHtml(name)}')">
+        <button class="student-btn ${done ? 'sent' : ''}" onclick="confirmSend('${escHtml(name)}')" ontouchstart="startLongPress('${escHtml(name)}')" ontouchend="cancelLongPress()" ontouchmove="cancelLongPress()">
           <div class="avatar">${done ? '✅' : '🎒'}</div>
           <div class="student-info">
             <div class="student-name">${escHtml(name)}</div>
