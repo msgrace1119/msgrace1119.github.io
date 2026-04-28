@@ -254,7 +254,11 @@
         ① スマホに「<strong>ntfy</strong>」アプリをインストール<br>
         ② アプリを開いて「＋」をタップ<br>
         ③ 上のトピック名を入力して登録<br>
-        → 保護者が「着きました」を押すと<br>　 先生のスマホに通知が届きます ✅
+        → 保護者が「着きました」を押すと<br>　 先生のスマホに通知が届きます ✅<br><br>
+        <strong>🔒 このトピック名は固定です</strong><br>
+        アイコン変更などでアプリを入れ直しても<br>
+        トピック名は変わりません。<br>
+        ntfyの登録は1回だけでOKです。
       </div>
     </div>
 
@@ -288,13 +292,11 @@
   const getStudents = () => JSON.parse(localStorage.getItem('kl_students') || '[]');
   const saveStudents = s => localStorage.setItem('kl_students', JSON.stringify(s));
 
+  // トピックは固定値をデフォルトにする
+  // → PWAを削除して再インストールしてもlocalStorageが消えても同じトピック名に戻る
+  const DEFAULT_TOPIC = 'grace-english-lab-kaeru';
   const getTopic = () => {
-    let t = localStorage.getItem('kl_topic');
-    if (!t) {
-      t = 'grace-lab-' + Math.random().toString(36).slice(2, 10);
-      localStorage.setItem('kl_topic', t);
-    }
-    return t;
+    return localStorage.getItem('kl_topic') || DEFAULT_TOPIC;
   };
 
   const SIX_HOURS = 6 * 60 * 60 * 1000;
