@@ -248,7 +248,8 @@
     <div class="setting-group">
       <div class="setting-label">📢 通知トピック（ntfy）</div>
       <div class="topic-box" id="topicDisplay"></div>
-      <button class="btn btn-gray" style="margin-bottom:16px" onclick="copyTopic()">📋 トピック名をコピー</button>
+      <button class="btn btn-gray" style="margin-bottom:8px" onclick="copyTopic()">📋 トピック名をコピー</button>
+      <button class="btn btn-gray" style="margin-bottom:16px;color:#E53935" onclick="resetTopic()">🔄 固定トピックにリセット</button>
       <div class="info-card">
         <strong>📱 初回設定（1回だけ）</strong>
         ① スマホに「<strong>ntfy</strong>」アプリをインストール<br>
@@ -435,6 +436,13 @@
     students.splice(i, 1);
     saveStudents(students);
     renderManage();
+  }
+
+  function resetTopic() {
+    if (!confirm('トピックを固定名「' + DEFAULT_TOPIC + '」にリセットします。\nntfyアプリの再登録が必要になります。よろしいですか？')) return;
+    localStorage.removeItem('kl_topic');
+    document.getElementById('topicDisplay').textContent = getTopic();
+    showToast('リセットしました！ntfyアプリに再登録してください');
   }
 
   function copyTopic() {
