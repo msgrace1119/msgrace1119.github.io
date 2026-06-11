@@ -212,6 +212,58 @@
       margin: 0 auto 52px;
     }
 
+    /* ── WORRIES（こんなお悩みありませんか） ── */
+    #worries { background: var(--ivory); }
+    .worries-list {
+      max-width: 640px; margin: 0 auto 40px;
+      list-style: none;
+    }
+    .worries-list li {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 14px; color: var(--charcoal);
+      line-height: 1.9;
+      padding: 16px 8px 16px 40px;
+      border-bottom: 1px solid var(--rose-lt);
+      position: relative;
+    }
+    .worries-list li:first-child { border-top: 1px solid var(--rose-lt); }
+    .worries-list li::before {
+      content: '✓';
+      position: absolute; left: 10px; top: 16px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px; color: var(--rose); line-height: 1.4;
+    }
+    .worries-answer {
+      max-width: 640px; margin: 0 auto;
+      text-align: center;
+      background: var(--cream);
+      border: 1px solid var(--rose-lt);
+      padding: 36px 32px;
+    }
+    .worries-answer .lead {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(16px, 2.5vw, 20px);
+      color: var(--charcoal); letter-spacing: .06em;
+      margin-bottom: 18px;
+    }
+    .worries-answer .lead strong { color: var(--rose); font-weight: 500; }
+    .worries-answer p {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 13px; color: var(--mid); line-height: 2.1;
+    }
+    .worries-answer p strong { color: var(--charcoal); font-weight: 500; }
+    .worries-answer .worries-line-badge strong { color: #2e7d32; font-weight: 700; }
+    .sp-only { display: none; }
+    @media(max-width:600px){ .sp-only { display: inline; } }
+    .worries-line-badge {
+      display: inline-block; margin-top: 16px;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 12px; letter-spacing: .08em;
+      color: #2e7d32; background: #e8f5e9;
+      border: 1px solid #c8e6c9; border-radius: 999px;
+      padding: 8px 20px; line-height: 1.8;
+    }
+
     /* ── PHILOSOPHY ── */
     #philosophy { background: var(--cream); }
     .philosophy-lead {
@@ -757,6 +809,35 @@
   </p>
 
   <div class="scroll-hint">scroll</div>
+</section>
+
+<!-- ── WORRIES（こんなお悩みありませんか） ── -->
+<section id="worries">
+  <div class="container">
+    <p class="section-label">For You</p>
+    <h2 class="section-title">こんなお悩み、ありませんか？</h2>
+    <div class="section-divider"></div>
+
+    <ul class="worries-list">
+      <li>映像授業を受けているのに、成績が上がらない</li>
+      <li>動画を「見ただけ」で、わかったつもりになっている</li>
+      <li>わからないところを質問できず、そのままになっている</li>
+      <li>塾にいないとき、わからない問題に当たると手が止まってしまう</li>
+      <li>一人だと集中が続かない</li>
+    </ul>
+
+    <div class="worries-answer">
+      <p class="lead">ひとつでも当てはまったら、<br><strong>対面・少人数のグレイス</strong>が<span class="pc-nowrap">向いています。</span></p>
+      <p>
+        目の前で板書し、その場で「なぜ？」に答える。<br>
+        だから<strong>「わかったつもり」で終わりません。</strong>
+      </p>
+      <p class="worries-line-badge">
+        塾のない日も、休みの日も。<br>
+        わからない問題は <strong>LINEでいつでも質問OK</strong> です。
+      </p>
+    </div>
+  </div>
 </section>
 
 <!-- ── PHILOSOPHY ── -->
