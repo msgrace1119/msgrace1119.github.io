@@ -100,6 +100,20 @@
       transition: color .2s;
     }
     .nav-links a:hover { color: var(--rose); }
+    .nav-toggle {
+      display: none;
+      background: none; border: none; cursor: pointer;
+      padding: 8px; margin: -8px;
+      flex-direction: column; gap: 5px;
+    }
+    .nav-toggle span {
+      display: block; width: 22px; height: 1px;
+      background: var(--charcoal);
+      transition: transform .25s, opacity .25s;
+    }
+    nav.open .nav-toggle span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    nav.open .nav-toggle span:nth-child(2) { opacity: 0; }
+    nav.open .nav-toggle span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 
     /* ── HERO ── */
     #hero {
@@ -604,7 +618,22 @@
       .step-arrow::after { content: '↓'; font-size: 14px; color: rgba(255,255,255,.6); display: block; }
     }
     @media(max-width:500px){
-      .nav-links { display: none; }
+      .nav-links {
+        display: none;
+        position: absolute; top: 100%; left: 0; right: 0;
+        flex-direction: column; gap: 0;
+        background: rgba(250,247,242,0.97);
+        backdrop-filter: blur(8px);
+        border-bottom: 1px solid var(--rose-lt);
+        padding: 8px 0 12px;
+      }
+      .nav-links li { text-align: center; }
+      .nav-links a {
+        display: block; padding: 12px 20px;
+        font-size: 13px; letter-spacing: .2em;
+      }
+      nav.open .nav-links { display: flex; }
+      .nav-toggle { display: flex; }
     }
     @media(min-width:769px){
       .pc-nowrap { white-space: nowrap; }
@@ -696,8 +725,11 @@
 <body>
 
 <!-- ── NAV ── -->
-<nav>
+<nav id="nav">
   <a class="nav-logo" href="#hero">Grace English Lab</a>
+  <button class="nav-toggle" id="nav-toggle" aria-label="メニューを開く" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
   <ul class="nav-links">
     <li><a href="#philosophy">想い</a></li>
     <li><a href="#features">特徴</a></li>
@@ -1508,6 +1540,22 @@
         e.preventDefault();
         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
+    });
+  });
+
+  // ハンバーガーメニュー（スマホ）
+  const nav = document.getElementById('nav');
+  const navToggle = document.getElementById('nav-toggle');
+  navToggle.addEventListener('click', () => {
+    const open = nav.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', open);
+    navToggle.setAttribute('aria-label', open ? 'メニューを閉じる' : 'メニューを開く');
+  });
+  // メニュー内のリンクを押したら閉じる
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.addEventListener('click', () => {
+      nav.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
     });
   });
 </script>
