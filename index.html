@@ -14,6 +14,11 @@
   <meta property="og:description" content="滋賀県東近江市の学習塾。小学生〜高校生の英語・算数・数学を少人数制で丁寧に指導。2000年創設。">
   <meta property="og:url" content="https://graceenglishlab.com/">
   <meta property="og:locale" content="ja_JP">
+  <meta property="og:image" content="https://graceenglishlab.com/og_image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -706,7 +711,7 @@
 <!-- ── HERO ── -->
 <section id="hero">
   <!-- ハーブ装飾: 左下（ローズマリー） -->
-  <img class="hero-deco tl" src="herb_rosemary.png?v=4">
+  <img class="hero-deco tl" src="herb_rosemary.png?v=5" alt="">
 
   <p class="hero-label">Grace English Lab ／ 滋賀県東近江市</p>
   <h1 class="hero-catch">
@@ -1118,11 +1123,6 @@
       <div class="sp" style="left:78%;top:265px;transform:rotate(-15deg);z-index:4"><img src="w_3204.jpg" alt="コルクボードのメッセージ"></div>
     </div>
 
-    <!-- ライトボックス -->
-    <div class="lightbox" id="lightbox">
-      <span class="lightbox-close" id="lightbox-close">&times;</span>
-      <img id="lightbox-img" src="" alt="">
-    </div>
     <p class="voices-caption">— 卒塾生たちの言葉 —</p>
   </div>
 </section>
@@ -1512,6 +1512,12 @@
   });
 </script>
 
+<!-- ライトボックス（ナビより手前に表示するため body 直下に配置） -->
+<div class="lightbox" id="lightbox">
+  <span class="lightbox-close" id="lightbox-close">&times;</span>
+  <img id="lightbox-img" alt="寄せ書きの拡大表示">
+</div>
+
 <script>
   // ライトボックス
   const lightbox = document.getElementById('lightbox');
@@ -1527,6 +1533,9 @@
   });
   lightbox.addEventListener('click', (e) => {
     if (e.target === lightbox) lightbox.classList.remove('active');
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') lightbox.classList.remove('active');
   });
   // 写真をクリックしたときに前面へ
   document.querySelectorAll('.sp').forEach(sp => {
