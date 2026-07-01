@@ -106,10 +106,9 @@
   <button class="arrived-btn" id="arrivedBtn" onclick="sendArrival()">
     🏠　着きました！
   </button>
-  <div id="debugInfo" style="margin-top:12px;font-size:11px;color:#bbb;word-break:break-all;"></div>
   <div class="loading" id="loading">送信中…</div>
   <div class="error-box" id="errorBox">
-    送信に失敗しました。<br>もう一度ボタンを押してください。
+    送信に失敗しました。<br>電波の良いところで、もう一度ボタンを押してください。
   </div>
 </div>
 
@@ -131,24 +130,35 @@
   // セット
   document.getElementById('studentName').textContent  = name + 'さん';
   document.getElementById('successTitle').textContent = name + 'さんが帰宅しました！';
-  document.getElementById('debugInfo').textContent = 'topic: ' + (topic || '（なし）');
 
   let sending = false;
 
-  function notify() {
-    if (!topic) return;
-    fetch('https://ntfy.sh/' + encodeURIComponent(topic), {
-      method: 'POST',
-      mode: 'no-cors',
-      body: name + 'が家に着きました！ 🏠'
-    }).catch(() => {});
-  }
-
-  function sendArrival() {
+  // 送信が本当に成功したかを確認してから成功画面を出す
+  async function sendArrival() {
     if (sending) return;
     sending = true;
-    showSuccess();
-    notify();
+
+    const btn = document.getElementById('arrivedBtn');
+    btn.disabled = true;
+    document.getElementById('errorBox').style.display = 'none';
+    document.getElementById('loading').style.display = 'block';
+
+    try {
+      if (!topic) throw new Error('リンクが正しくありません');
+      const res = await fetch('https://ntfy.sh/' + encodeURIComponent(topic), {
+        method: 'POST',
+        body: name + 'が家に着きました！ 🏠'
+      });
+      if (!res.ok) throw new Error('送信エラー');
+      showSuccess();
+    } catch (e) {
+      // 失敗したらエラーを表示して、もう一度押せるようにする
+      document.getElementById('errorBox').style.display = 'block';
+      btn.disabled = false;
+      sending = false;
+    } finally {
+      document.getElementById('loading').style.display = 'none';
+    }
   }
 
   function showSuccess() {

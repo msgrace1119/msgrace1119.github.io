@@ -281,7 +281,9 @@
 <script>
   const DOMAIN = 'https://graceenglishlab.com/kaeru';
   let currentStudent = null;
-  function undoSent(name) {
+  function undoSent(i) {
+    const name = getStudents()[i];
+    if (name === undefined) return;
     const data = JSON.parse(localStorage.getItem('kl_sent') || '{}');
     delete data[name];
     localStorage.setItem('kl_sent', JSON.stringify(data));
@@ -294,7 +296,8 @@
 
   // トピックは固定値をデフォルトにする
   // → PWAを削除して再インストールしてもlocalStorageが消えても同じトピック名に戻る
-  const DEFAULT_TOPIC = 'grace-english-lab-kaeru';
+  // 推測されにくいようランダムな文字列入り（変更したらntfyアプリの再登録が必要）
+  const DEFAULT_TOPIC = 'grace-kaeru-d01f29dc3d';
   const getTopic = () => {
     return localStorage.getItem('kl_topic') || DEFAULT_TOPIC;
   };
@@ -338,11 +341,11 @@
       return;
     }
 
-    const items = students.map(name => {
+    const items = students.map((name, i) => {
       const time = sent[name]?.time;
       const done = !!time;
       return `
-        <button class="student-btn ${done ? 'sent' : ''}" onclick="${done ? `undoSent('${escHtml(name)}')` : `confirmSend('${escHtml(name)}')`}">
+        <button class="student-btn ${done ? 'sent' : ''}" onclick="${done ? `undoSent(${i})` : `confirmSend(${i})`}">
           <div class="avatar">${done ? '✅' : '🎒'}</div>
           <div class="student-info">
             <div class="student-name">${escHtml(name)}</div>
@@ -360,7 +363,9 @@
   }
 
   // ── Confirm & send ──
-  function confirmSend(name) {
+  function confirmSend(i) {
+    const name = getStudents()[i];
+    if (name === undefined) return;
     currentStudent = name;
     const topic = getTopic();
     const url = `${DOMAIN}/arrived.html?name=${encodeURIComponent(name)}&topic=${encodeURIComponent(topic)}`;
@@ -475,7 +480,7 @@
 
   // ── Util ──
   function escHtml(s) {
-    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
   }
 
   // ── Service Worker ──
