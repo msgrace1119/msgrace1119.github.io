@@ -425,8 +425,134 @@ const QUESTIONS = [
     hint:"平たい部分を横から見ると帯に見える",
     a:`<div class="work">ア＝<span class="key">円盤部</span>（ディスク）</div>
     <p>太陽が円盤部の中にあるため、円盤方向を見ると星が帯状に重なって見える。</p>`
-  }
+  },
+  /* ===== 追加：太陽系 ===== */
+  {
+    topic:"太陽系", type:"計算",
+    q:`火星の公転周期を1.88年とするとき、地球から見た火星の会合周期は約何年か。<br>〔外惑星：1/S ＝ 1/E − 1/P、地球の周期 E ＝ 1年〕`,
+    hint:"1/S ＝ 1 − 1/1.88 をまず計算",
+    a:`<div class="work">1/S ＝ 1/1 − 1/1.88 ＝ 1 − 0.532 ＝ 0.468<br>S ＝ 1 ÷ 0.468 ≒ <span class="key">約2.1 年</span></div>
+    <p>会合周期＝地球から見て、その惑星が同じ位置関係にもどるまでの時間。</p>`
+  },
+  {
+    topic:"太陽系", type:"穴埋め",
+    q:`ケプラーの法則について、空欄 <span class="box">ア</span> <span class="box">イ</span> に語を入れよ。<br>第1法則：惑星は太陽を1つの <span class="box">ア</span> とする楕円軌道を描く。<br>第2法則：惑星と太陽を結ぶ線が一定時間に描く <span class="box">イ</span> は一定である（面積速度一定）。`,
+    hint:"第2法則→近日点で速く、遠日点で遅い",
+    a:`<div class="work">ア＝<span class="key">焦点</span>／イ＝<span class="key">面積</span></div>
+    <p>面積速度一定なので、太陽に近い近日点では速く、遠い遠日点ではゆっくり動く。</p>`
+  },
+  {
+    topic:"太陽系", type:"選択",
+    q:`太陽系ができたのは今からおよそ何年前か。ア〜ウから選べ。<br>
+    <span class="ch">ア　約46万年前</span>
+    <span class="ch">イ　約4600万年前</span>
+    <span class="ch">ウ　約46億年前</span>`,
+    hint:"地球の年齢と同じ",
+    a:`<div class="work"><span class="key">ウ</span>（約46億年前）</div>
+    <p>太陽系は星間物質（ガスと塵）が集まって約46億年前に誕生した。</p>`
+  },
+  {
+    topic:"太陽", type:"穴埋め",
+    q:`太陽表面の活動について、空欄 <span class="box">ア</span>〜<span class="box">ウ</span> に語を入れよ。<br>彩層から炎のように吹き上がるガスを <span class="box">ア</span> （紅炎）という。黒点付近で突然おこる爆発現象を <span class="box">イ</span> という。太陽から吹き出す電気を帯びた粒子の流れを太陽 <span class="box">ウ</span> という。`,
+    hint:"プロミネンス／フレア／太陽風",
+    a:`<div class="work">ア＝<span class="key">プロミネンス</span>／イ＝<span class="key">フレア</span>／ウ＝<span class="key">風</span>（太陽風）</div>
+    <p>フレアが大きいと地球で通信障害やオーロラの原因になる。</p>`
+  },
+  {
+    topic:"太陽", type:"図",
+    q:`下の図は太陽の内部の模式図である。A〜C の名称を ①中心核 ②放射層 ③対流層 から選び番号で答えよ。また、いちばん外側の見える表面（図の一番外の円）の名称も答えよ。
+    <figure>
+      <svg width="250" height="200" viewBox="0 0 250 200" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="125" cy="100" r="85" fill="#fff3cf" stroke="#000"/>
+        <circle cx="125" cy="100" r="60" fill="#ffe89a" stroke="#000" stroke-dasharray="3,3"/>
+        <circle cx="125" cy="100" r="33" fill="#ffd25a" stroke="#000" stroke-dasharray="3,3"/>
+        <circle cx="125" cy="100" r="14" fill="#ff9d3a" stroke="#000"/>
+        <text x="122" y="104" font-size="9" font-weight="bold">A</text>
+        <text x="118" y="72" font-size="9" font-weight="bold">B</text>
+        <text x="110" y="52" font-size="9" font-weight="bold">C</text>
+        <line x1="240" y1="30" x2="180" y2="55" stroke="#000" stroke-width="0.6"/>
+        <text x="205" y="26" font-size="8">表面</text>
+      </svg>
+      <figcaption>太陽の内部構造</figcaption>
+    </figure>`,
+    hint:"中心から外へ：核→放射→対流→表面",
+    a:`<div class="work">A＝<span class="key">①中心核</span>／B＝<span class="key">②放射層</span>／C＝<span class="key">③対流層</span><br>いちばん外の見える表面＝<span class="key">光球</span></div>
+    <p>中心核で核融合→放射層・対流層を通ってエネルギーが運ばれ、光球から光として出る。</p>`
+  },
 
+  /* ===== 追加：恒星 ===== */
+  {
+    topic:"恒星", type:"穴埋め",
+    q:`距離の単位について、空欄 <span class="box">ア</span> <span class="box">イ</span> に語・数値を入れよ。<br>年周視差がちょうど1″（秒）となる距離を1 <span class="box">ア</span> （パーセク）といい、約 <span class="box">イ</span> 光年にあたる。`,
+    hint:"1pc ＝ 約3.26光年",
+    a:`<div class="work">ア＝<span class="key">パーセク</span>（pc）／イ＝<span class="key">3.26</span></div>
+    <p>1光年は光が1年で進む距離（約9.5兆km）。</p>`
+  },
+  {
+    topic:"恒星", type:"計算",
+    q:`見かけの等級が ＋10.0、絶対等級が 0.0 の恒星までの距離は何パーセクか。<br>〔m − M ＝ 5 log(d / 10)〕`,
+    hint:"m−M＝10 を式に代入",
+    a:`<div class="work">m − M ＝ 10 − 0 ＝ 10<br>10 ＝ 5 log(d/10) → log(d/10) ＝ 2<br>d/10 ＝ 100 → d ＝ <span class="key">1000 pc</span></div>`
+  },
+  {
+    topic:"恒星", type:"計算",
+    q:`星Aは星Bより2等級明るい。星Aは星Bのおよそ何倍明るいか。<br>〔1等級で約2.5倍、5等級で100倍〕`,
+    hint:"2.5 を2回かける（2.5²）",
+    a:`<div class="work">2等級 → 約2.5 × 2.5 ≒ <span class="key">約6.3 倍</span></div>
+    <p>正確には 100の(2/5)乗 ≒ 6.3倍。</p>`
+  },
+  {
+    topic:"恒星", type:"選択",
+    q:`主系列星について、質量と寿命の関係として正しいものを、ア〜ウから選べ。<br>
+    <span class="ch">ア　質量が大きい星ほど明るく、寿命は短い</span>
+    <span class="ch">イ　質量が大きい星ほど暗く、寿命は長い</span>
+    <span class="ch">ウ　質量と寿命は関係しない</span>`,
+    hint:"重い星は燃料を一気に使う",
+    a:`<div class="work"><span class="key">ア</span></div>
+    <p>質量が大きい星は明るく高温だが、燃料（水素）を速く使うため寿命は短い。</p>`
+  },
+  {
+    topic:"恒星", type:"穴埋め",
+    q:`恒星の一生について、空欄 <span class="box">ア</span>〜<span class="box">ウ</span> に語を入れよ。<br>宇宙空間のガスや塵が濃く集まった <span class="box">ア</span> （分子雲）の中で、収縮して <span class="box">イ</span> 星が生まれる。やがて中心で核融合が始まると <span class="box">ウ</span> 星となり、一生の大半をこの状態で過ごす。`,
+    hint:"星雲 → 原始星 → 主系列星",
+    a:`<div class="work">ア＝<span class="key">星間雲</span>（星雲）／イ＝<span class="key">原始</span>（原始星）／ウ＝<span class="key">主系列</span></div>`
+  },
+  {
+    topic:"恒星", type:"選択",
+    q:`太陽の等級について正しいものを、ア〜ウから選べ。<br>
+    <span class="ch">ア　見かけの等級 −26.8、絶対等級 約 +4.8</span>
+    <span class="ch">イ　見かけの等級 +4.8、絶対等級 −26.8</span>
+    <span class="ch">ウ　見かけも絶対も 0 等</span>`,
+    hint:"すぐ近くにあるから見かけはとても明るい",
+    a:`<div class="work"><span class="key">ア</span></div>
+    <p>太陽は近いので見かけは非常に明るい（−26.8等）が、10pcに置くと約+4.8等の平凡な星。</p>`
+  },
+
+  /* ===== 追加：銀河系 ===== */
+  {
+    topic:"銀河系", type:"選択",
+    q:`銀河系についての説明として正しいものを、ア〜ウから選べ。<br>
+    <span class="ch">ア　恒星は約2000個集まっている</span>
+    <span class="ch">イ　約2000億個の恒星が集まっている</span>
+    <span class="ch">ウ　恒星は太陽ただ1つである</span>`,
+    hint:"けた違いに多い",
+    a:`<div class="work"><span class="key">イ</span>（約2000億個）</div>
+    <p>銀河系にはおよそ1000〜2000億個の恒星がある。</p>`
+  },
+  {
+    topic:"銀河系", type:"穴埋め",
+    q:`空欄 <span class="box">ア</span> に方向を表す語を入れよ。<br>天の川は、<span class="box">ア</span> 座の方向で特に濃く明るく見える。これは、その方向に銀河系の中心（バルジ）があるためである。`,
+    hint:"銀河系の中心がある方向",
+    a:`<div class="work">ア＝<span class="key">いて</span>（射手）座</div>
+    <p>いて座の方向に銀河系の中心があり、星が密集して見える。</p>`
+  },
+  {
+    topic:"銀河系", type:"穴埋め",
+    q:`星間物質が集まってできる星雲について、空欄 <span class="box">ア</span> <span class="box">イ</span> に語を入れよ。<br>背後の星の光をさえぎって黒く見える星雲を <span class="box">ア</span> 星雲、近くの星に照らされて明るく光る星雲を <span class="box">イ</span> 星雲という。`,
+    hint:"黒く見える／明るく光る",
+    a:`<div class="work">ア＝<span class="key">暗黒</span>星雲／イ＝<span class="key">散光</span>星雲</div>
+    <p>どちらも星間物質（ガスと塵）が集まったもの。</p>`
+  }
 ];
 
 /* ===== 状態 ===== */
