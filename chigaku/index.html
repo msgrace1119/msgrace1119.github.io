@@ -67,7 +67,32 @@
     font-size:12px; color:var(--sub); display:flex; align-items:center; justify-content:center;}
   .dot.cur{background:var(--accent); color:#fff; border-color:var(--accent);}
   .dot.done{border-color:var(--good); color:var(--good);}
+  .dot.mastered{background:var(--good); color:#fff; border-color:var(--good);}
+  .dot.weak{background:#fff4e6; border-color:#e0a04b; color:#b56d18;}
   footer{text-align:center; color:var(--sub); font-size:11px; margin-top:14px;}
+  footer a{color:var(--sub); text-decoration:underline;}
+
+  /* モード切替 */
+  .modebar{display:flex; gap:6px; margin:0 2px 10px;}
+  .modebar button{flex:1; font-size:12.5px; font-weight:700; border:1px solid var(--line);
+    background:var(--panel); color:var(--sub); border-radius:10px; padding:9px 6px; min-height:40px;}
+  .modebar button.active{background:var(--accent); color:#fff; border-color:var(--accent);}
+  .modebar button .cnt{font-size:11px; opacity:.85;}
+
+  /* 自己採点 */
+  .grade{display:none; gap:10px; margin-top:10px;}
+  .grade.show{display:flex;}
+  .grade button{flex:1; font-size:15px; font-weight:700; border:none; border-radius:12px; padding:13px; min-height:52px; color:#fff;}
+  .grade .ok{background:var(--good);}
+  .grade .ng{background:#d1685e;}
+
+  .toast{position:fixed; left:50%; bottom:24px; transform:translateX(-50%) translateY(20px);
+    background:#2b2b33; color:#fff; font-size:13px; padding:10px 16px; border-radius:999px;
+    opacity:0; pointer-events:none; transition:.25s; z-index:50; max-width:90%;}
+  .toast.show{opacity:.95; transform:translateX(-50%) translateY(0);}
+
+  .empty{text-align:center; padding:30px 14px; color:var(--sub); font-size:14px; line-height:1.8;}
+  .empty .big{font-size:34px; display:block; margin-bottom:6px;}
 </style>
 </head>
 <body>
@@ -77,10 +102,15 @@
       <h1>地学 記述トレ ✍️</h1>
       <div class="rng">太陽系・銀河系・恒星（発展）</div>
     </div>
-    <div class="progress" id="progress">1 / 12</div>
+    <div class="progress" id="progress">1 / 15</div>
   </header>
 
-  <div class="card">
+  <div class="modebar">
+    <button id="modeAll" class="active">全問（順番に）</button>
+    <button id="modeReview">苦手だけ復習 <span class="cnt" id="weakCnt">0</span></button>
+  </div>
+
+  <div class="card" id="card">
     <div class="qhead">
       <span class="badge" id="badge">記述</span>
       <span class="topic" id="topic">太陽系</span>
@@ -103,16 +133,27 @@
 
     <button class="answerbtn" id="answerBtn">答えを見る 👀</button>
     <div class="answer hidden" id="answer"></div>
+
+    <div class="grade" id="grade">
+      <button class="ng" id="ngBtn">✕ もう一度</button>
+      <button class="ok" id="okBtn">◯ 覚えてた</button>
+    </div>
   </div>
 
-  <div class="nav">
+  <div class="empty" id="empty" style="display:none;"></div>
+
+  <div class="nav" id="nav">
     <button id="prevBtn">◀ 前へ</button>
     <button id="nextBtn">次へ ▶</button>
   </div>
   <div class="dots" id="dots"></div>
 
-  <footer>グレイス・イングリッシュ・ラボ ｜ 楓ちゃんの地学対策</footer>
+  <footer>
+    グレイス・イングリッシュ・ラボ ｜ 楓ちゃんの地学対策<br>
+    <a href="#" id="resetLink">学習の記録をリセット</a>
+  </footer>
 </div>
+<div class="toast" id="toast"></div>
 
 <script>
 /* ===== 問題データ（地学・発展：太陽系／恒星／銀河系） ===== */
@@ -277,10 +318,41 @@ const QUESTIONS = [
 ];
 
 /* ===== 状態 ===== */
-let idx = 0;
-const savedDrawings = new Array(QUESTIONS.length).fill(null);
-const answeredSeen = new Array(QUESTIONS.length).fill(false);
-let mode = "pen"; // pen | eraser
+const N = QUESTIONS.length;
+let idx = 0;            // 全問モードの現在位置(0..N-1)
+let cur = 0;           // 現在表示している実問題index
+let mode = "pen";      // pen | eraser
+let viewMode = "all";  // all | review
+const savedDrawings = new Array(N).fill(null);
+
+/* ===== 学習記録（iPhoneに保存 / Leitron風の箱で間隔反復） ===== */
+const STORE_KEY = "chigaku_stats_v1";
+const MASTER = 2;      // 連続◯がこの数に達したら「習得」
+let stats;             // [{box, correct, wrong, seen}]
+function loadStats(){
+  let s = null;
+  try{ s = JSON.parse(localStorage.getItem(STORE_KEY)); }catch(e){}
+  if(!Array.isArray(s) || s.length !== N){
+    s = []; for(let i=0;i<N;i++) s.push({box:0,correct:0,wrong:0,seen:false});
+  }
+  stats = s;
+}
+function saveStats(){ try{ localStorage.setItem(STORE_KEY, JSON.stringify(stats)); }catch(e){} }
+function isMastered(i){ return stats[i].box >= MASTER; }
+function isWeak(i){ return stats[i].seen && !isMastered(i); }
+function weakList(){ const a=[]; for(let i=0;i<N;i++) if(isWeak(i)) a.push(i); return a; }
+function applyGrade(i, correct){
+  stats[i].seen = true;
+  if(correct){ stats[i].correct++; stats[i].box++; }
+  else { stats[i].wrong++; stats[i].box = 0; }
+  saveStats();
+}
+
+/* 復習キュー（間隔反復：先頭が次に出る問題） */
+let queue = [];
+function buildReviewQueue(){
+  queue = weakList().sort((a,b)=> stats[a].box - stats[b].box);
+}
 
 /* ===== DOM ===== */
 const canvas = document.getElementById('pad');
@@ -357,11 +429,11 @@ canvas.addEventListener('pointerleave', endDraw);
 
 /* 保存・復元 */
 function saveCurrent(){
-  try{ savedDrawings[idx] = canvas.toDataURL(); }catch(e){}
+  try{ savedDrawings[cur] = canvas.toDataURL(); }catch(e){}
 }
 function restoreCurrent(){
   ctx.clearRect(0,0,canvas.width,canvas.height);
-  const data = savedDrawings[idx];
+  const data = savedDrawings[cur];
   if(data){
     const img = new Image();
     img.onload = ()=>{ ctx.drawImage(img, 0, 0, canvas.width, canvas.height); };
@@ -370,35 +442,110 @@ function restoreCurrent(){
 }
 
 /* ===== 出題描画 ===== */
+const gradeBox = document.getElementById('grade');
 function render(){
-  const item = QUESTIONS[idx];
+  const item = QUESTIONS[cur];
   badge.textContent = item.type;
   badge.className = 'badge' + (item.type === '計算' ? ' calc' : '');
   topicEl.textContent = item.topic;
-  qtextEl.innerHTML = `<b>Q${idx+1}.</b> ` + escapeKeepTags(item.q);
+  qtextEl.innerHTML = `<b>Q${cur+1}.</b> ` + escapeKeepTags(item.q);
   hintEl.textContent = item.hint ? 'ヒント：' + item.hint : '';
   answerEl.innerHTML = '<h3>模範解答・解説</h3>' + item.a;
   answerEl.classList.add('hidden');
   answerBtn.textContent = '答えを見る 👀';
   answerBtn.classList.remove('hide');
-  progressEl.textContent = (idx+1) + ' / ' + QUESTIONS.length;
-  document.getElementById('prevBtn').disabled = (idx === 0);
-  document.getElementById('nextBtn').disabled = (idx === QUESTIONS.length-1);
+  gradeBox.classList.remove('show');
+  if(viewMode === 'review'){
+    progressEl.textContent = '復習 のこり ' + queue.length + '問';
+    document.getElementById('prevBtn').disabled = true;
+    document.getElementById('nextBtn').disabled = true;
+  } else {
+    progressEl.textContent = (idx+1) + ' / ' + N;
+    document.getElementById('prevBtn').disabled = (idx === 0);
+    document.getElementById('nextBtn').disabled = (idx === N-1);
+  }
   setupCanvas();
   restoreCurrent();
   renderDots();
+  updateModeUI();
 }
-// qテキストの改行を活かす（HTMLタグは入れていないのでそのまま）
+// qテキストの改行を活かす
 function escapeKeepTags(s){ return s.replace(/\n/g,'<br>'); }
 
 function renderDots(){
   dotsEl.innerHTML = '';
-  for(let i=0;i<QUESTIONS.length;i++){
+  for(let i=0;i<N;i++){
     const d = document.createElement('div');
-    d.className = 'dot' + (i===idx?' cur':'') + (answeredSeen[i]&&i!==idx?' done':'');
+    let cls = 'dot' + (i===cur ? ' cur' : (isMastered(i) ? ' mastered' : (isWeak(i) ? ' weak' : '')));
+    d.className = cls;
     d.textContent = (i+1);
-    d.addEventListener('click', ()=>{ saveCurrent(); idx=i; render(); window.scrollTo({top:0,behavior:'smooth'}); });
+    d.addEventListener('click', ()=>{ saveCurrent(); idx=i; cur=i; render(); window.scrollTo({top:0,behavior:'smooth'}); });
     dotsEl.appendChild(d);
+  }
+}
+
+function updateModeUI(){
+  document.getElementById('modeAll').classList.toggle('active', viewMode==='all');
+  document.getElementById('modeReview').classList.toggle('active', viewMode==='review');
+  document.getElementById('weakCnt').textContent = weakList().length;
+  const showNav = (viewMode==='all');
+  document.getElementById('nav').style.display = showNav ? '' : 'none';
+  dotsEl.style.display = showNav ? '' : 'none';
+}
+
+/* ===== モード切替 ===== */
+function switchMode(m){
+  saveCurrent();
+  viewMode = m;
+  document.getElementById('card').style.display = '';
+  document.getElementById('empty').style.display = 'none';
+  if(m === 'review'){
+    buildReviewQueue();
+    if(queue.length === 0){ showEmptyReview(); return; }
+    cur = queue[0];
+  } else {
+    cur = idx;
+  }
+  render();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function showEmptyReview(){
+  document.getElementById('card').style.display = 'none';
+  document.getElementById('nav').style.display = 'none';
+  dotsEl.style.display = 'none';
+  const e = document.getElementById('empty');
+  e.style.display = 'block';
+  e.innerHTML = '<span class="big">🎉</span>にがてを ぜんぶクリア！<br>よくがんばりました。<br><br>' +
+    '<button class="answerbtn" style="background:var(--accent)" id="backAll">全問モードにもどる</button>';
+  document.getElementById('backAll').onclick = ()=>switchMode('all');
+  updateModeUI();
+}
+
+/* ===== 自己採点（間隔反復） ===== */
+function grade(correct){
+  saveCurrent();
+  const i = cur;
+  if(viewMode === 'review'){
+    queue.shift();               // 先頭を取り出す
+    applyGrade(i, correct);
+    if(!isMastered(i)){          // 未習得なら間隔をあけて再登録
+      const gap = correct ? (stats[i].box>=1 ? 6 : 3) : 2;
+      queue.splice(Math.min(gap, queue.length), 0, i);
+    }
+    toast(correct ? '◯ その調子！' : '✕ もう一度出すね');
+    if(queue.length === 0){ showEmptyReview(); return; }
+    cur = queue[0];
+    render();
+    window.scrollTo({top:0,behavior:'smooth'});
+  } else {
+    applyGrade(i, correct);
+    toast(correct ? '◯ 覚えてた！' : '✕ 苦手に登録');
+    if(idx < N-1){ idx++; cur = idx; render(); window.scrollTo({top:0,behavior:'smooth'}); }
+    else {
+      render();
+      const w = weakList().length;
+      toast(w>0 ? ('全問おわり！「苦手だけ復習」で仕上げよう（'+w+'問）') : '全問クリア！すばらしい🎉');
+    }
   }
 }
 
@@ -415,7 +562,7 @@ document.getElementById('eraserBtn').addEventListener('click', ()=>{
 });
 document.getElementById('clearBtn').addEventListener('click', ()=>{
   ctx.clearRect(0,0,canvas.width,canvas.height);
-  savedDrawings[idx] = null;
+  savedDrawings[cur] = null;
 });
 answerBtn.addEventListener('click', ()=>{
   const hidden = answerEl.classList.contains('hidden');
@@ -423,20 +570,43 @@ answerBtn.addEventListener('click', ()=>{
     answerEl.classList.remove('hidden');
     answerBtn.textContent = '答えを隠す';
     answerBtn.classList.add('hide');
-    answeredSeen[idx] = true;
-    renderDots();
+    gradeBox.classList.add('show');   // 採点ボタンを出す
   } else {
     answerEl.classList.add('hidden');
     answerBtn.textContent = '答えを見る 👀';
     answerBtn.classList.remove('hide');
+    gradeBox.classList.remove('show');
   }
 });
+document.getElementById('okBtn').addEventListener('click', ()=>grade(true));
+document.getElementById('ngBtn').addEventListener('click', ()=>grade(false));
+document.getElementById('modeAll').addEventListener('click', ()=>switchMode('all'));
+document.getElementById('modeReview').addEventListener('click', ()=>switchMode('review'));
 document.getElementById('prevBtn').addEventListener('click', ()=>{
-  if(idx>0){ saveCurrent(); idx--; render(); window.scrollTo({top:0,behavior:'smooth'}); }
+  if(viewMode==='all' && idx>0){ saveCurrent(); idx--; cur=idx; render(); window.scrollTo({top:0,behavior:'smooth'}); }
 });
 document.getElementById('nextBtn').addEventListener('click', ()=>{
-  if(idx<QUESTIONS.length-1){ saveCurrent(); idx++; render(); window.scrollTo({top:0,behavior:'smooth'}); }
+  if(viewMode==='all' && idx<N-1){ saveCurrent(); idx++; cur=idx; render(); window.scrollTo({top:0,behavior:'smooth'}); }
 });
+document.getElementById('resetLink').addEventListener('click', (e)=>{
+  e.preventDefault();
+  if(confirm('学習の記録（◯✕・にがて）をぜんぶ消してリセットします。よろしいですか？')){
+    for(let i=0;i<N;i++) stats[i] = {box:0,correct:0,wrong:0,seen:false};
+    saveStats();
+    idx=0; switchMode('all');
+    toast('記録をリセットしました');
+  }
+});
+
+/* トースト */
+let toastTimer=null;
+function toast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.classList.remove('show'), 1500);
+}
 
 /* リサイズ（回転など）時：内容を退避してキャンバス再構築 */
 let resizeTimer=null;
@@ -447,6 +617,8 @@ window.addEventListener('resize', ()=>{
 });
 
 /* 初期化 */
+loadStats();
+idx = 0; cur = 0;
 render();
 </script>
 </body>
