@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>地学 記述トレ｜太陽系・銀河系・恒星</title>
+<style>
+  :root{
+    --bg:#f7f4ec; --panel:#ffffff; --ink:#2b2b33; --sub:#6b6b78;
+    --accent:#3b6ea5; --accent2:#c9a24b; --line:#e6e0d4; --good:#2f8f6b;
+    --ans-bg:#f0f6fb; --ans-line:#cfe0f0;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  html,body{margin:0; padding:0; background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;
+    -webkit-text-size-adjust:100%;}
+  .wrap{max-width:720px; margin:0 auto; padding:10px 12px calc(12px + env(safe-area-inset-bottom));}
+  header{display:flex; align-items:center; justify-content:space-between; gap:8px; padding:6px 2px 10px;}
+  header h1{font-size:16px; margin:0; letter-spacing:.02em;}
+  header .rng{font-size:11px; color:var(--sub);}
+  .progress{font-size:12px; color:var(--sub); background:var(--panel); border:1px solid var(--line);
+    border-radius:999px; padding:4px 10px; white-space:nowrap;}
+
+  .card{background:var(--panel); border:1px solid var(--line); border-radius:16px;
+    padding:14px 14px 12px; box-shadow:0 1px 3px rgba(0,0,0,.04); margin-bottom:12px;}
+  .qhead{display:flex; align-items:center; gap:8px; margin-bottom:8px;}
+  .badge{font-size:11px; font-weight:700; color:#fff; background:var(--accent); border-radius:6px; padding:2px 8px;}
+  .badge.calc{background:var(--accent2);}
+  .topic{font-size:11px; color:var(--sub);}
+  .qtext{font-size:16px; line-height:1.7; margin:2px 0 4px; white-space:pre-wrap;}
+  .qtext .em{color:var(--accent); font-weight:700;}
+  .hint{font-size:12px; color:var(--sub); margin-top:6px;}
+
+  .tools{display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin:8px 0 6px;}
+  .tools button{font-size:13px; border:1px solid var(--line); background:#fbf9f4; color:var(--ink);
+    border-radius:10px; padding:8px 12px; min-height:40px; touch-action:manipulation;}
+  .tools button.active{background:var(--accent); color:#fff; border-color:var(--accent);}
+  .tools .spacer{flex:1;}
+  .tools .sub{font-size:11px; color:var(--sub);}
+
+  .canvaswrap{position:relative; border:1px dashed #d9d2c2; border-radius:12px; background:
+    repeating-linear-gradient(#fff, #fff 37px, #f2ede2 38px); overflow:hidden;}
+  canvas{display:block; width:100%; height:300px; touch-action:none;}
+  .canvaslabel{position:absolute; top:6px; left:10px; font-size:11px; color:#b9b2a2; pointer-events:none;}
+
+  .answerbtn{width:100%; margin-top:10px; font-size:15px; font-weight:700; color:#fff;
+    background:var(--good); border:none; border-radius:12px; padding:13px; min-height:48px;}
+  .answerbtn.hide{background:#8a8a95;}
+
+  .answer{margin-top:10px; background:var(--ans-bg); border:1px solid var(--ans-line);
+    border-radius:12px; padding:12px 13px; font-size:14.5px; line-height:1.75;}
+  .answer h3{margin:0 0 6px; font-size:13px; color:var(--accent);}
+  .answer .work{background:#fff; border:1px solid var(--ans-line); border-radius:8px;
+    padding:8px 10px; margin:8px 0; font-size:14px; line-height:1.7;}
+  .answer .key{color:var(--good); font-weight:700;}
+  .answer ul{margin:6px 0 0; padding-left:1.1em;}
+  .answer.hidden{display:none;}
+
+  .nav{display:flex; align-items:center; gap:10px; margin-top:4px;}
+  .nav button{flex:1; font-size:15px; font-weight:700; border:1px solid var(--line);
+    background:var(--panel); color:var(--ink); border-radius:12px; padding:13px; min-height:48px;}
+  .nav button:disabled{opacity:.4;}
+  .dots{display:flex; flex-wrap:wrap; gap:6px; justify-content:center; margin:12px 2px 0;}
+  .dot{width:26px; height:26px; border-radius:8px; border:1px solid var(--line); background:var(--panel);
+    font-size:12px; color:var(--sub); display:flex; align-items:center; justify-content:center;}
+  .dot.cur{background:var(--accent); color:#fff; border-color:var(--accent);}
+  .dot.done{border-color:var(--good); color:var(--good);}
+  footer{text-align:center; color:var(--sub); font-size:11px; margin-top:14px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>地学 記述トレ ✍️</h1>
+      <div class="rng">太陽系・銀河系・恒星（発展）</div>
+    </div>
+    <div class="progress" id="progress">1 / 12</div>
+  </header>
+
+  <div class="card">
+    <div class="qhead">
+      <span class="badge" id="badge">記述</span>
+      <span class="topic" id="topic">太陽系</span>
+    </div>
+    <div class="qtext" id="qtext"></div>
+    <div class="hint" id="hint"></div>
+
+    <div class="tools">
+      <button id="penBtn" class="active">✏️ ペン</button>
+      <button id="eraserBtn">◻︎ 消しゴム</button>
+      <button id="clearBtn">🗑 全消し</button>
+      <span class="spacer"></span>
+      <span class="sub">指で書けます</span>
+    </div>
+
+    <div class="canvaswrap">
+      <canvas id="pad"></canvas>
+      <span class="canvaslabel">ここに答えを書く</span>
+    </div>
+
+    <button class="answerbtn" id="answerBtn">答えを見る 👀</button>
+    <div class="answer hidden" id="answer"></div>
+  </div>
+
+  <div class="nav">
+    <button id="prevBtn">◀ 前へ</button>
+    <button id="nextBtn">次へ ▶</button>
+  </div>
+  <div class="dots" id="dots"></div>
+
+  <footer>グレイス・イングリッシュ・ラボ ｜ 楓ちゃんの地学対策</footer>
+</div>
+
+<script>
+/* ===== 問題データ（地学・発展：太陽系／恒星／銀河系） ===== */
+const QUESTIONS = [
+  {
+    topic:"太陽系", type:"記述",
+    q:"太陽が莫大なエネルギーを生み出すしくみを、材料と生成物・反応の名前を挙げて説明せよ。",
+    hint:"キーワード：中心部・水素・ヘリウム・質量の一部",
+    a:`太陽の<span class="key">中心部（約1600万K）</span>では、4個の<span class="key">水素原子核</span>が反応して1個の<span class="key">ヘリウム原子核</span>になる<span class="key">核融合反応（水素の核融合／pp連鎖）</span>が起きている。
+    <ul>
+      <li>このとき失われるわずかな質量が、E＝mc² に従って莫大なエネルギーに変わる。</li>
+      <li>生じたエネルギーが光や熱として宇宙へ放出されている。</li>
+    </ul>`
+  },
+  {
+    topic:"太陽", type:"記述",
+    q:"太陽の外層は内側から光球・彩層・コロナに分けられる。①それぞれのおおよその温度と、②コロナの温度の特徴を説明せよ。",
+    hint:"光球＝目に見える表面。外側ほど…？",
+    a:`<ul>
+      <li><span class="key">光球</span>：目に見える表面。温度 <span class="key">約6000K</span>。</li>
+      <li><span class="key">彩層</span>：光球のすぐ外側の薄い層。数千〜1万K。</li>
+      <li><span class="key">コロナ</span>：最も外側に広がる希薄なガス。<span class="key">約100万K以上</span>。</li>
+    </ul>
+    <p>表面（光球）から外へ向かうほど温度が下がりそうだが、実際は<span class="key">コロナの方がはるかに高温</span>という特徴がある（コロナ加熱問題）。皆既日食のとき光球が隠れて彩層・コロナが観察できる。</p>`
+  },
+  {
+    topic:"太陽", type:"記述",
+    q:"黒点が周囲より黒く見える理由を、温度に着目して説明せよ。また黒点の数が増減する周期はおよそ何年か。",
+    hint:"黒い＝温度が…？",
+    a:`<p>黒点は周囲の光球（約6000K）より温度が低く<span class="key">約4000K</span>しかないため、相対的に暗く（黒く）見える。強い磁場によってガスの対流が妨げられ温度が下がる。</p>
+    <p>黒点の数は<span class="key">約11年</span>の周期で増減する（太陽活動の周期）。</p>`
+  },
+  {
+    topic:"太陽系", type:"記述",
+    q:"太陽系の惑星は地球型惑星と木星型惑星に分けられる。それぞれに属する惑星を挙げ、大きさ・密度・主な成分の違いを説明せよ。",
+    hint:"内側の4つと外側の4つ",
+    a:`<ul>
+      <li><span class="key">地球型惑星</span>：水星・金星・地球・火星。<span class="key">小さく</span>、<span class="key">密度が大きい</span>。主に岩石と金属でできた固体の表面をもつ。</li>
+      <li><span class="key">木星型惑星</span>：木星・土星・天王星・海王星。<span class="key">大きく</span>、<span class="key">密度が小さい</span>。主に水素・ヘリウムなどのガスや氷でできている。</li>
+    </ul>
+    <p>（天王星・海王星は氷成分が多く「天王星型」と細分することもある。）</p>`
+  },
+  {
+    topic:"恒星（計算）", type:"計算",
+    q:"ある恒星の年周視差は 0.05″（秒）であった。この恒星までの距離は何パーセク（pc）か。また約何光年か（1pc≒3.26光年）。",
+    hint:"距離[pc] ＝ 1 ÷ 年周視差[″]",
+    a:`<div class="work">
+      距離 d ＝ 1 ÷ p ＝ 1 ÷ 0.05 ＝ <span class="key">20 pc</span><br>
+      光年に直すと 20 × 3.26 ＝ <span class="key">約65.2 光年</span>
+    </div>
+    <p>年周視差 p が小さいほど遠い。d[pc]＝1/p[″] は暗記必須の関係。</p>`
+  },
+  {
+    topic:"恒星（計算）", type:"計算",
+    q:"1等星は6等星の何倍明るいか。理由もあわせて答えよ。",
+    hint:"5等級の差で明るさは100倍",
+    a:`<div class="work">
+      6等 − 1等 ＝ <span class="key">5等級</span>の差<br>
+      5等級の差 ＝ ちょうど<span class="key">100倍</span>
+    </div>
+    <p>等級が1小さい（明るい）ごとに明るさは約2.51倍（＝100の5乗根）。5等級差でその5乗＝100倍になる。よって1等星は6等星の<span class="key">100倍</span>明るい。</p>`
+  },
+  {
+    topic:"恒星（計算）", type:"計算",
+    q:"見かけの等級が +7、絶対等級が +2 の恒星がある。この恒星までの距離は何パーセクか。\n（関係式 m − M ＝ 5 log₁₀ d − 5 を使う。）",
+    hint:"まず m−M を求めて式に代入",
+    a:`<div class="work">
+      m − M ＝ 7 − 2 ＝ 5<br>
+      5 ＝ 5 log d − 5<br>
+      10 ＝ 5 log d → log d ＝ 2<br>
+      d ＝ 10² ＝ <span class="key">100 pc</span>
+    </div>
+    <p>絶対等級は「10pcの距離に置いたときの見かけの等級」。m−M（距離指数）が距離を表す。</p>`
+  },
+  {
+    topic:"恒星", type:"記述",
+    q:"恒星のスペクトル型 O・B・A・F・G・K・M は何の順に並べたものか。また太陽は何型か。",
+    hint:"色・温度に関係。太陽は黄色い星",
+    a:`<p>スペクトル型は<span class="key">表面温度の高い順（O→M）</span>に並べたもの。O型が最も高温で青白く、M型が最も低温で赤い。</p>
+    <ul>
+      <li>O(青)→B→A(白)→F→<span class="key">G(黄)</span>→K(橙)→M(赤)</li>
+      <li>太陽は表面温度約6000Kの<span class="key">G型</span>（黄色）。</li>
+    </ul>
+    <p>覚え方：「Oh Be A Fine Girl/Guy, Kiss Me」。</p>`
+  },
+  {
+    topic:"恒星", type:"記述",
+    q:"HR図とは何を縦軸・横軸にとった図か。図の中で①主系列星 ②赤色巨星 ③白色矮星 がおよそどの位置にくるか説明せよ。",
+    hint:"縦＝明るさ、横＝温度（色）",
+    a:`<p>HR図は<span class="key">横軸に表面温度（またはスペクトル型・色）</span>、<span class="key">縦軸に絶対等級（光度）</span>をとった図。ふつう横軸は左が高温。</p>
+    <ul>
+      <li><span class="key">主系列星</span>：左上（高温・明るい）から右下（低温・暗い）へ帯状に並ぶ。太陽もここ。</li>
+      <li><span class="key">赤色巨星</span>：右上（低温なのに明るい＝半径が大きい）。</li>
+      <li><span class="key">白色矮星</span>：左下（高温なのに暗い＝半径が小さい）。</li>
+    </ul>`
+  },
+  {
+    topic:"恒星（計算）", type:"計算",
+    q:"恒星Aは恒星Bにくらべ、半径が3倍・表面温度が2倍である。恒星Aの光度（明るさ）は恒星Bの何倍か。\n（シュテファン・ボルツマンの法則 L ∝ R²T⁴ を使う。）",
+    hint:"半径は2乗、温度は4乗できいてくる",
+    a:`<div class="work">
+      L ∝ R² × T⁴<br>
+      ＝ 3² × 2⁴ ＝ 9 × 16 ＝ <span class="key">144 倍</span>
+    </div>
+    <p>恒星の光度は表面積(∝R²)と、単位面積あたりの放射(∝T⁴)の積で決まる。温度の効き方（4乗）が非常に大きい。</p>`
+  },
+  {
+    topic:"恒星（計算）", type:"計算",
+    q:"表面温度10000Kの恒星が最も強く出す光の波長はおよそ何nmか。\n（ウィーンの変位則 λmax × T ＝ 2.9×10⁻³ [m・K] を使う。）",
+    hint:"λmax ＝ 2.9×10⁻³ ÷ T",
+    a:`<div class="work">
+      λmax ＝ 2.9×10⁻³ ÷ 10000<br>
+      ＝ 2.9×10⁻⁷ m ＝ <span class="key">290 nm</span>
+    </div>
+    <p>温度が高いほど最大波長は短く（青い方へ）なる。参考：太陽(約6000K)は約480nmで黄〜緑あたりが最も強い。（1nm＝10⁻⁹m）</p>`
+  },
+  {
+    topic:"恒星", type:"記述",
+    q:"太陽と同じくらいの質量の恒星は、主系列星のあとどのように一生を終えるか。段階を順に説明せよ。",
+    hint:"赤色巨星 → その後外層は？中心は？",
+    a:`<ul>
+      <li>中心の水素を使い果たすと膨張して<span class="key">赤色巨星</span>になる。</li>
+      <li>外層のガスをゆるやかに放出し、それが<span class="key">惑星状星雲</span>として広がる。</li>
+      <li>中心に残った高温で小さな芯が<span class="key">白色矮星</span>となり、冷えていく。</li>
+    </ul>
+    <p>（太陽の8倍以上の重い星は最後に<span class="key">超新星爆発</span>を起こし、中性子星やブラックホールを残す。）</p>`
+  },
+  {
+    topic:"銀河系", type:"記述",
+    q:"私たちの銀河系（天の川銀河）の形と構造を説明せよ。直径のおよその大きさと、太陽系の位置にもふれること。",
+    hint:"バルジ・円盤・ハロー／直径10万光年",
+    a:`<p>銀河系は約2000億個の恒星が集まった<span class="key">凸レンズ（円盤）状</span>の構造。直径は<span class="key">約10万光年</span>。</p>
+    <ul>
+      <li><span class="key">バルジ</span>：中心部のふくらみ（古い星が密集）。</li>
+      <li><span class="key">円盤（ディスク）</span>：うずまき状の腕をもつ平たい部分。若い星やガスが多い。</li>
+      <li><span class="key">ハロー</span>：全体を球状に取り巻く領域（球状星団が分布）。</li>
+    </ul>
+    <p>太陽系は中心から<span class="key">約2.8万光年</span>離れた円盤部にある。天の川は、この円盤を内側から見た姿。</p>`
+  },
+  {
+    topic:"銀河系", type:"記述",
+    q:"球状星団と散開星団のちがいを、分布する場所・星の数・星の年齢の観点から説明せよ。",
+    hint:"ハローにあるのはどっち？",
+    a:`<ul>
+      <li><span class="key">球状星団</span>：数万〜数百万個の星が球状に密集。おもに<span class="key">ハロー</span>に分布。<span class="key">年老いた星</span>が多い。</li>
+      <li><span class="key">散開星団</span>：数十〜数百個の星がまばらに集まる。おもに<span class="key">円盤部</span>に分布。<span class="key">若い星</span>が多い。</li>
+    </ul>`
+  },
+  {
+    topic:"宇宙", type:"記述",
+    q:"銀河の形は大きく3つ（＋不規則）に分類される。分類名を挙げ、さらに銀河より大きなスケールの集まりの名前を、小さい順に並べよ。",
+    hint:"ハッブルの分類／銀河→銀河群→…",
+    a:`<p><span class="key">銀河の形態分類（ハッブル分類）</span></p>
+    <ul>
+      <li><span class="key">楕円銀河</span>／<span class="key">渦巻銀河</span>／<span class="key">棒渦巻銀河</span>（＋不規則銀河）。</li>
+    </ul>
+    <p><span class="key">宇宙の階層構造（小→大）</span></p>
+    <ul>
+      <li>銀河 → <span class="key">銀河群</span>（銀河系は局部銀河群） → <span class="key">銀河団</span> → <span class="key">超銀河団</span> → 泡やフィラメント状の<span class="key">大規模構造</span>。</li>
+    </ul>`
+  }
+];
+
+/* ===== 状態 ===== */
+let idx = 0;
+const savedDrawings = new Array(QUESTIONS.length).fill(null);
+const answeredSeen = new Array(QUESTIONS.length).fill(false);
+let mode = "pen"; // pen | eraser
+
+/* ===== DOM ===== */
+const canvas = document.getElementById('pad');
+const ctx = canvas.getContext('2d');
+const badge = document.getElementById('badge');
+const topicEl = document.getElementById('topic');
+const qtextEl = document.getElementById('qtext');
+const hintEl = document.getElementById('hint');
+const answerEl = document.getElementById('answer');
+const answerBtn = document.getElementById('answerBtn');
+const progressEl = document.getElementById('progress');
+const dotsEl = document.getElementById('dots');
+
+/* ===== キャンバス設定 ===== */
+let dpr = Math.max(1, window.devicePixelRatio || 1);
+function setupCanvas(){
+  const rect = canvas.getBoundingClientRect();
+  canvas.width = Math.round(rect.width * dpr);
+  canvas.height = Math.round(rect.height * dpr);
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+}
+function applyPenStyle(){
+  if(mode === 'eraser'){
+    ctx.globalCompositeOperation = 'destination-out';
+    ctx.lineWidth = 22 * dpr;
+    ctx.strokeStyle = 'rgba(0,0,0,1)';
+  } else {
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.lineWidth = 3.2 * dpr;
+    ctx.strokeStyle = '#1f3a5f';
+  }
+}
+
+/* 描画 */
+let drawing = false, lastX = 0, lastY = 0;
+function posFromEvent(e){
+  const rect = canvas.getBoundingClientRect();
+  const cx = (e.clientX - rect.left) * dpr;
+  const cy = (e.clientY - rect.top) * dpr;
+  return [cx, cy];
+}
+function startDraw(e){
+  e.preventDefault();
+  drawing = true;
+  applyPenStyle();
+  [lastX, lastY] = posFromEvent(e);
+  // 点だけでも描けるように
+  ctx.beginPath();
+  ctx.moveTo(lastX, lastY);
+  ctx.lineTo(lastX + 0.01, lastY + 0.01);
+  ctx.stroke();
+}
+function moveDraw(e){
+  if(!drawing) return;
+  e.preventDefault();
+  const [x, y] = posFromEvent(e);
+  ctx.beginPath();
+  ctx.moveTo(lastX, lastY);
+  ctx.lineTo(x, y);
+  ctx.stroke();
+  lastX = x; lastY = y;
+}
+function endDraw(e){
+  if(!drawing) return;
+  drawing = false;
+  saveCurrent();
+}
+canvas.addEventListener('pointerdown', startDraw);
+canvas.addEventListener('pointermove', moveDraw);
+canvas.addEventListener('pointerup', endDraw);
+canvas.addEventListener('pointercancel', endDraw);
+canvas.addEventListener('pointerleave', endDraw);
+
+/* 保存・復元 */
+function saveCurrent(){
+  try{ savedDrawings[idx] = canvas.toDataURL(); }catch(e){}
+}
+function restoreCurrent(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  const data = savedDrawings[idx];
+  if(data){
+    const img = new Image();
+    img.onload = ()=>{ ctx.drawImage(img, 0, 0, canvas.width, canvas.height); };
+    img.src = data;
+  }
+}
+
+/* ===== 出題描画 ===== */
+function render(){
+  const item = QUESTIONS[idx];
+  badge.textContent = item.type;
+  badge.className = 'badge' + (item.type === '計算' ? ' calc' : '');
+  topicEl.textContent = item.topic;
+  qtextEl.innerHTML = `<b>Q${idx+1}.</b> ` + escapeKeepTags(item.q);
+  hintEl.textContent = item.hint ? 'ヒント：' + item.hint : '';
+  answerEl.innerHTML = '<h3>模範解答・解説</h3>' + item.a;
+  answerEl.classList.add('hidden');
+  answerBtn.textContent = '答えを見る 👀';
+  answerBtn.classList.remove('hide');
+  progressEl.textContent = (idx+1) + ' / ' + QUESTIONS.length;
+  document.getElementById('prevBtn').disabled = (idx === 0);
+  document.getElementById('nextBtn').disabled = (idx === QUESTIONS.length-1);
+  setupCanvas();
+  restoreCurrent();
+  renderDots();
+}
+// qテキストの改行を活かす（HTMLタグは入れていないのでそのまま）
+function escapeKeepTags(s){ return s.replace(/\n/g,'<br>'); }
+
+function renderDots(){
+  dotsEl.innerHTML = '';
+  for(let i=0;i<QUESTIONS.length;i++){
+    const d = document.createElement('div');
+    d.className = 'dot' + (i===idx?' cur':'') + (answeredSeen[i]&&i!==idx?' done':'');
+    d.textContent = (i+1);
+    d.addEventListener('click', ()=>{ saveCurrent(); idx=i; render(); window.scrollTo({top:0,behavior:'smooth'}); });
+    dotsEl.appendChild(d);
+  }
+}
+
+/* ===== ボタン ===== */
+document.getElementById('penBtn').addEventListener('click', ()=>{
+  mode='pen';
+  document.getElementById('penBtn').classList.add('active');
+  document.getElementById('eraserBtn').classList.remove('active');
+});
+document.getElementById('eraserBtn').addEventListener('click', ()=>{
+  mode='eraser';
+  document.getElementById('eraserBtn').classList.add('active');
+  document.getElementById('penBtn').classList.remove('active');
+});
+document.getElementById('clearBtn').addEventListener('click', ()=>{
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  savedDrawings[idx] = null;
+});
+answerBtn.addEventListener('click', ()=>{
+  const hidden = answerEl.classList.contains('hidden');
+  if(hidden){
+    answerEl.classList.remove('hidden');
+    answerBtn.textContent = '答えを隠す';
+    answerBtn.classList.add('hide');
+    answeredSeen[idx] = true;
+    renderDots();
+  } else {
+    answerEl.classList.add('hidden');
+    answerBtn.textContent = '答えを見る 👀';
+    answerBtn.classList.remove('hide');
+  }
+});
+document.getElementById('prevBtn').addEventListener('click', ()=>{
+  if(idx>0){ saveCurrent(); idx--; render(); window.scrollTo({top:0,behavior:'smooth'}); }
+});
+document.getElementById('nextBtn').addEventListener('click', ()=>{
+  if(idx<QUESTIONS.length-1){ saveCurrent(); idx++; render(); window.scrollTo({top:0,behavior:'smooth'}); }
+});
+
+/* リサイズ（回転など）時：内容を退避してキャンバス再構築 */
+let resizeTimer=null;
+window.addEventListener('resize', ()=>{
+  saveCurrent();
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(()=>{ dpr = Math.max(1, window.devicePixelRatio||1); render(); }, 150);
+});
+
+/* 初期化 */
+render();
+</script>
+</body>
+</html>
