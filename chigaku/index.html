@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<title>地学 記述トレ｜太陽系・銀河系・恒星</title>
+<title>地学 テストトレ｜太陽系・銀河系・恒星</title>
 <style>
   :root{
     --bg:#f7f4ec; --panel:#ffffff; --ink:#2b2b33; --sub:#6b6b78;
@@ -28,9 +28,16 @@
   .qhead{display:flex; align-items:center; gap:8px; margin-bottom:8px;}
   .badge{font-size:11px; font-weight:700; color:#fff; background:var(--accent); border-radius:6px; padding:2px 8px;}
   .badge.calc{background:var(--accent2);}
+  .badge.fill{background:#5a8a6b;}
+  .badge.choice{background:#7a6aa5;}
+  .badge.zu{background:#b5744b;}
   .topic{font-size:11px; color:var(--sub);}
-  .qtext{font-size:16px; line-height:1.7; margin:2px 0 4px; white-space:pre-wrap;}
+  .qtext{font-size:16px; line-height:1.7; margin:2px 0 4px;}
   .qtext .em{color:var(--accent); font-weight:700;}
+  .qtext .box{display:inline-block; min-width:1.8em; border:1px solid #333; border-radius:4px; padding:0 4px; text-align:center; font-weight:700;}
+  .qtext .ch{display:block; margin:2px 0 2px 1em; font-size:15px;}
+  .qtext svg{max-width:100%; height:auto; background:#fff; border:1px solid #eee; border-radius:8px; margin:8px auto; display:block;}
+  .qtext figcaption{font-size:11px; color:var(--sub); text-align:center; margin-top:-2px;}
   .hint{font-size:12px; color:var(--sub); margin-top:6px;}
 
   .tools{display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin:8px 0 6px;}
@@ -99,8 +106,8 @@
 <div class="wrap">
   <header>
     <div>
-      <h1>地学 記述トレ ✍️</h1>
-      <div class="rng">太陽系・銀河系・恒星（発展）</div>
+      <h1>地学 テストトレ ✍️</h1>
+      <div class="rng">太陽系・銀河系・恒星（穴埋め・記号・計算・図）</div>
     </div>
     <div class="progress" id="progress">1 / 15</div>
   </header>
@@ -158,163 +165,268 @@
 <script>
 /* ===== 問題データ（地学・発展：太陽系／恒星／銀河系） ===== */
 const QUESTIONS = [
+  /* ===== 太陽系 ===== */
   {
-    topic:"太陽系", type:"記述",
-    q:"太陽が莫大なエネルギーを生み出すしくみを、材料と生成物・反応の名前を挙げて説明せよ。",
-    hint:"キーワード：中心部・水素・ヘリウム・質量の一部",
-    a:`太陽の<span class="key">中心部（約1600万K）</span>では、4個の<span class="key">水素原子核</span>が反応して1個の<span class="key">ヘリウム原子核</span>になる<span class="key">核融合反応（水素の核融合／pp連鎖）</span>が起きている。
-    <ul>
-      <li>このとき失われるわずかな質量が、E＝mc² に従って莫大なエネルギーに変わる。</li>
-      <li>生じたエネルギーが光や熱として宇宙へ放出されている。</li>
-    </ul>`
+    topic:"太陽系", type:"穴埋め",
+    q:`次の空欄 <span class="box">ア</span>〜<span class="box">エ</span> に入る語を答えよ。<br>太陽の中心部では、4個の <span class="box">ア</span> 原子核が1個の <span class="box">イ</span> 原子核に変わる <span class="box">ウ</span> 反応が起こり、このとき失われるわずかな <span class="box">エ</span> がエネルギーに変わる。`,
+    hint:"太陽の中心で起きている反応",
+    a:`<div class="work">ア＝<span class="key">水素</span>／イ＝<span class="key">ヘリウム</span>／ウ＝<span class="key">核融合</span>（水素の核融合）／エ＝<span class="key">質量</span></div>
+    <p>中心部は約1600万K。E＝mc² により、減った質量がエネルギーになる。</p>`
   },
   {
-    topic:"太陽", type:"記述",
-    q:"太陽の外層は内側から光球・彩層・コロナに分けられる。①それぞれのおおよその温度と、②コロナの温度の特徴を説明せよ。",
-    hint:"光球＝目に見える表面。外側ほど…？",
-    a:`<ul>
-      <li><span class="key">光球</span>：目に見える表面。温度 <span class="key">約6000K</span>。</li>
-      <li><span class="key">彩層</span>：光球のすぐ外側の薄い層。数千〜1万K。</li>
-      <li><span class="key">コロナ</span>：最も外側に広がる希薄なガス。<span class="key">約100万K以上</span>。</li>
-    </ul>
-    <p>表面（光球）から外へ向かうほど温度が下がりそうだが、実際は<span class="key">コロナの方がはるかに高温</span>という特徴がある（コロナ加熱問題）。皆既日食のとき光球が隠れて彩層・コロナが観察できる。</p>`
+    topic:"太陽", type:"穴埋め",
+    q:`空欄 <span class="box">ア</span>〜<span class="box">オ</span> に入る語・数値を答えよ。<br>太陽の目に見える表面を <span class="box">ア</span> といい、温度は約 <span class="box">イ</span> K。その外側に広がる希薄で非常に高温のガスの層を <span class="box">ウ</span> といい、温度は約 <span class="box">エ</span> K以上。表面に見える黒い斑点を <span class="box">オ</span> という。`,
+    hint:"光球・コロナ・黒点と温度",
+    a:`<div class="work">ア＝<span class="key">光球</span>／イ＝<span class="key">6000</span>／ウ＝<span class="key">コロナ</span>／エ＝<span class="key">100万</span>／オ＝<span class="key">黒点</span></div>
+    <p>光球6000K → 外側のコロナは100万K以上と逆に高温。皆既日食で彩層・コロナが見える。</p>`
   },
   {
-    topic:"太陽", type:"記述",
-    q:"黒点が周囲より黒く見える理由を、温度に着目して説明せよ。また黒点の数が増減する周期はおよそ何年か。",
+    topic:"太陽", type:"選択",
+    q:`黒点が周囲より黒く見える理由として正しいものを、ア〜ウから選び記号で答えよ。<br>
+    <span class="ch">ア　まわりより温度が高いから</span>
+    <span class="ch">イ　まわりより温度が低いから</span>
+    <span class="ch">ウ　光をさえぎる雲があるから</span>`,
     hint:"黒い＝温度が…？",
-    a:`<p>黒点は周囲の光球（約6000K）より温度が低く<span class="key">約4000K</span>しかないため、相対的に暗く（黒く）見える。強い磁場によってガスの対流が妨げられ温度が下がる。</p>
-    <p>黒点の数は<span class="key">約11年</span>の周期で増減する（太陽活動の周期）。</p>`
+    a:`<div class="work"><span class="key">イ</span></div>
+    <p>黒点は約4000Kで、まわりの光球（約6000K）より低温なので暗く見える。黒点の数は約<span class="key">11年</span>周期で増減する。</p>`
   },
   {
-    topic:"太陽系", type:"記述",
-    q:"太陽系の惑星は地球型惑星と木星型惑星に分けられる。それぞれに属する惑星を挙げ、大きさ・密度・主な成分の違いを説明せよ。",
-    hint:"内側の4つと外側の4つ",
-    a:`<ul>
-      <li><span class="key">地球型惑星</span>：水星・金星・地球・火星。<span class="key">小さく</span>、<span class="key">密度が大きい</span>。主に岩石と金属でできた固体の表面をもつ。</li>
-      <li><span class="key">木星型惑星</span>：木星・土星・天王星・海王星。<span class="key">大きく</span>、<span class="key">密度が小さい</span>。主に水素・ヘリウムなどのガスや氷でできている。</li>
-    </ul>
-    <p>（天王星・海王星は氷成分が多く「天王星型」と細分することもある。）</p>`
+    topic:"太陽系", type:"選択",
+    q:`木星型惑星の組み合わせとして正しいものを、ア〜ウから選び記号で答えよ。<br>
+    <span class="ch">ア　水星・金星・地球・火星</span>
+    <span class="ch">イ　木星・土星・天王星・海王星</span>
+    <span class="ch">ウ　地球・火星・木星・土星</span>`,
+    hint:"太陽系の外側の4つ",
+    a:`<div class="work"><span class="key">イ</span></div>
+    <p>木星型＝木・土・天・海（大きく密度小・ガス）。地球型＝水・金・地・火（小さく密度大・岩石）。</p>`
   },
   {
-    topic:"恒星（計算）", type:"計算",
-    q:"ある恒星の年周視差は 0.05″（秒）であった。この恒星までの距離は何パーセク（pc）か。また約何光年か（1pc≒3.26光年）。",
+    topic:"太陽系", type:"穴埋め",
+    q:`空欄 <span class="box">ア</span> <span class="box">イ</span> に「大き」か「小さ」を入れよ。<br>地球型惑星は半径が <span class="box">ア</span> く密度が大きい。木星型惑星は半径が <span class="box">イ</span> く密度が小さい。`,
+    hint:"地球型と木星型、どちらが大きい？",
+    a:`<div class="work">ア＝<span class="key">小さ</span>／イ＝<span class="key">大き</span></div>
+    <p>地球型＝岩石・金属でできた小さく重い惑星。木星型＝ガス中心で大きく軽い惑星。</p>`
+  },
+  {
+    topic:"太陽系", type:"計算",
+    q:`軌道長半径が 9 AU の惑星の公転周期は何年か。<br>〔ケプラーの第3法則：T² ＝ a³（T は年、a は天文単位）〕`,
+    hint:"T² ＝ a³ に a＝9 を代入",
+    a:`<div class="work">T² ＝ a³ ＝ 9³ ＝ 729<br>T ＝ √729 ＝ <span class="key">27 年</span></div>
+    <p>軌道が大きい惑星ほど公転周期は長い。a³ と T² が等しい。</p>`
+  },
+  {
+    topic:"太陽", type:"穴埋め",
+    q:`空欄に数値（およそ）を入れよ。<br>太陽の中心部の温度は約 <span class="box">ア</span> K、表面（光球）の温度は約 <span class="box">イ</span> K である。`,
+    hint:"中心はけた違いに高温",
+    a:`<div class="work">ア＝<span class="key">1600万</span>（1.6×10⁷）／イ＝<span class="key">6000</span></div>`
+  },
+  {
+    topic:"太陽系", type:"穴埋め",
+    q:`地球型惑星と木星型惑星は、主に何でできているか。空欄 <span class="box">ア</span> <span class="box">イ</span> に入る語を答えよ。<br>地球型＝おもに <span class="box">ア</span> と金属／木星型＝おもに水素・ヘリウムなどの <span class="box">イ</span> `,
+    hint:"かたい？ガス？",
+    a:`<div class="work">ア＝<span class="key">岩石</span>／イ＝<span class="key">ガス</span>（気体）</div>
+    <p>木星型は外側ほど氷成分も多い（天王星・海王星）。</p>`
+  },
+
+  /* ===== 恒星 ===== */
+  {
+    topic:"恒星", type:"穴埋め",
+    q:`空欄 <span class="box">ア</span>〜<span class="box">エ</span> に入る語・数値を答えよ。<br>目で見たままの明るさを表す等級を <span class="box">ア</span> 等級といい、値が小さいほど明るい。すべての星を <span class="box">イ</span> パーセクの距離に置いたと仮定した明るさを <span class="box">ウ</span> 等級という。等級が5小さくなると明るさは <span class="box">エ</span> 倍になる。`,
+    hint:"見かけ／絶対、10pc、5等級",
+    a:`<div class="work">ア＝<span class="key">見かけの</span>／イ＝<span class="key">10</span>／ウ＝<span class="key">絶対</span>／エ＝<span class="key">100</span></div>`
+  },
+  {
+    topic:"恒星", type:"計算",
+    q:`1等星は6等星のおよそ何倍明るいか。また、1等級ちがうと明るさは約何倍になるか。`,
+    hint:"5等級差＝100倍",
+    a:`<div class="work">6等 − 1等 ＝ 5等級の差 → <span class="key">100倍</span><br>1等級あたり ＝ 100の5乗根 ≒ <span class="key">約2.5倍</span></div>`
+  },
+  {
+    topic:"恒星", type:"計算",
+    q:`ある恒星の年周視差は 0.05″（秒）であった。この恒星までの距離は何パーセクか。また約何光年か（1pc ＝ 3.26光年）。`,
     hint:"距離[pc] ＝ 1 ÷ 年周視差[″]",
-    a:`<div class="work">
-      距離 d ＝ 1 ÷ p ＝ 1 ÷ 0.05 ＝ <span class="key">20 pc</span><br>
-      光年に直すと 20 × 3.26 ＝ <span class="key">約65.2 光年</span>
-    </div>
-    <p>年周視差 p が小さいほど遠い。d[pc]＝1/p[″] は暗記必須の関係。</p>`
+    a:`<div class="work">d ＝ 1 ÷ 0.05 ＝ <span class="key">20 pc</span><br>20 × 3.26 ＝ <span class="key">約65 光年</span></div>
+    <p>年周視差が小さいほど遠い。</p>`
   },
   {
-    topic:"恒星（計算）", type:"計算",
-    q:"1等星は6等星の何倍明るいか。理由もあわせて答えよ。",
-    hint:"5等級の差で明るさは100倍",
-    a:`<div class="work">
-      6等 − 1等 ＝ <span class="key">5等級</span>の差<br>
-      5等級の差 ＝ ちょうど<span class="key">100倍</span>
-    </div>
-    <p>等級が1小さい（明るい）ごとに明るさは約2.51倍（＝100の5乗根）。5等級差でその5乗＝100倍になる。よって1等星は6等星の<span class="key">100倍</span>明るい。</p>`
+    topic:"恒星", type:"計算",
+    q:`見かけの等級が ＋7.0、絶対等級が ＋2.0 の恒星までの距離は何パーセクか。<br>〔m − M ＝ 5 log(d / 10)〕`,
+    hint:"まず m−M を求めて代入",
+    a:`<div class="work">m − M ＝ 7.0 − 2.0 ＝ 5<br>5 ＝ 5 log(d/10) → log(d/10) ＝ 1<br>d/10 ＝ 10 → d ＝ <span class="key">100 pc</span></div>`
   },
   {
-    topic:"恒星（計算）", type:"計算",
-    q:"見かけの等級が +7、絶対等級が +2 の恒星がある。この恒星までの距離は何パーセクか。\n（関係式 m − M ＝ 5 log₁₀ d − 5 を使う。）",
-    hint:"まず m−M を求めて式に代入",
-    a:`<div class="work">
-      m − M ＝ 7 − 2 ＝ 5<br>
-      5 ＝ 5 log d − 5<br>
-      10 ＝ 5 log d → log d ＝ 2<br>
-      d ＝ 10² ＝ <span class="key">100 pc</span>
-    </div>
-    <p>絶対等級は「10pcの距離に置いたときの見かけの等級」。m−M（距離指数）が距離を表す。</p>`
+    topic:"恒星", type:"選択",
+    q:`恒星の見かけの明るさと、その恒星までの距離の関係として正しいものを、ア〜エから選び記号で答えよ。<br>
+    <span class="ch">ア　距離に比例する</span>
+    <span class="ch">イ　距離の2乗に比例する</span>
+    <span class="ch">ウ　距離に反比例する</span>
+    <span class="ch">エ　距離の2乗に反比例する</span>`,
+    hint:"2倍遠いと明るさは？",
+    a:`<div class="work"><span class="key">エ</span>（距離の2乗に反比例）</div>
+    <p>2倍遠いと明るさは1/4。これを逆2乗の法則という。</p>`
   },
   {
-    topic:"恒星", type:"記述",
-    q:"恒星のスペクトル型 O・B・A・F・G・K・M は何の順に並べたものか。また太陽は何型か。",
-    hint:"色・温度に関係。太陽は黄色い星",
-    a:`<p>スペクトル型は<span class="key">表面温度の高い順（O→M）</span>に並べたもの。O型が最も高温で青白く、M型が最も低温で赤い。</p>
-    <ul>
-      <li>O(青)→B→A(白)→F→<span class="key">G(黄)</span>→K(橙)→M(赤)</li>
-      <li>太陽は表面温度約6000Kの<span class="key">G型</span>（黄色）。</li>
-    </ul>
-    <p>覚え方：「Oh Be A Fine Girl/Guy, Kiss Me」。</p>`
+    topic:"恒星", type:"選択",
+    q:`恒星のスペクトル型を、表面温度の高いものから順に並べたものを、ア〜ウから選び記号で答えよ。<br>
+    <span class="ch">ア　M K G F A B O</span>
+    <span class="ch">イ　O B A F G K M</span>
+    <span class="ch">ウ　O A B F G K M</span>`,
+    hint:"O型が高温・青白",
+    a:`<div class="work"><span class="key">イ</span>（O B A F G K M）</div>
+    <p>左が高温（青白）、右が低温（赤）。「オー・ベー・ア・フ・グ・ケ・ム」。</p>`
   },
   {
-    topic:"恒星", type:"記述",
-    q:"HR図とは何を縦軸・横軸にとった図か。図の中で①主系列星 ②赤色巨星 ③白色矮星 がおよそどの位置にくるか説明せよ。",
-    hint:"縦＝明るさ、横＝温度（色）",
-    a:`<p>HR図は<span class="key">横軸に表面温度（またはスペクトル型・色）</span>、<span class="key">縦軸に絶対等級（光度）</span>をとった図。ふつう横軸は左が高温。</p>
-    <ul>
-      <li><span class="key">主系列星</span>：左上（高温・明るい）から右下（低温・暗い）へ帯状に並ぶ。太陽もここ。</li>
-      <li><span class="key">赤色巨星</span>：右上（低温なのに明るい＝半径が大きい）。</li>
-      <li><span class="key">白色矮星</span>：左下（高温なのに暗い＝半径が小さい）。</li>
-    </ul>`
+    topic:"恒星", type:"選択",
+    q:`太陽のスペクトル型と色の組み合わせとして正しいものを、ア〜ウから選び記号で答えよ。<br>
+    <span class="ch">ア　O型・青白色</span>
+    <span class="ch">イ　G型・黄色</span>
+    <span class="ch">ウ　M型・赤色</span>`,
+    hint:"太陽は黄色い星",
+    a:`<div class="work"><span class="key">イ</span>（G型・黄色）</div>
+    <p>太陽の表面温度は約6000K。</p>`
   },
   {
-    topic:"恒星（計算）", type:"計算",
-    q:"恒星Aは恒星Bにくらべ、半径が3倍・表面温度が2倍である。恒星Aの光度（明るさ）は恒星Bの何倍か。\n（シュテファン・ボルツマンの法則 L ∝ R²T⁴ を使う。）",
-    hint:"半径は2乗、温度は4乗できいてくる",
-    a:`<div class="work">
-      L ∝ R² × T⁴<br>
-      ＝ 3² × 2⁴ ＝ 9 × 16 ＝ <span class="key">144 倍</span>
-    </div>
-    <p>恒星の光度は表面積(∝R²)と、単位面積あたりの放射(∝T⁴)の積で決まる。温度の効き方（4乗）が非常に大きい。</p>`
+    topic:"恒星", type:"穴埋め",
+    q:`空欄に色を入れよ。<br>表面温度が最も高い恒星は <span class="box">ア</span> 色、最も低い恒星は <span class="box">イ</span> 色に見える。`,
+    hint:"高温ほど青、低温ほど…",
+    a:`<div class="work">ア＝<span class="key">青</span>（青白）／イ＝<span class="key">赤</span></div>`
   },
   {
-    topic:"恒星（計算）", type:"計算",
-    q:"表面温度10000Kの恒星が最も強く出す光の波長はおよそ何nmか。\n（ウィーンの変位則 λmax × T ＝ 2.9×10⁻³ [m・K] を使う。）",
+    topic:"恒星", type:"図",
+    q:`下の図はHR図である。縦軸 <span class="box">オ</span> ・横軸 <span class="box">カ</span> に入る語を答え、a〜d の名称を ①主系列星 ②赤色巨星 ③白色矮星 から選び番号で答えよ。
+    <figure>
+      <svg width="270" height="210" viewBox="0 0 270 210" xmlns="http://www.w3.org/2000/svg">
+        <rect x="40" y="10" width="200" height="160" fill="none" stroke="#000"/>
+        <text x="12" y="20" font-size="9">明</text>
+        <text x="12" y="165" font-size="9">暗</text>
+        <text x="46" y="186" font-size="8">O</text><text x="76" y="186" font-size="8">B</text>
+        <text x="106" y="186" font-size="8">A</text><text x="133" y="186" font-size="8">F</text>
+        <text x="160" y="186" font-size="8">G</text><text x="190" y="186" font-size="8">K</text>
+        <text x="218" y="186" font-size="8">M</text>
+        <text x="66" y="202" font-size="8.5">← 高温　　表面温度　　低温 →</text>
+        <text x="20" y="95" font-size="8.5" transform="rotate(-90 20 95)">絶対等級</text>
+        <line x1="55" y1="28" x2="225" y2="150" stroke="#000" stroke-width="0.7" stroke-dasharray="2,2"/>
+        <text x="60" y="40" font-size="9" font-weight="bold">a</text>
+        <circle cx="90" cy="58" r="1.6"/><circle cx="120" cy="78" r="1.6"/><circle cx="150" cy="98" r="1.6"/>
+        <circle cx="180" cy="118" r="1.6"/><circle cx="205" cy="138" r="1.6"/>
+        <text x="163" y="94" font-size="9" font-weight="bold">b</text>
+        <text x="150" y="108" font-size="7.5">(太陽)</text>
+        <circle cx="195" cy="45" r="1.6"/><circle cx="210" cy="52" r="1.6"/><circle cx="200" cy="38" r="1.6"/>
+        <text x="200" y="30" font-size="9" font-weight="bold">c</text>
+        <circle cx="75" cy="150" r="1.6"/><circle cx="90" cy="155" r="1.6"/><circle cx="82" cy="148" r="1.6"/>
+        <text x="62" y="150" font-size="9" font-weight="bold">d</text>
+      </svg>
+      <figcaption>HR図</figcaption>
+    </figure>`,
+    hint:"縦＝明るさ、横＝温度。右上と左下に注目",
+    a:`<div class="work">オ＝<span class="key">絶対等級</span>／カ＝<span class="key">表面温度</span>（スペクトル型）<br>
+    a＝<span class="key">①主系列星</span>／b＝<span class="key">①主系列星</span>（太陽もここ）／c＝<span class="key">②赤色巨星</span>／d＝<span class="key">③白色矮星</span></div>
+    <p>主系列星は左上〜右下の帯。右上＝赤色巨星（低温でも大きく明るい）、左下＝白色矮星（高温でも小さく暗い）。</p>`
+  },
+  {
+    topic:"恒星", type:"選択",
+    q:`絶対等級が同じ（同じ明るさの）2つの恒星を比べたとき、半径が大きいのはどちらか。ア・イから選べ。<br>
+    <span class="ch">ア　表面温度が高い（青白い）星</span>
+    <span class="ch">イ　表面温度が低い（赤い）星</span>
+    <span style="font-size:12px;color:#666">〔恒星の明るさ L ∝ R²T⁴〕</span>`,
+    hint:"明るさが同じで温度が低いなら半径は？",
+    a:`<div class="work"><span class="key">イ</span>（表面温度が低い＝赤い星）</div>
+    <p>L∝R²T⁴。明るさが同じで温度Tが低いなら、半径Rが大きいはず。</p>`
+  },
+  {
+    topic:"恒星", type:"計算",
+    q:`恒星Aは恒星Bにくらべ、半径が3倍・表面温度が2倍である。Aの光度はBの何倍か。<br>〔L ∝ R²T⁴〕`,
+    hint:"半径は2乗、温度は4乗",
+    a:`<div class="work">L ∝ R² × T⁴ ＝ 3² × 2⁴ ＝ 9 × 16 ＝ <span class="key">144 倍</span></div>`
+  },
+  {
+    topic:"恒星", type:"計算",
+    q:`表面温度10000Kの恒星が最も強く放つ光の波長はおよそ何nmか。<br>〔ウィーンの変位則：λmax × T ＝ 2.9×10⁻³ [m・K]、1nm＝10⁻⁹m〕`,
     hint:"λmax ＝ 2.9×10⁻³ ÷ T",
-    a:`<div class="work">
-      λmax ＝ 2.9×10⁻³ ÷ 10000<br>
-      ＝ 2.9×10⁻⁷ m ＝ <span class="key">290 nm</span>
-    </div>
-    <p>温度が高いほど最大波長は短く（青い方へ）なる。参考：太陽(約6000K)は約480nmで黄〜緑あたりが最も強い。（1nm＝10⁻⁹m）</p>`
+    a:`<div class="work">λmax ＝ 2.9×10⁻³ ÷ 10000 ＝ 2.9×10⁻⁷ m ＝ <span class="key">290 nm</span></div>
+    <p>温度が高いほど波長は短い（青い方）。太陽6000Kなら約480nm。</p>`
   },
   {
-    topic:"恒星", type:"記述",
-    q:"太陽と同じくらいの質量の恒星は、主系列星のあとどのように一生を終えるか。段階を順に説明せよ。",
-    hint:"赤色巨星 → その後外層は？中心は？",
-    a:`<ul>
-      <li>中心の水素を使い果たすと膨張して<span class="key">赤色巨星</span>になる。</li>
-      <li>外層のガスをゆるやかに放出し、それが<span class="key">惑星状星雲</span>として広がる。</li>
-      <li>中心に残った高温で小さな芯が<span class="key">白色矮星</span>となり、冷えていく。</li>
-    </ul>
-    <p>（太陽の8倍以上の重い星は最後に<span class="key">超新星爆発</span>を起こし、中性子星やブラックホールを残す。）</p>`
+    topic:"恒星", type:"選択",
+    q:`太陽と同じくらいの質量の恒星が進化していく順序として正しいものを、ア〜ウから選べ。<br>
+    <span class="ch">ア　主系列星 → 赤色巨星 → 白色矮星</span>
+    <span class="ch">イ　赤色巨星 → 主系列星 → 白色矮星</span>
+    <span class="ch">ウ　主系列星 → 白色矮星 → 赤色巨星</span>`,
+    hint:"ふくらんでから小さく縮む",
+    a:`<div class="work"><span class="key">ア</span></div>
+    <p>中心の水素を使い切ると膨張して赤色巨星→外層を放出（惑星状星雲）→中心が白色矮星として残る。</p>`
   },
   {
-    topic:"銀河系", type:"記述",
-    q:"私たちの銀河系（天の川銀河）の形と構造を説明せよ。直径のおよその大きさと、太陽系の位置にもふれること。",
-    hint:"バルジ・円盤・ハロー／直径10万光年",
-    a:`<p>銀河系は約2000億個の恒星が集まった<span class="key">凸レンズ（円盤）状</span>の構造。直径は<span class="key">約10万光年</span>。</p>
-    <ul>
-      <li><span class="key">バルジ</span>：中心部のふくらみ（古い星が密集）。</li>
-      <li><span class="key">円盤（ディスク）</span>：うずまき状の腕をもつ平たい部分。若い星やガスが多い。</li>
-      <li><span class="key">ハロー</span>：全体を球状に取り巻く領域（球状星団が分布）。</li>
-    </ul>
-    <p>太陽系は中心から<span class="key">約2.8万光年</span>離れた円盤部にある。天の川は、この円盤を内側から見た姿。</p>`
+    topic:"恒星", type:"穴埋め",
+    q:`空欄に語を入れよ。<br>太陽の8倍以上の重い星は、一生の最後に大爆発（ <span class="box">ア</span> ）を起こし、あとに中性子星や <span class="box">イ</span> を残す。`,
+    hint:"重い星の派手な最期",
+    a:`<div class="work">ア＝<span class="key">超新星爆発</span>／イ＝<span class="key">ブラックホール</span></div>`
+  },
+
+  /* ===== 銀河系 ===== */
+  {
+    topic:"銀河系", type:"図",
+    q:`下の図は、太陽が属する銀河系（天の川銀河）を横から見た模式図である。A〜C の名称を ①円盤部 ②バルジ ③ハロー から選び番号で答えよ。
+    <figure>
+      <svg width="260" height="130" viewBox="0 0 260 130" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="130" cy="65" rx="115" ry="55" fill="none" stroke="#000" stroke-dasharray="3,3"/>
+        <ellipse cx="130" cy="65" rx="100" ry="14" fill="#eee" stroke="#000"/>
+        <ellipse cx="130" cy="65" rx="26" ry="24" fill="#ddd" stroke="#000"/>
+        <circle cx="90" cy="65" r="2.2" fill="#000"/><text x="76" y="60" font-size="8">太陽</text>
+        <circle cx="60" cy="30" r="2" fill="#000"/><circle cx="200" cy="35" r="2" fill="#000"/>
+        <circle cx="45" cy="90" r="2" fill="#000"/><circle cx="215" cy="95" r="2" fill="#000"/>
+        <circle cx="130" cy="18" r="2" fill="#000"/><circle cx="130" cy="112" r="2" fill="#000"/>
+        <text x="6" y="26" font-size="9" font-weight="bold">A</text>
+        <line x1="16" y1="24" x2="52" y2="30" stroke="#000" stroke-width="0.6"/>
+        <text x="127" y="10" font-size="9" font-weight="bold">B</text>
+        <line x1="130" y1="14" x2="130" y2="45" stroke="#000" stroke-width="0.6"/>
+        <text x="238" y="66" font-size="9" font-weight="bold">C</text>
+        <line x1="236" y1="64" x2="200" y2="64" stroke="#000" stroke-width="0.6"/>
+      </svg>
+      <figcaption>銀河系の断面（●は球状星団）</figcaption>
+    </figure>`,
+    hint:"中心のふくらみ・うすい円盤・全体を包む球",
+    a:`<div class="work">A＝<span class="key">③ハロー</span>／B＝<span class="key">②バルジ</span>／C＝<span class="key">①円盤部</span></div>
+    <p>中心のふくらみ＝バルジ、うすく広がる部分＝円盤部、全体を球状に包む＝ハロー。</p>`
   },
   {
-    topic:"銀河系", type:"記述",
-    q:"球状星団と散開星団のちがいを、分布する場所・星の数・星の年齢の観点から説明せよ。",
-    hint:"ハローにあるのはどっち？",
-    a:`<ul>
-      <li><span class="key">球状星団</span>：数万〜数百万個の星が球状に密集。おもに<span class="key">ハロー</span>に分布。<span class="key">年老いた星</span>が多い。</li>
-      <li><span class="key">散開星団</span>：数十〜数百個の星がまばらに集まる。おもに<span class="key">円盤部</span>に分布。<span class="key">若い星</span>が多い。</li>
-    </ul>`
+    topic:"銀河系", type:"選択",
+    q:`上の図の●で示した球状星団は、主に A〜C のどこに分布しているか。記号で答えよ。<br>（A＝ハロー、B＝バルジ、C＝円盤部）`,
+    hint:"年老いた星の集まりはどこ？",
+    a:`<div class="work"><span class="key">A</span>（ハロー）</div>
+    <p>球状星団は年老いた星の集まりで、ハローに多く分布。散開星団（若い星）は円盤部。</p>`
   },
   {
-    topic:"宇宙", type:"記述",
-    q:"銀河の形は大きく3つ（＋不規則）に分類される。分類名を挙げ、さらに銀河より大きなスケールの集まりの名前を、小さい順に並べよ。",
-    hint:"ハッブルの分類／銀河→銀河群→…",
-    a:`<p><span class="key">銀河の形態分類（ハッブル分類）</span></p>
-    <ul>
-      <li><span class="key">楕円銀河</span>／<span class="key">渦巻銀河</span>／<span class="key">棒渦巻銀河</span>（＋不規則銀河）。</li>
-    </ul>
-    <p><span class="key">宇宙の階層構造（小→大）</span></p>
-    <ul>
-      <li>銀河 → <span class="key">銀河群</span>（銀河系は局部銀河群） → <span class="key">銀河団</span> → <span class="key">超銀河団</span> → 泡やフィラメント状の<span class="key">大規模構造</span>。</li>
-    </ul>`
+    topic:"銀河系", type:"選択",
+    q:`銀河系（円盤部）の直径と、太陽の位置（中心から）の組み合わせとして正しいものを、ア〜ウから選べ。<br>
+    <span class="ch">ア　直径 1万光年 ・ 中心から約3千光年</span>
+    <span class="ch">イ　直径 10万光年 ・ 中心から約3万光年</span>
+    <span class="ch">ウ　直径 100万光年 ・ 中心から約30万光年</span>`,
+    hint:"直径10万光年が目安",
+    a:`<div class="work"><span class="key">イ</span></div>
+    <p>直径約10万光年、太陽は中心から約2.8万光年（約3万光年）の円盤部にある。</p>`
+  },
+  {
+    topic:"銀河系", type:"穴埋め",
+    q:`空欄に「球状／散開」を入れよ。<br>ハローに分布し年老いた星が多い星団を <span class="box">ア</span> 星団、円盤部に分布し若い星が多い星団を <span class="box">イ</span> 星団という。`,
+    hint:"ハロー側と円盤側",
+    a:`<div class="work">ア＝<span class="key">球状</span>／イ＝<span class="key">散開</span></div>`
+  },
+  {
+    topic:"銀河系", type:"穴埋め",
+    q:`空欄に語を入れよ。<br>恒星と恒星の間の空間を満たす、水素などのガスと固体の微粒子をまとめて <span class="box">ア</span> という。このうち固体の粒を星間 <span class="box">イ</span> という。これらが集まって明るく／暗く見えるものを星雲という。`,
+    hint:"星と星の間にあるもの",
+    a:`<div class="work">ア＝<span class="key">星間物質</span>／イ＝<span class="key">塵</span>（ちり）</div>
+    <p>星間ガス＋星間塵＝星間物質。集まると散光星雲・暗黒星雲などになる。</p>`
+  },
+  {
+    topic:"銀河系", type:"穴埋め",
+    q:`空欄に入る語を答えよ。<br>夜空に帯状に見える天の川は、私たちが銀河系の <span class="box">ア</span> を内側から見た姿である。`,
+    hint:"平たい部分を横から見ると帯に見える",
+    a:`<div class="work">ア＝<span class="key">円盤部</span>（ディスク）</div>
+    <p>太陽が円盤部の中にあるため、円盤方向を見ると星が帯状に重なって見える。</p>`
   }
+
 ];
 
 /* ===== 状態 ===== */
@@ -446,9 +558,10 @@ const gradeBox = document.getElementById('grade');
 function render(){
   const item = QUESTIONS[cur];
   badge.textContent = item.type;
-  badge.className = 'badge' + (item.type === '計算' ? ' calc' : '');
+  const typeCls = {'計算':'calc','穴埋め':'fill','選択':'choice','図':'zu'};
+  badge.className = 'badge' + (typeCls[item.type] ? (' '+typeCls[item.type]) : '');
   topicEl.textContent = item.topic;
-  qtextEl.innerHTML = `<b>Q${cur+1}.</b> ` + escapeKeepTags(item.q);
+  qtextEl.innerHTML = `<b>Q${cur+1}.</b> ` + item.q;
   hintEl.textContent = item.hint ? 'ヒント：' + item.hint : '';
   answerEl.innerHTML = '<h3>模範解答・解説</h3>' + item.a;
   answerEl.classList.add('hidden');
