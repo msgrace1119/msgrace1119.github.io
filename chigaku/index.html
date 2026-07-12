@@ -552,6 +552,141 @@ const QUESTIONS = [
     hint:"黒く見える／明るく光る",
     a:`<div class="work">ア＝<span class="key">暗黒</span>星雲／イ＝<span class="key">散光</span>星雲</div>
     <p>どちらも星間物質（ガスと塵）が集まったもの。</p>`
+  },
+  /* ===== 追加：本番でねらわれる計算（7タイプ） ===== */
+
+  /* ① 距離を pc と光年で（年周視差） */
+  {
+    topic:"恒星", type:"計算",
+    q:`年周視差が 0.02″ の恒星までの距離は何パーセクか。また約何光年か。<br>〔d(pc) ＝ 1 / p(″)、1pc ＝ 3.26光年〕`,
+    hint:"1 ÷ 0.02 を計算",
+    a:`<div class="work">d ＝ 1 ÷ 0.02 ＝ <span class="key">50 pc</span><br>50 × 3.26 ＝ <span class="key">163 光年</span></div>`
+  },
+  {
+    topic:"恒星", type:"計算",
+    q:`年周視差が 0.10″ の恒星までの距離は何パーセクか。また約何光年か。<br>〔d(pc) ＝ 1 / p(″)、1pc ＝ 3.26光年〕`,
+    hint:"1 ÷ 0.10",
+    a:`<div class="work">d ＝ 1 ÷ 0.10 ＝ <span class="key">10 pc</span><br>10 × 3.26 ＝ <span class="key">約32.6 光年</span></div>`
+  },
+
+  /* ② 何倍明るいか（等級） */
+  {
+    topic:"恒星", type:"計算",
+    q:`2等星は7等星のおよそ何倍明るいか。<br>〔5等級の差で100倍〕`,
+    hint:"7 − 2 ＝ 何等級差？",
+    a:`<div class="work">7 − 2 ＝ 5等級の差 → <span class="key">100倍</span></div>`
+  },
+  {
+    topic:"恒星", type:"計算",
+    q:`ある星は、別の星より3等級明るい。およそ何倍明るいか。<br>〔1等級で約2.5倍〕`,
+    hint:"2.5 を3回かける（2.5³）",
+    a:`<div class="work">2.5 × 2.5 × 2.5 ≒ <span class="key">約16倍</span></div>
+    <p>正確には 100の(3/5)乗 ≒ 15.8倍。</p>`
+  },
+
+  /* ③ 絶対等級を求める */
+  {
+    topic:"恒星", type:"計算",
+    q:`見かけの等級が ＋6.0 で、距離が 100 pc の恒星の絶対等級を求めよ。<br>〔M ＝ m − 5 log(d / 10)〕`,
+    hint:"d/10 ＝ 10、log10 ＝ 1",
+    a:`<div class="work">M ＝ 6.0 − 5 log(100/10) ＝ 6.0 − 5 log10<br>＝ 6.0 − 5 × 1 ＝ <span class="key">＋1.0</span></div>
+    <p>絶対等級＝その星を10pcに置いたときの明るさ。</p>`
+  },
+  {
+    topic:"恒星", type:"計算",
+    q:`見かけの等級が ＋8.0 で、距離が 1000 pc の恒星の絶対等級を求めよ。<br>〔M ＝ m − 5 log(d / 10)〕`,
+    hint:"d/10 ＝ 100、log100 ＝ 2",
+    a:`<div class="work">M ＝ 8.0 − 5 log(1000/10) ＝ 8.0 − 5 log100<br>＝ 8.0 − 5 × 2 ＝ <span class="key">−2.0</span></div>`
+  },
+  {
+    topic:"恒星", type:"計算",
+    q:`見かけの等級が ＋3.0 で、距離が 10 pc の恒星の絶対等級を求めよ。<br>〔M ＝ m − 5 log(d / 10)〕`,
+    hint:"d/10 ＝ 1、log1 ＝ 0",
+    a:`<div class="work">M ＝ 3.0 − 5 log(10/10) ＝ 3.0 − 5 log1<br>＝ 3.0 − 5 × 0 ＝ <span class="key">＋3.0</span></div>
+    <p>ちょうど10pcにある星は、見かけの等級＝絶対等級になる。</p>`
+  },
+
+  /* ④ 太陽・恒星の表面温度を求める（ウィーン逆算） */
+  {
+    topic:"太陽", type:"計算",
+    q:`太陽が最も強く放つ光の波長は約 500 nm（5.0×10⁻⁷ m）である。太陽の表面温度は約何Kか。<br>〔ウィーンの変位則：T ＝ 2.9×10⁻³ / λmax〕`,
+    hint:"T ＝ 2.9×10⁻³ ÷ 5.0×10⁻⁷",
+    a:`<div class="work">T ＝ 2.9×10⁻³ ÷ 5.0×10⁻⁷<br>＝ <span class="key">約5800 K</span>（約6000K）</div>
+    <p>最も強い光の波長がわかれば温度が求まる。</p>`
+  },
+  {
+    topic:"恒星", type:"計算",
+    q:`ある恒星が最も強く放つ光の波長は 725 nm（7.25×10⁻⁷ m）であった。表面温度は約何Kか。<br>〔T ＝ 2.9×10⁻³ / λmax〕`,
+    hint:"波長が長い＝低温（赤い星）",
+    a:`<div class="work">T ＝ 2.9×10⁻³ ÷ 7.25×10⁻⁷ ＝ <span class="key">約4000 K</span></div>
+    <p>太陽より波長が長い→温度が低い→赤っぽく見える。</p>`
+  },
+
+  /* ⑤ HR図を見て距離を求める */
+  {
+    topic:"恒星", type:"図",
+    q:`下のHR図で、●の恒星は主系列星で、絶対等級は ＋5.0 と読み取れる。この恒星の見かけの等級が ＋10.0 のとき、距離は何パーセクか。<br>〔m − M ＝ 5 log(d / 10)〕
+    <figure>
+      <svg width="270" height="210" viewBox="0 0 270 210" xmlns="http://www.w3.org/2000/svg">
+        <rect x="40" y="10" width="200" height="160" fill="none" stroke="#000"/>
+        <text x="12" y="20" font-size="9">明</text><text x="12" y="165" font-size="9">暗</text>
+        <text x="46" y="186" font-size="8">O</text><text x="76" y="186" font-size="8">B</text>
+        <text x="106" y="186" font-size="8">A</text><text x="133" y="186" font-size="8">F</text>
+        <text x="160" y="186" font-size="8">G</text><text x="190" y="186" font-size="8">K</text>
+        <text x="218" y="186" font-size="8">M</text>
+        <text x="66" y="202" font-size="8.5">← 高温　　表面温度　　低温 →</text>
+        <text x="20" y="95" font-size="8.5" transform="rotate(-90 20 95)">絶対等級</text>
+        <line x1="55" y1="28" x2="225" y2="150" stroke="#000" stroke-width="0.7" stroke-dasharray="2,2"/>
+        <circle cx="150" cy="98" r="3.4" fill="#c0392b"/>
+        <text x="156" y="96" font-size="9" font-weight="bold" fill="#c0392b">●</text>
+      </svg>
+      <figcaption>HR図（●の星の絶対等級＝＋5.0）</figcaption>
+    </figure>`,
+    hint:"m−M を出して式に代入",
+    a:`<div class="work">m − M ＝ 10.0 − 5.0 ＝ 5<br>5 ＝ 5 log(d/10) → log(d/10) ＝ 1<br>d/10 ＝ 10 → d ＝ <span class="key">100 pc</span></div>
+    <p>HR図で主系列星の位置から絶対等級を読み、見かけの等級と合わせて距離を出す。</p>`
+  },
+  {
+    topic:"恒星", type:"計算",
+    q:`HR図から、ある恒星の絶対等級は 0.0 と読み取れた。この恒星の見かけの等級が ＋10.0 のとき、距離は何パーセクか。<br>〔m − M ＝ 5 log(d / 10)〕`,
+    hint:"m−M ＝ 10",
+    a:`<div class="work">m − M ＝ 10.0 − 0.0 ＝ 10<br>10 ＝ 5 log(d/10) → log(d/10) ＝ 2<br>d/10 ＝ 100 → d ＝ <span class="key">1000 pc</span></div>`
+  },
+
+  /* ⑥ 半径が太陽の何倍か（シュテファン・ボルツマン） */
+  {
+    topic:"恒星", type:"計算",
+    q:`ある恒星は、光度が太陽の 100倍、表面温度は太陽と同じである。この恒星の半径は太陽の何倍か。<br>〔L/L☉ ＝ (R/R☉)² × (T/T☉)⁴〕`,
+    hint:"温度が同じなら L∝R²。R/R☉＝√(L/L☉)",
+    a:`<div class="work">100 ＝ (R/R☉)² × 1⁴<br>(R/R☉)² ＝ 100 → R/R☉ ＝ <span class="key">10倍</span></div>`
+  },
+  {
+    topic:"恒星", type:"計算",
+    q:`ある恒星は、光度が太陽の 10000倍、表面温度が太陽の 2倍である。半径は太陽の何倍か。<br>〔L/L☉ ＝ (R/R☉)² × (T/T☉)⁴〕`,
+    hint:"(R/R☉)² ＝ (L/L☉) ÷ (T/T☉)⁴",
+    a:`<div class="work">(R/R☉)² ＝ 10000 ÷ 2⁴ ＝ 10000 ÷ 16 ＝ 625<br>R/R☉ ＝ √625 ＝ <span class="key">25倍</span></div>`
+  },
+  {
+    topic:"恒星", type:"計算",
+    q:`ある赤色巨星は、光度が太陽の 10000倍、表面温度が太陽の 0.5倍である。半径は太陽の何倍か。<br>〔L/L☉ ＝ (R/R☉)² × (T/T☉)⁴〕`,
+    hint:"温度が低いのに明るい→とても大きい",
+    a:`<div class="work">(R/R☉)² ＝ 10000 ÷ (0.5)⁴ ＝ 10000 ÷ 0.0625 ＝ 160000<br>R/R☉ ＝ √160000 ＝ <span class="key">400倍</span></div>
+    <p>赤色巨星は低温でも半径が非常に大きいので明るい。</p>`
+  },
+
+  /* ⑦ 恒星の寿命を求める */
+  {
+    topic:"恒星", type:"計算",
+    q:`質量が太陽の 10倍、光度が太陽の 10000倍の恒星がある。この恒星の寿命は太陽の何倍か。太陽の寿命を約100億年とすると、約何年か。<br>〔寿命 ∝ 質量 / 光度（燃料÷使う速さ）〕`,
+    hint:"寿命の比 ＝ (M/M☉) ÷ (L/L☉)",
+    a:`<div class="work">寿命の比 ＝ 10 ÷ 10000 ＝ 1/1000<br>100億年 × 1/1000 ＝ <span class="key">1000万年</span></div>
+    <p>重い星は明るいぶん燃料を速く使い、寿命は短い。</p>`
+  },
+  {
+    topic:"恒星", type:"計算",
+    q:`質量が太陽の 2倍、光度が太陽の 16倍の恒星の寿命は、太陽の何倍か。太陽の寿命を100億年として、約何年か。<br>〔寿命 ∝ 質量 / 光度〕`,
+    hint:"2 ÷ 16",
+    a:`<div class="work">寿命の比 ＝ 2 ÷ 16 ＝ 1/8<br>100億年 × 1/8 ＝ <span class="key">約12.5億年</span></div>`
   }
 ];
 
