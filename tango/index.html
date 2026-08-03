@@ -47,6 +47,8 @@
     border-radius:10px; padding:9px 4px; min-height:42px;}
   .seg button.active{background:var(--accent); color:#fff; border-color:var(--accent); font-weight:700;}
   .fieldlabel{font-size:12px; color:var(--sub); margin:14px 2px 2px;}
+  .emptynote{font-size:13px; color:var(--sub); line-height:1.8; text-align:center;
+    background:#fbf9f4; border:1px dashed var(--line); border-radius:12px; padding:12px; margin-top:10px;}
 
   .decklist{display:flex; flex-direction:column; gap:8px;}
   .deckrow{display:flex; align-items:center; gap:10px; border:1px solid var(--line);
@@ -150,6 +152,10 @@
 
     <div class="card">
       <button class="bigbtn" id="btnStart">はじめる</button>
+      <div id="emptyNote" class="emptynote hidden">
+        まだ単語が入っていません。<br>
+        下の「＋ 単語をまとめて入れる」から入れてください。
+      </div>
       <div class="fieldlabel">出しかた</div>
       <div class="seg" id="segDir">
         <button data-dir="ja2en">日本語 → 英語<br><span style="font-size:10px;font-weight:400;">つづりを書く</span></button>
@@ -258,77 +264,12 @@
 "use strict";
 
 /* ============ 保存まわり ============ */
-const K_DECKS='tango_decks_v1', K_PROG='tango_prog_v1', K_SET='tango_set_v1', K_DAY='tango_day_v1';
+const K_DECKS='tango_decks_v2', K_PROG='tango_prog_v2', K_SET='tango_set_v2', K_DAY='tango_day_v2';
 const load=(k,d)=>{ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):d; }catch(e){ return d; } };
 const save=(k,v)=>{ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){ toast('保存できませんでした'); } };
 
 /* ============ 最初から入っている単語帳 ============ */
-const STARTER = {
-  id:'starter_toeic',
-  name:'TOEIC よく出る単語 60',
-  cards:[
-    ['achieve','達成する','She achieved her sales goal.'],
-    ['apply','応募する／適用する','Please apply for the position online.'],
-    ['approve','承認する','The manager approved the budget.'],
-    ['arrange','手配する','I arranged a meeting for Friday.'],
-    ['attend','出席する','All staff must attend the training.'],
-    ['available','利用できる／手があいている','The room is available at three.'],
-    ['budget','予算','We need to cut the budget.'],
-    ['charge','料金／請求する','There is no charge for delivery.'],
-    ['client','顧客','Our client asked for a discount.'],
-    ['colleague','同僚','I asked my colleague for help.'],
-    ['confirm','確認する','Please confirm your reservation.'],
-    ['consider','検討する','We are considering two options.'],
-    ['contract','契約','They signed a two-year contract.'],
-    ['deadline','締め切り','The deadline is next Monday.'],
-    ['delay','遅れ／遅らせる','The flight was delayed by snow.'],
-    ['deliver','配達する','We deliver within two days.'],
-    ['department','部署','She works in the sales department.'],
-    ['discount','割引','Members get a ten percent discount.'],
-    ['employee','従業員','The company has 300 employees.'],
-    ['equipment','機器・設備','The equipment needs repair.'],
-    ['estimate','見積もり／見積もる','Could you send me an estimate?'],
-    ['expand','拡大する','They plan to expand overseas.'],
-    ['expense','費用','Travel expenses will be paid.'],
-    ['facility','施設','The facility opens at nine.'],
-    ['fee','料金','The membership fee is 50 dollars.'],
-    ['increase','増加する／増やす','Sales increased by 20 percent.'],
-    ['inform','知らせる','Please inform us of any changes.'],
-    ['inquiry','問い合わせ','We received many inquiries.'],
-    ['invoice','請求書','The invoice was sent by email.'],
-    ['issue','問題／発行する','We solved the issue quickly.'],
-    ['maintain','維持する','We maintain high quality.'],
-    ['manufacture','製造する','They manufacture car parts.'],
-    ['negotiate','交渉する','We negotiated a lower price.'],
-    ['notify','通知する','We will notify you by email.'],
-    ['obtain','手に入れる','You must obtain a permit.'],
-    ['offer','申し出／提供する','They offered me a job.'],
-    ['operate','運営する／操作する','The store operates until nine.'],
-    ['order','注文／注文する','Your order has been shipped.'],
-    ['participate','参加する','Fifty people participated.'],
-    ['performance','業績・出来ばえ','His performance was excellent.'],
-    ['permit','許可する／許可証','Smoking is not permitted here.'],
-    ['policy','方針','This is our refund policy.'],
-    ['postpone','延期する','The meeting was postponed.'],
-    ['prepare','準備する','Please prepare the documents.'],
-    ['previous','以前の','See the previous page.'],
-    ['proceed','進む','Please proceed to gate 12.'],
-    ['promote','昇進させる／宣伝する','She was promoted to manager.'],
-    ['purchase','購入する／購入','Keep your purchase receipt.'],
-    ['recommend','推薦する','I recommend this restaurant.'],
-    ['reduce','減らす','We reduced costs last year.'],
-    ['refund','払い戻し','You can get a full refund.'],
-    ['register','登録する','Please register by Friday.'],
-    ['reliable','信頼できる','He is a reliable worker.'],
-    ['replace','取り替える','We replaced the old printer.'],
-    ['require','必要とする','This job requires experience.'],
-    ['reserve','予約する','I reserved a table for two.'],
-    ['schedule','予定／予定する','The schedule has changed.'],
-    ['shipment','発送・積み荷','The shipment arrives Tuesday.'],
-    ['submit','提出する','Submit your report by noon.'],
-    ['temporary','一時的な','This is a temporary solution.']
-  ].map((r,i)=>({id:'s'+i, en:r[0], ja:r[1], ex:r[2]||''}))
-};
+const STARTER = { id:'kaede', name:'楓の単語帳', cards:[] };
 
 let decks    = load(K_DECKS, null);
 if(!decks){ decks=[STARTER]; save(K_DECKS,decks); }
@@ -461,8 +402,11 @@ function renderHome(){
   const c=counts();
   $('cNew').textContent=c.n; $('cLearn').textContent=c.l; $('cRev').textContent=c.r;
   $('deckLabel').textContent=deck().name+'（全'+deck().cards.length+'語）';
-  $('btnStart').disabled = (c.n+c.l+c.r)===0;
-  $('btnStart').textContent = (c.n+c.l+c.r)===0 ? 'きょうの分は終わりました' : 'はじめる（'+(c.n+c.l+c.r)+'問）';
+  const total=c.n+c.l+c.r, empty=deck().cards.length===0;
+  $('btnStart').disabled = total===0;
+  $('btnStart').textContent = empty ? 'まず単語を入れてください'
+    : (total===0 ? 'きょうの分は終わりました' : 'はじめる（'+total+'問）');
+  $('emptyNote').classList.toggle('hidden', !empty);
   document.querySelectorAll('#segDir button').forEach(b=>b.classList.toggle('active', b.dataset.dir===settings.dir));
   document.querySelectorAll('#segNew button').forEach(b=>b.classList.toggle('active', +b.dataset.n===settings.newPerDay));
   const list=$('deckList'); list.innerHTML='';
