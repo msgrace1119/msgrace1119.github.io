@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>書いて覚える単語帳 QRコード</title>
+<style>
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;
+    background:#f7f4ec; color:#2b2b33; display:flex; justify-content:center; padding:24px 16px;}
+  .card{background:#fff; border:1px solid #e6e0d4; border-radius:20px; max-width:440px; width:100%;
+    padding:26px 24px 30px; box-shadow:0 2px 10px rgba(0,0,0,.05); text-align:center;}
+  h1{font-size:19px; letter-spacing:.02em; margin-bottom:2px;}
+  .sub{font-size:12px; color:#6b6b78; margin-bottom:18px;}
+  .qrwrap{background:#fff; border:1px solid #eee; border-radius:16px; padding:14px; display:inline-block; margin:0 auto 16px;}
+  .qrwrap svg{width:260px; height:260px; display:block;}
+  .steps{text-align:left; font-size:14px; line-height:1.9; background:#f0f6fb; border:1px solid #cfe0f0;
+    border-radius:12px; padding:14px 16px; margin-bottom:16px;}
+  .steps b{color:#3b6ea5;}
+  .url{font-size:13px; color:#3b6ea5; word-break:break-all; background:#f7f4ec; border-radius:8px; padding:8px 10px;}
+  .url a{color:#3b6ea5;}
+  .foot{font-size:11px; color:#9a9488; margin-top:14px; line-height:1.7;}
+  @media print{ body{background:#fff;} .card{border:none; box-shadow:none;} }
+</style>
+</head>
+<body>
+  <div class="card">
+    <h1>書いて覚える単語帳 ✍️</h1>
+    <div class="sub">書いて答える暗記カード（Anki式）</div>
+
+    <div class="qrwrap">
+<svg xmlns="http://www.w3.org/2000/svg" width="370" height="370" class="segno"><g transform="scale(10)"><path fill="#fff" d="M0 0h37v37h-37z"/><path class="qrline" stroke="#2b3a55" d="M4 4.5h7m2 0h2m1 0h1m1 0h1m3 0h2m2 0h7m-29 1h1m5 0h1m3 0h1m5 0h1m3 0h1m1 0h1m5 0h1m-29 1h1m1 0h3m1 0h1m3 0h1m1 0h1m1 0h2m1 0h2m3 0h1m1 0h3m1 0h1m-29 1h1m1 0h3m1 0h1m2 0h3m1 0h1m5 0h1m2 0h1m1 0h3m1 0h1m-29 1h1m1 0h3m1 0h1m2 0h1m2 0h1m4 0h2m3 0h1m1 0h3m1 0h1m-29 1h1m5 0h1m1 0h3m4 0h1m1 0h4m1 0h1m5 0h1m-29 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-19 1h1m2 0h1m1 0h3m2 0h1m-21 1h1m2 0h1m1 0h2m1 0h1m2 0h1m2 0h1m1 0h1m2 0h1m1 0h1m1 0h1m-24 1h5m2 0h1m1 0h2m1 0h2m1 0h1m1 0h1m2 0h3m2 0h1m2 0h1m-23 1h2m2 0h1m1 0h3m1 0h6m1 0h1m1 0h3m-28 1h4m7 0h1m1 0h1m2 0h1m1 0h3m5 0h2m-26 1h1m1 0h1m1 0h1m1 0h3m1 0h1m1 0h4m1 0h4m2 0h1m1 0h2m-25 1h1m3 0h1m1 0h5m1 0h1m2 0h3m-22 1h1m2 0h4m1 0h1m2 0h1m1 0h2m5 0h3m1 0h5m-28 1h2m2 0h1m2 0h2m2 0h1m3 0h3m4 0h1m1 0h1m1 0h1m-26 1h2m1 0h3m4 0h2m1 0h1m1 0h1m1 0h1m1 0h1m5 0h1m-26 1h2m8 0h3m1 0h2m3 0h3m1 0h1m2 0h1m-29 1h1m1 0h1m3 0h1m2 0h2m3 0h1m6 0h1m5 0h2m-26 1h2m2 0h1m1 0h1m4 0h1m2 0h2m2 0h1m1 0h1m3 0h2m-29 1h1m1 0h1m1 0h4m1 0h1m1 0h2m3 0h1m1 0h7m1 0h1m-19 1h1m1 0h1m1 0h1m1 0h1m1 0h1m2 0h2m3 0h1m1 0h3m-29 1h7m2 0h1m2 0h1m4 0h1m2 0h1m1 0h1m1 0h1m2 0h1m-28 1h1m5 0h1m1 0h2m2 0h1m1 0h1m1 0h1m1 0h1m1 0h1m3 0h5m-29 1h1m1 0h3m1 0h1m3 0h1m4 0h3m2 0h5m3 0h1m-29 1h1m1 0h3m1 0h1m1 0h1m1 0h4m3 0h2m3 0h1m1 0h4m-28 1h1m1 0h3m1 0h1m10 0h1m1 0h2m3 0h3m1 0h1m-29 1h1m5 0h1m2 0h1m1 0h3m1 0h1m1 0h1m1 0h2m3 0h1m2 0h1m-28 1h7m1 0h1m2 0h2m4 0h1m2 0h6m1 0h1"/></g></svg>
+    </div>
+
+    <div class="steps">
+      <b>使い方（楓ちゃんへ）</b><br>
+      ① スマホの<b>カメラ</b>を、この四角い模様に向ける<br>
+      ② 画面に出るリンクを<b>タップ</b><br>
+      ③ 開いたら、共有ボタン → <b>「ホーム画面に追加」</b>でアプリみたいに使える<br>
+      ④ 日本語を見て、<b>指でつづりを書いてから</b>「答えを見る」
+    </div>
+
+    <div class="url"><a href="https://graceenglishlab.com/tango/">https://graceenglishlab.com/tango/</a></div>
+
+    <div class="foot">
+      ホーム画面に追加すると、学習の記録がずっと残ります。<br>
+      記録はスマホの中だけに保存されます。
+    </div>
+  </div>
+</body>
+</html>
