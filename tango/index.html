@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>書いて覚える単語帳</title>
+<style>
+  :root{
+    --bg:#f7f4ec; --panel:#ffffff; --ink:#2b2b33; --sub:#6b6b78;
+    --accent:#3b6ea5; --accent2:#c9a24b; --line:#e6e0d4; --good:#2f8f6b;
+    --ans-bg:#f0f6fb; --ans-line:#cfe0f0; --warn:#b56d18;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  html,body{margin:0; padding:0; background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;
+    -webkit-text-size-adjust:100%;}
+  .wrap{max-width:720px; margin:0 auto; padding:10px 12px calc(16px + env(safe-area-inset-bottom));}
+
+  header{display:flex; align-items:center; justify-content:space-between; gap:8px; padding:6px 2px 10px;}
+  header h1{font-size:16px; margin:0; letter-spacing:.02em;}
+  header .deckname{font-size:11px; color:var(--sub);}
+  .iconbtn{font-size:13px; border:1px solid var(--line); background:var(--panel); color:var(--sub);
+    border-radius:999px; padding:6px 12px; min-height:36px; white-space:nowrap;}
+
+  .card{background:var(--panel); border:1px solid var(--line); border-radius:16px;
+    padding:14px; box-shadow:0 1px 3px rgba(0,0,0,.04); margin-bottom:12px;}
+
+  /* ---- ホーム ---- */
+  .stats{display:flex; gap:8px; margin-bottom:12px;}
+  .stat{flex:1; background:var(--panel); border:1px solid var(--line); border-radius:14px;
+    padding:12px 8px; text-align:center;}
+  .stat .n{font-size:26px; font-weight:800; line-height:1.1;}
+  .stat .l{font-size:11px; color:var(--sub); margin-top:3px;}
+  .stat.new .n{color:var(--accent);}
+  .stat.learn .n{color:var(--warn);}
+  .stat.rev .n{color:var(--good);}
+  .bigbtn{width:100%; font-size:17px; font-weight:800; color:#fff; background:var(--good);
+    border:none; border-radius:14px; padding:16px; min-height:56px;}
+  .bigbtn:disabled{background:#b7b7c0;}
+  .subbtn{width:100%; font-size:14px; font-weight:700; color:var(--ink); background:var(--panel);
+    border:1px solid var(--line); border-radius:12px; padding:12px; min-height:46px; margin-top:8px;}
+
+  .seg{display:flex; gap:6px; margin-top:10px;}
+  .seg button{flex:1; font-size:13px; border:1px solid var(--line); background:#fbf9f4; color:var(--ink);
+    border-radius:10px; padding:9px 4px; min-height:42px;}
+  .seg button.active{background:var(--accent); color:#fff; border-color:var(--accent); font-weight:700;}
+  .fieldlabel{font-size:12px; color:var(--sub); margin:14px 2px 2px;}
+
+  .decklist{display:flex; flex-direction:column; gap:8px;}
+  .deckrow{display:flex; align-items:center; gap:10px; border:1px solid var(--line);
+    background:#fbf9f4; border-radius:12px; padding:11px 12px;}
+  .deckrow.cur{border-color:var(--accent); background:#f0f6fb;}
+  .deckrow .nm{flex:1; font-size:14px; font-weight:700;}
+  .deckrow .ct{font-size:11px; color:var(--sub);}
+  .deckrow .del{font-size:12px; color:#b04b4b; border:1px solid #e8cfcf; background:#fff;
+    border-radius:8px; padding:6px 9px; min-height:34px;}
+
+  /* ---- 学習画面 ---- */
+  .qbar{display:flex; align-items:center; gap:8px; margin-bottom:8px;}
+  .badge{font-size:11px; font-weight:700; color:#fff; border-radius:6px; padding:3px 9px;}
+  .badge.new{background:var(--accent);}
+  .badge.learn{background:var(--warn);}
+  .badge.review{background:var(--good);}
+  .badge.relearn{background:#a04b7a;}
+  .qbar .spacer{flex:1;}
+  .qbar .rest{font-size:11px; color:var(--sub);}
+
+  .prompt{font-size:26px; font-weight:700; line-height:1.5; text-align:center;
+    padding:18px 8px; word-break:break-word;}
+  .prompt.en{font-size:32px; letter-spacing:.01em;}
+  .prompt .sm{display:block; font-size:12px; color:var(--sub); font-weight:400; margin-top:6px;}
+
+  .tools{display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin:4px 0 8px;}
+  .tools button{font-size:13px; border:1px solid var(--line); background:#fbf9f4; color:var(--ink);
+    border-radius:10px; padding:8px 12px; min-height:40px; touch-action:manipulation;}
+  .tools button.active{background:var(--accent); color:#fff; border-color:var(--accent);}
+  .tools .spacer{flex:1;}
+
+  .canvaswrap{position:relative; border:1px dashed #d9d2c2; border-radius:12px; overflow:hidden;
+    background-color:#fff;
+    background-image:
+      repeating-linear-gradient(to bottom, #b9ab8c 0 1.5px, transparent 1.5px 72px),
+      repeating-linear-gradient(to bottom, #ece3d0 0 1px, transparent 1px 18px);
+    background-position:0 70.5px, 0 0;}
+  canvas{display:block; width:100%; height:216px; touch-action:none;}
+  .canvaslabel{position:absolute; top:5px; right:10px; font-size:11px; color:#c3bbaa; pointer-events:none;}
+
+  .answerbtn{width:100%; margin-top:10px; font-size:16px; font-weight:800; color:#fff;
+    background:var(--accent); border:none; border-radius:12px; padding:15px; min-height:52px;}
+
+  .answer{margin-top:10px; background:var(--ans-bg); border:1px solid var(--ans-line);
+    border-radius:12px; padding:14px; text-align:center;}
+  .answer.hidden{display:none;}
+  .answer .big{font-size:30px; font-weight:800; color:var(--accent); word-break:break-word;}
+  .answer .big.ja{font-size:24px; color:var(--ink);}
+  .answer .sub{font-size:14px; color:var(--sub); margin-top:6px;}
+  .answer .ex{font-size:13px; color:var(--sub); margin-top:10px; line-height:1.7;
+    background:#fff; border:1px solid var(--ans-line); border-radius:8px; padding:8px 10px; text-align:left;}
+  .answer .speak{margin-top:10px; font-size:13px; border:1px solid var(--ans-line); background:#fff;
+    color:var(--accent); border-radius:10px; padding:8px 14px; min-height:40px;}
+
+  .grades{display:flex; gap:6px; margin-top:10px;}
+  .grades.hidden{display:none;}
+  .grades button{flex:1; border:none; border-radius:12px; padding:12px 2px; min-height:62px;
+    color:#fff; font-weight:800; font-size:14px; line-height:1.3;}
+  .grades button .iv{display:block; font-size:10px; font-weight:600; opacity:.9; margin-top:3px;}
+  .g1{background:#c05353;} .g2{background:#c9903b;} .g3{background:#2f8f6b;} .g4{background:#3b6ea5;}
+
+  /* ---- 単語の追加 ---- */
+  textarea{width:100%; min-height:190px; font-size:14px; line-height:1.7; padding:10px;
+    border:1px solid var(--line); border-radius:12px; font-family:inherit; background:#fffdf8;}
+  input[type=text]{width:100%; font-size:15px; padding:11px; border:1px solid var(--line);
+    border-radius:12px; font-family:inherit; background:#fffdf8;}
+  .help{font-size:12px; color:var(--sub); line-height:1.8; margin:6px 2px 10px;}
+  .help code{background:#efeade; border-radius:4px; padding:1px 5px; font-size:12px;}
+
+  .done{text-align:center; padding:26px 10px;}
+  .done .mark{font-size:44px;}
+  .done h2{font-size:19px; margin:10px 0 6px;}
+  .done p{font-size:13px; color:var(--sub); margin:0 0 16px; line-height:1.8;}
+
+  .toast{position:fixed; left:50%; bottom:26px; transform:translateX(-50%);
+    background:#2b2b33; color:#fff; font-size:13px; padding:11px 18px; border-radius:999px;
+    opacity:0; pointer-events:none; transition:.25s; z-index:50; max-width:88%; text-align:center;}
+  .toast.show{opacity:.95;}
+  .hidden{display:none;}
+  footer{text-align:center; color:var(--sub); font-size:11px; margin-top:16px; line-height:1.8;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div>
+      <h1 id="ttl">書いて覚える単語帳</h1>
+      <div class="deckname" id="deckLabel">—</div>
+    </div>
+    <button class="iconbtn" id="btnHome">☰ メニュー</button>
+  </header>
+
+  <!-- ===== ホーム ===== -->
+  <section id="viewHome">
+    <div class="stats">
+      <div class="stat new"><div class="n" id="cNew">0</div><div class="l">はじめて</div></div>
+      <div class="stat learn"><div class="n" id="cLearn">0</div><div class="l">練習中</div></div>
+      <div class="stat rev"><div class="n" id="cRev">0</div><div class="l">復習</div></div>
+    </div>
+
+    <div class="card">
+      <button class="bigbtn" id="btnStart">はじめる</button>
+      <div class="fieldlabel">出しかた</div>
+      <div class="seg" id="segDir">
+        <button data-dir="ja2en">日本語 → 英語<br><span style="font-size:10px;font-weight:400;">つづりを書く</span></button>
+        <button data-dir="en2ja">英語 → 日本語<br><span style="font-size:10px;font-weight:400;">意味を書く</span></button>
+        <button data-dir="mix">まぜる</button>
+      </div>
+      <div class="fieldlabel">1日にはじめて出す数</div>
+      <div class="seg" id="segNew">
+        <button data-n="5">5語</button>
+        <button data-n="10">10語</button>
+        <button data-n="15">15語</button>
+        <button data-n="25">25語</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="fieldlabel" style="margin-top:0">単語帳をえらぶ</div>
+      <div class="decklist" id="deckList"></div>
+      <button class="subbtn" id="btnAdd">＋ 単語をまとめて入れる</button>
+      <button class="subbtn" id="btnReset">この単語帳の記録をリセット</button>
+    </div>
+
+    <footer>
+      Anki と同じ「忘れかけた頃にまた出す」方式です。<br>
+      記録はこの端末の中だけに保存されます。
+    </footer>
+  </section>
+
+  <!-- ===== 学習 ===== -->
+  <section id="viewStudy" class="hidden">
+    <div class="card">
+      <div class="qbar">
+        <span class="badge" id="stateBadge">はじめて</span>
+        <span class="spacer"></span>
+        <span class="rest" id="restLabel">残り 0</span>
+      </div>
+
+      <div class="prompt" id="prompt">—</div>
+
+      <div class="tools">
+        <button id="tPen" class="active">✏️ ペン</button>
+        <button id="tEraser">消しゴム</button>
+        <button id="tClear">ぜんぶ消す</button>
+        <span class="spacer"></span>
+        <button id="tSpeakQ" class="hidden">🔊</button>
+      </div>
+
+      <div class="canvaswrap">
+        <canvas id="pad"></canvas>
+        <span class="canvaslabel">ここに書く</span>
+      </div>
+
+      <button class="answerbtn" id="btnShow">答えを見る</button>
+
+      <div class="answer hidden" id="answerBox">
+        <div class="big" id="ansMain">—</div>
+        <div class="sub" id="ansSub"></div>
+        <div class="ex hidden" id="ansEx"></div>
+        <button class="speak" id="btnSpeak">🔊 発音を聞く</button>
+      </div>
+
+      <div class="grades hidden" id="grades">
+        <button class="g1" data-g="1">もう一度<span class="iv" id="iv1"></span></button>
+        <button class="g2" data-g="2">むずい<span class="iv" id="iv2"></span></button>
+        <button class="g3" data-g="3">できた<span class="iv" id="iv3"></span></button>
+        <button class="g4" data-g="4">かんたん<span class="iv" id="iv4"></span></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 終わり ===== -->
+  <section id="viewDone" class="hidden">
+    <div class="card done">
+      <div class="mark">🎉</div>
+      <h2 id="doneTitle">きょうの分、おしまい！</h2>
+      <p id="doneText"></p>
+      <button class="bigbtn" id="btnMore">もう10語やる</button>
+      <button class="subbtn" id="btnBackHome">ホームにもどる</button>
+    </div>
+  </section>
+
+  <!-- ===== 単語追加 ===== -->
+  <section id="viewAdd" class="hidden">
+    <div class="card">
+      <div class="fieldlabel" style="margin-top:0">単語帳の名前</div>
+      <input type="text" id="addName" placeholder="例）ターゲット1900 その1">
+      <div class="fieldlabel">単語（1行に1語）</div>
+      <textarea id="addText" placeholder="英語,日本語,例文（例文は省略できます）
+&#10;achieve,達成する,She achieved her goal.
+&#10;improve,改善する
+&#10;budget,予算"></textarea>
+      <div class="help">
+        1行に <code>英語,日本語</code> の形で書きます。3つめに例文を足してもOK。<br>
+        Excel やスプレッドシートからコピーして貼りつけても入ります（タブ区切りOK）。<br>
+        同じ名前の単語帳に入れると、あとから追加されます。
+      </div>
+      <button class="bigbtn" id="btnSaveAdd">この内容で入れる</button>
+      <button class="subbtn" id="btnCancelAdd">やめる</button>
+    </div>
+  </section>
+
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+"use strict";
+
+/* ============ 保存まわり ============ */
+const K_DECKS='tango_decks_v1', K_PROG='tango_prog_v1', K_SET='tango_set_v1', K_DAY='tango_day_v1';
+const load=(k,d)=>{ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):d; }catch(e){ return d; } };
+const save=(k,v)=>{ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){ toast('保存できませんでした'); } };
+
+/* ============ 最初から入っている単語帳 ============ */
+const STARTER = {
+  id:'starter_toeic',
+  name:'TOEIC よく出る単語 60',
+  cards:[
+    ['achieve','達成する','She achieved her sales goal.'],
+    ['apply','応募する／適用する','Please apply for the position online.'],
+    ['approve','承認する','The manager approved the budget.'],
+    ['arrange','手配する','I arranged a meeting for Friday.'],
+    ['attend','出席する','All staff must attend the training.'],
+    ['available','利用できる／手があいている','The room is available at three.'],
+    ['budget','予算','We need to cut the budget.'],
+    ['charge','料金／請求する','There is no charge for delivery.'],
+    ['client','顧客','Our client asked for a discount.'],
+    ['colleague','同僚','I asked my colleague for help.'],
+    ['confirm','確認する','Please confirm your reservation.'],
+    ['consider','検討する','We are considering two options.'],
+    ['contract','契約','They signed a two-year contract.'],
+    ['deadline','締め切り','The deadline is next Monday.'],
+    ['delay','遅れ／遅らせる','The flight was delayed by snow.'],
+    ['deliver','配達する','We deliver within two days.'],
+    ['department','部署','She works in the sales department.'],
+    ['discount','割引','Members get a ten percent discount.'],
+    ['employee','従業員','The company has 300 employees.'],
+    ['equipment','機器・設備','The equipment needs repair.'],
+    ['estimate','見積もり／見積もる','Could you send me an estimate?'],
+    ['expand','拡大する','They plan to expand overseas.'],
+    ['expense','費用','Travel expenses will be paid.'],
+    ['facility','施設','The facility opens at nine.'],
+    ['fee','料金','The membership fee is 50 dollars.'],
+    ['increase','増加する／増やす','Sales increased by 20 percent.'],
+    ['inform','知らせる','Please inform us of any changes.'],
+    ['inquiry','問い合わせ','We received many inquiries.'],
+    ['invoice','請求書','The invoice was sent by email.'],
+    ['issue','問題／発行する','We solved the issue quickly.'],
+    ['maintain','維持する','We maintain high quality.'],
+    ['manufacture','製造する','They manufacture car parts.'],
+    ['negotiate','交渉する','We negotiated a lower price.'],
+    ['notify','通知する','We will notify you by email.'],
+    ['obtain','手に入れる','You must obtain a permit.'],
+    ['offer','申し出／提供する','They offered me a job.'],
+    ['operate','運営する／操作する','The store operates until nine.'],
+    ['order','注文／注文する','Your order has been shipped.'],
+    ['participate','参加する','Fifty people participated.'],
+    ['performance','業績・出来ばえ','His performance was excellent.'],
+    ['permit','許可する／許可証','Smoking is not permitted here.'],
+    ['policy','方針','This is our refund policy.'],
+    ['postpone','延期する','The meeting was postponed.'],
+    ['prepare','準備する','Please prepare the documents.'],
+    ['previous','以前の','See the previous page.'],
+    ['proceed','進む','Please proceed to gate 12.'],
+    ['promote','昇進させる／宣伝する','She was promoted to manager.'],
+    ['purchase','購入する／購入','Keep your purchase receipt.'],
+    ['recommend','推薦する','I recommend this restaurant.'],
+    ['reduce','減らす','We reduced costs last year.'],
+    ['refund','払い戻し','You can get a full refund.'],
+    ['register','登録する','Please register by Friday.'],
+    ['reliable','信頼できる','He is a reliable worker.'],
+    ['replace','取り替える','We replaced the old printer.'],
+    ['require','必要とする','This job requires experience.'],
+    ['reserve','予約する','I reserved a table for two.'],
+    ['schedule','予定／予定する','The schedule has changed.'],
+    ['shipment','発送・積み荷','The shipment arrives Tuesday.'],
+    ['submit','提出する','Submit your report by noon.'],
+    ['temporary','一時的な','This is a temporary solution.']
+  ].map((r,i)=>({id:'s'+i, en:r[0], ja:r[1], ex:r[2]||''}))
+};
+
+let decks    = load(K_DECKS, null);
+if(!decks){ decks=[STARTER]; save(K_DECKS,decks); }
+let prog     = load(K_PROG, {});
+let settings = load(K_SET, {deckId:decks[0].id, dir:'ja2en', newPerDay:10});
+if(!decks.some(d=>d.id===settings.deckId)) settings.deckId=decks[0].id;
+
+/* ============ 日付・間隔の計算 ============ */
+const DAY=86400000;
+const todayKey=()=>{ const d=new Date(); return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate(); };
+const dayStart=()=>{ const d=new Date(); d.setHours(0,0,0,0); return d.getTime(); };
+const dueInDays=n=>dayStart()+Math.round(n)*DAY;
+
+let dayRec = load(K_DAY, {date:todayKey(), newDone:0});
+if(dayRec.date!==todayKey()) dayRec={date:todayKey(), newDone:0};
+
+const LEARN_STEPS=[1,10];   // 分
+const RELEARN=[10];         // 分
+
+function deck(){ return decks.find(d=>d.id===settings.deckId) || decks[0]; }
+function pOf(cardId){
+  const d=settings.deckId;
+  if(!prog[d]) prog[d]={};
+  if(!prog[d][cardId]) prog[d][cardId]={state:'new', ef:2.5, iv:0, due:0, reps:0, lapses:0, step:0};
+  return prog[d][cardId];
+}
+function fmtIv(ms){
+  if(ms<DAY){ const m=Math.max(1,Math.round(ms/60000)); return m<60? m+'分' : Math.round(m/60)+'時間'; }
+  const d=Math.round(ms/DAY);
+  return d<30 ? d+'日' : (d<365 ? Math.round(d/30)+'か月' : (d/365).toFixed(1)+'年');
+}
+function preview(p,g){
+  const now=Date.now();
+  if(p.state==='new'||p.state==='learn'){
+    if(g===1) return LEARN_STEPS[0]*60000;
+    if(g===2) return (LEARN_STEPS[p.step]||1)*60000;
+    if(g===3){ const s=p.step+1; return s>=LEARN_STEPS.length ? DAY : LEARN_STEPS[s]*60000; }
+    return 4*DAY;
+  }
+  if(p.state==='relearn'){
+    if(g<=2) return RELEARN[0]*60000;
+    return Math.max(1,Math.round(p.iv))*DAY;
+  }
+  if(g===1) return RELEARN[0]*60000;
+  if(g===2) return Math.max(1,p.iv*1.2)*DAY;
+  if(g===3) return Math.max(1,p.iv*p.ef)*DAY;
+  return Math.max(1,p.iv*(p.ef+0.15)*1.3)*DAY;
+}
+function applyGrade(p,g){
+  const now=Date.now();
+  if(p.state==='new'||p.state==='learn'){
+    p.state='learn';
+    if(g===1){ p.step=0; p.due=now+LEARN_STEPS[0]*60000; }
+    else if(g===2){ p.due=now+(LEARN_STEPS[p.step]||1)*60000; }
+    else if(g===3){
+      p.step++;
+      if(p.step>=LEARN_STEPS.length){ p.state='review'; p.iv=1; p.due=dueInDays(1); p.reps++; }
+      else p.due=now+LEARN_STEPS[p.step]*60000;
+    } else { p.state='review'; p.iv=4; p.due=dueInDays(4); p.reps++; }
+  } else if(p.state==='relearn'){
+    if(g<=2){ p.step=0; p.due=now+RELEARN[0]*60000; }
+    else { p.state='review'; p.iv=Math.max(1,Math.round(p.iv)); p.due=dueInDays(p.iv); }
+  } else {
+    if(g===1){
+      p.lapses++; p.ef=Math.max(1.3,p.ef-0.2); p.iv=Math.max(1,p.iv*0.5);
+      p.state='relearn'; p.step=0; p.due=now+RELEARN[0]*60000;
+    } else if(g===2){
+      p.ef=Math.max(1.3,p.ef-0.15); p.iv=Math.max(1,p.iv*1.2); p.due=dueInDays(p.iv); p.reps++;
+    } else if(g===3){
+      p.iv=Math.max(1,p.iv*p.ef); p.due=dueInDays(p.iv); p.reps++;
+    } else {
+      p.ef=p.ef+0.15; p.iv=Math.max(1,p.iv*p.ef*1.3); p.due=dueInDays(p.iv); p.reps++;
+    }
+    p.iv=Math.min(p.iv,365);
+  }
+  save(K_PROG,prog);
+}
+
+/* ============ 出す順番を決める ============ */
+// 練習中の単語は「あと数分後」でも出す（いったんアプリを閉じても続きができるように）
+const AHEAD=20*60000;
+function isDue(p,now){
+  if(p.state==='review') return p.due<=now;
+  return p.due<=now+AHEAD;
+}
+function counts(){
+  const now=Date.now(); const d=deck();
+  let n=0,l=0,r=0;
+  d.cards.forEach(c=>{
+    const p=pOf(c.id);
+    if(p.state==='new') n++;
+    else if(isDue(p,now)){ (p.state==='review')? r++ : l++; }
+  });
+  const room=Math.max(0, settings.newPerDay - dayRec.newDone);
+  return {n:Math.min(n,room), l:l, r:r, rawNew:n};
+}
+let queue=[], current=null;
+function buildQueue(){
+  const now=Date.now(); const d=deck();
+  const due=[], news=[];
+  d.cards.forEach(c=>{
+    const p=pOf(c.id);
+    if(p.state==='new') news.push(c);
+    else if(isDue(p,now)) due.push(c);
+  });
+  due.sort((a,b)=>pOf(a.id).due-pOf(b.id).due);
+  const room=Math.max(0, settings.newPerDay - dayRec.newDone);
+  const pick=news.slice(0,room);
+  // 復習を先に、はじめての単語をまぜこむ
+  queue=[];
+  const total=due.length+pick.length;
+  let di=0, ni=0;
+  const every = pick.length? Math.max(1, Math.floor(total/(pick.length+1))) : 0;
+  for(let i=0;i<total;i++){
+    if(pick.length && ni<pick.length && (i%(every+1)===every || di>=due.length)) queue.push(pick[ni++]);
+    else if(di<due.length) queue.push(due[di++]);
+    else if(ni<pick.length) queue.push(pick[ni++]);
+  }
+}
+
+/* ============ 画面きりかえ ============ */
+const $=id=>document.getElementById(id);
+const views={home:$('viewHome'), study:$('viewStudy'), done:$('viewDone'), add:$('viewAdd')};
+function show(v){ Object.keys(views).forEach(k=>views[k].classList.toggle('hidden', k!==v)); window.scrollTo(0,0); }
+let toastT=null;
+function toast(m){ const t=$('toast'); t.textContent=m; t.classList.add('show');
+  clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove('show'),1900); }
+
+function renderHome(){
+  const c=counts();
+  $('cNew').textContent=c.n; $('cLearn').textContent=c.l; $('cRev').textContent=c.r;
+  $('deckLabel').textContent=deck().name+'（全'+deck().cards.length+'語）';
+  $('btnStart').disabled = (c.n+c.l+c.r)===0;
+  $('btnStart').textContent = (c.n+c.l+c.r)===0 ? 'きょうの分は終わりました' : 'はじめる（'+(c.n+c.l+c.r)+'問）';
+  document.querySelectorAll('#segDir button').forEach(b=>b.classList.toggle('active', b.dataset.dir===settings.dir));
+  document.querySelectorAll('#segNew button').forEach(b=>b.classList.toggle('active', +b.dataset.n===settings.newPerDay));
+  const list=$('deckList'); list.innerHTML='';
+  decks.forEach(d=>{
+    const row=document.createElement('div');
+    row.className='deckrow'+(d.id===settings.deckId?' cur':'');
+    const nm=document.createElement('div'); nm.className='nm'; nm.textContent=d.name;
+    const ct=document.createElement('div'); ct.className='ct'; ct.textContent=d.cards.length+'語';
+    row.appendChild(nm); row.appendChild(ct);
+    if(decks.length>1){
+      const del=document.createElement('button'); del.className='del'; del.textContent='削除';
+      del.onclick=e=>{ e.stopPropagation();
+        if(!confirm('「'+d.name+'」を削除します。記録も消えます。よろしいですか？')) return;
+        decks=decks.filter(x=>x.id!==d.id); delete prog[d.id];
+        if(settings.deckId===d.id) settings.deckId=decks[0].id;
+        save(K_DECKS,decks); save(K_PROG,prog); save(K_SET,settings); renderHome(); toast('削除しました');
+      };
+      row.appendChild(del);
+    }
+    row.onclick=()=>{ settings.deckId=d.id; save(K_SET,settings); renderHome(); };
+    list.appendChild(row);
+  });
+}
+
+/* ============ 手書き ============ */
+const canvas=$('pad'), ctx=canvas.getContext('2d');
+let drawing=false,lastX=0,lastY=0,eraser=false,dpr=1;
+function fitCanvas(){
+  dpr=window.devicePixelRatio||1;
+  const rect=canvas.getBoundingClientRect();
+  if(rect.width===0) return;
+  canvas.width=Math.round(rect.width*dpr);
+  canvas.height=Math.round(rect.height*dpr);
+  ctx.lineCap='round'; ctx.lineJoin='round';
+  setPen();
+}
+function setPen(){
+  if(eraser){ ctx.globalCompositeOperation='destination-out'; ctx.lineWidth=24*dpr; ctx.strokeStyle='rgba(0,0,0,1)'; }
+  else{ ctx.globalCompositeOperation='source-over'; ctx.lineWidth=3.2*dpr; ctx.strokeStyle='#1f3a5f'; }
+}
+function pos(e){
+  const r=canvas.getBoundingClientRect();
+  return [(e.clientX-r.left)*dpr, (e.clientY-r.top)*dpr];
+}
+canvas.addEventListener('pointerdown',e=>{
+  e.preventDefault(); drawing=true; canvas.setPointerCapture(e.pointerId);
+  const [x,y]=pos(e); lastX=x; lastY=y;
+  ctx.beginPath(); ctx.moveTo(x,y); ctx.lineTo(x+0.01,y+0.01); ctx.stroke();
+});
+canvas.addEventListener('pointermove',e=>{
+  if(!drawing) return; e.preventDefault();
+  const [x,y]=pos(e);
+  ctx.beginPath(); ctx.moveTo(lastX,lastY); ctx.lineTo(x,y); ctx.stroke();
+  lastX=x; lastY=y;
+});
+['pointerup','pointercancel','pointerleave'].forEach(ev=>canvas.addEventListener(ev,()=>drawing=false));
+function clearPad(){ ctx.clearRect(0,0,canvas.width,canvas.height); }
+$('tPen').onclick=()=>{ eraser=false; setPen(); $('tPen').classList.add('active'); $('tEraser').classList.remove('active'); };
+$('tEraser').onclick=()=>{ eraser=true; setPen(); $('tEraser').classList.add('active'); $('tPen').classList.remove('active'); };
+$('tClear').onclick=clearPad;
+window.addEventListener('resize',()=>{ if(!views.study.classList.contains('hidden')) fitCanvas(); });
+
+/* ============ 読み上げ ============ */
+function speak(text){
+  try{
+    if(!window.speechSynthesis) return;
+    speechSynthesis.cancel();
+    const u=new SpeechSynthesisUtterance(text);
+    u.lang='en-US'; u.rate=0.9;
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+
+/* ============ 学習の進行 ============ */
+let showEnFirst=true;
+function nextCard(){
+  if(queue.length===0){ finish(); return; }
+  current=queue[0];
+  const p=pOf(current.id);
+  showEnFirst = settings.dir==='en2ja' ? true : (settings.dir==='ja2en' ? false : Math.random()<0.5);
+
+  const b=$('stateBadge');
+  const m={new:['はじめて','new'], learn:['練習中','learn'], relearn:['もう一度','relearn'], review:['復習','review']}[p.state];
+  b.textContent=m[0]; b.className='badge '+m[1];
+  $('restLabel').textContent='残り '+queue.length+'問';
+
+  const pr=$('prompt');
+  pr.textContent = showEnFirst ? current.en : current.ja;
+  pr.className = 'prompt'+(showEnFirst?' en':'');
+  const sm=document.createElement('span'); sm.className='sm';
+  sm.textContent = showEnFirst ? '意味を書いてみよう' : 'つづりを書いてみよう';
+  pr.appendChild(sm);
+
+  $('tSpeakQ').classList.toggle('hidden', !showEnFirst);
+  $('answerBox').classList.add('hidden');
+  $('grades').classList.add('hidden');
+  $('btnShow').classList.remove('hidden');
+  clearPad();
+  fitCanvas();
+}
+function reveal(){
+  const p=pOf(current.id);
+  $('ansMain').textContent = showEnFirst ? current.ja : current.en;
+  $('ansMain').className = 'big'+(showEnFirst?' ja':'');
+  $('ansSub').textContent = showEnFirst ? current.en : current.ja;
+  const ex=$('ansEx');
+  if(current.ex){ ex.textContent=current.ex; ex.classList.remove('hidden'); } else ex.classList.add('hidden');
+  $('answerBox').classList.remove('hidden');
+  $('btnShow').classList.add('hidden');
+  for(let g=1;g<=4;g++) $('iv'+g).textContent=fmtIv(preview(p,g));
+  $('grades').classList.remove('hidden');
+  if(!showEnFirst) speak(current.en);
+}
+function grade(g){
+  const p=pOf(current.id);
+  const wasNew = p.state==='new';
+  applyGrade(p,g);
+  if(wasNew){ dayRec.newDone++; save(K_DAY,dayRec); }
+  queue.shift();
+  // まだ今日じゅうに出す必要があるものは、うしろに入れ直す
+  if(p.due<=Date.now()+11*60000 && (p.state==='learn'||p.state==='relearn')){
+    const at=Math.min(queue.length, g===1?2:5);
+    queue.splice(at,0,current);
+  }
+  nextCard();
+}
+function finish(){
+  const c=counts();
+  $('doneText').textContent = c.rawNew>0
+    ? 'まだ習っていない単語が '+c.rawNew+' 語あります。あしたまた出てきます。'
+    : 'この単語帳は全部おぼえる段階に入りました。';
+  $('btnMore').classList.toggle('hidden', c.rawNew===0);
+  show('done');
+}
+
+/* ============ ボタン ============ */
+$('btnStart').onclick=()=>{
+  if(dayRec.date!==todayKey()){ dayRec={date:todayKey(), newDone:0}; save(K_DAY,dayRec); }
+  buildQueue();
+  if(queue.length===0){ toast('きょうの分は終わっています'); return; }
+  show('study'); fitCanvas(); nextCard();
+};
+$('btnShow').onclick=reveal;
+$('btnSpeak').onclick=()=>speak(current.en);
+$('tSpeakQ').onclick=()=>speak(current.en);
+document.querySelectorAll('#grades button').forEach(b=>b.onclick=()=>grade(+b.dataset.g));
+$('btnHome').onclick=()=>{ renderHome(); show('home'); };
+$('btnBackHome').onclick=()=>{ renderHome(); show('home'); };
+$('btnMore').onclick=()=>{
+  dayRec.newDone=Math.max(0, dayRec.newDone-10); save(K_DAY,dayRec);
+  buildQueue();
+  if(queue.length===0){ toast('もう出せる単語がありません'); renderHome(); show('home'); return; }
+  show('study'); fitCanvas(); nextCard();
+};
+document.querySelectorAll('#segDir button').forEach(b=>b.onclick=()=>{
+  settings.dir=b.dataset.dir; save(K_SET,settings); renderHome(); });
+document.querySelectorAll('#segNew button').forEach(b=>b.onclick=()=>{
+  settings.newPerDay=+b.dataset.n; save(K_SET,settings); renderHome(); });
+
+$('btnReset').onclick=()=>{
+  if(!confirm('「'+deck().name+'」の学習記録を最初にもどします。単語は消えません。よろしいですか？')) return;
+  delete prog[settings.deckId]; save(K_PROG,prog);
+  dayRec={date:todayKey(), newDone:0}; save(K_DAY,dayRec);
+  renderHome(); toast('記録をリセットしました');
+};
+
+$('btnAdd').onclick=()=>{ $('addName').value=''; $('addText').value=''; show('add'); };
+$('btnCancelAdd').onclick=()=>{ renderHome(); show('home'); };
+$('btnSaveAdd').onclick=()=>{
+  const name=$('addName').value.trim();
+  const raw=$('addText').value;
+  if(!name){ toast('単語帳の名前を入れてください'); return; }
+  const rows=raw.split(/\r?\n/).map(s=>s.trim()).filter(s=>s.length>0);
+  const cards=[];
+  rows.forEach(line=>{
+    const parts = line.includes('\t') ? line.split('\t') : line.split(',');
+    const en=(parts[0]||'').trim(), ja=(parts[1]||'').trim(), ex=(parts[2]||'').trim();
+    if(en && ja) cards.push({en, ja, ex});
+  });
+  if(cards.length===0){ toast('「英語,日本語」の形で入れてください'); return; }
+  let d=decks.find(x=>x.name===name);
+  if(!d){ d={id:'d'+Date.now(), name:name, cards:[]}; decks.push(d); }
+  const base=d.cards.length;
+  cards.forEach((c,i)=>d.cards.push({id:'c'+Date.now()+'_'+(base+i), en:c.en, ja:c.ja, ex:c.ex}));
+  settings.deckId=d.id;
+  save(K_DECKS,decks); save(K_SET,settings);
+  renderHome(); show('home'); toast(cards.length+'語を入れました');
+};
+
+renderHome(); show('home');
+</script>
+</body>
+</html>
